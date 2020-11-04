@@ -11,6 +11,7 @@ import numpy as np
 import os
 from mlp_numpy import MLP
 from modules import CrossEntropyModule
+from modules import *
 import cifar10_utils
 
 # Default constants
@@ -78,7 +79,53 @@ def train():
     ########################
     # PUT YOUR CODE HERE  #
     #######################
-    raise NotImplementedError
+    cifar10 = cifar10_utils.get_cifar10('cifar10/cifar-10-batches-py')
+    train = cifar10['train']
+    # print(train.images.shape)
+    # print(train.labels.shape)
+
+    # test = cifar10['test']
+    # print(test.images.shape)
+    # print(test.labels.shape)
+
+
+    # train_imgs = train.images.reshape(-1, train.images.shape[-1])
+    # train_imgs = train.images.reshape(train.images.shape[0], -1)
+    depth, width, height = cifar10['train'].images[0].shape
+    n_inputs = depth * width * height
+    n_classes = len(cifar10['train'].labels[0])
+    print(n_inputs)
+    print(dnn_hidden_units)
+    print(n_classes)
+    MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
+    CE_module = CrossEntropyModule()
+    # print(MLP_classifier.layers)
+    for step in range(FLAGS.max_steps):
+        x, y = cifar10['train'].next_batch(FLAGS.batch_size)
+        x = x.reshape(x.shape[0], -1)
+        print(x.shape)
+        print(y.shape)
+        print("FORWARD PASS")
+        softmax_output = MLP_classifier.forward(x)
+        print(softmax_output.shape)
+        print("\nCALCULATING LOSS")
+        loss = CE_module.forward(softmax_output, y)
+        print(loss)
+        loss_grad = CE_module.backward(softmax_output, y)
+        print(loss_grad.shape)
+        print("\nBACKWARD PASS")
+        MLP_classifier.backward(loss_grad)
+        # exit()
+
+        for layer in MLP_classifier.layers:
+            print(type(layer))
+            if isinstance(layer, LinearModule):
+                print(layer)
+
+        if step > 1:
+            exit()
+
+    # MLP = MLP()
     ########################
     # END OF YOUR CODE    #
     #######################

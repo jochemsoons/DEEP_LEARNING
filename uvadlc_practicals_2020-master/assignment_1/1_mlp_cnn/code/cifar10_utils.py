@@ -42,7 +42,7 @@ def load_cifar10(cifar10_folder):
       Y_train: CIFAR10 train labels in numpy array with shape (50000, ).
       X_test: CIFAR10 test data in numpy array with shape (10000, 32, 32, 3).
       Y_test: CIFAR10 test labels in numpy array with shape (10000, ).
-  
+
     """
     Xs = []
     Ys = []
@@ -60,7 +60,7 @@ def load_cifar10(cifar10_folder):
 def get_cifar10_raw_data(data_dir):
     """
     Gets raw CIFAR10 data from http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz.
-  
+
     Args:
       data_dir: Data directory.
     Returns:
@@ -69,9 +69,9 @@ def get_cifar10_raw_data(data_dir):
       X_test: CIFAR10 test data in numpy array with shape (10000, 32, 32, 3).
       Y_test: CIFAR10 test labels in numpy array with shape (10000, ).
     """
-    
+
     X_train, Y_train, X_test, Y_test = load_cifar10(data_dir)
-    
+
     return X_train, Y_train, X_test, Y_test
 
 
@@ -94,12 +94,12 @@ def preprocess_cifar10_data(X_train_raw, Y_train_raw, X_test_raw, Y_test_raw):
     Y_train = Y_train_raw.copy()
     X_test = X_test_raw.copy()
     Y_test = Y_test_raw.copy()
-    
+
     # Substract the mean
     mean_image = np.mean(X_train, axis=0)
     X_train -= mean_image
     X_test -= mean_image
-    
+
     # Transpose
     X_train = X_train.transpose(0, 3, 1, 2).astype(np.float32)
     X_test = X_test.transpose(0, 3, 1, 2).astype(np.float32)
@@ -126,7 +126,7 @@ class DataSet(object):
     """
     Utility class to handle dataset structure.
     """
-    
+
     def __init__(self, images, labels):
         """
         Builds dataset with images and labels.
@@ -136,29 +136,29 @@ class DataSet(object):
         """
         assert images.shape[0] == labels.shape[0], (
             "images.shape: {0}, labels.shape: {1}".format(str(images.shape), str(labels.shape)))
-        
+
         self._num_examples = images.shape[0]
         self._images = images
         self._labels = labels
         self._epochs_completed = 0
         self._index_in_epoch = 0
-    
+
     @property
     def images(self):
         return self._images
-    
+
     @property
     def labels(self):
         return self._labels
-    
+
     @property
     def num_examples(self):
         return self._num_examples
-    
+
     @property
     def epochs_completed(self):
         return self._epochs_completed
-    
+
     def next_batch(self, batch_size):
         """
         Return the next `batch_size` examples from this data set.
@@ -169,16 +169,16 @@ class DataSet(object):
         self._index_in_epoch += batch_size
         if self._index_in_epoch > self._num_examples:
             self._epochs_completed += 1
-            
+
             perm = np.arange(self._num_examples)
             np.random.shuffle(perm)
             self._images = self._images[perm]
             self._labels = self._labels[perm]
-            
+
             start = 0
             self._index_in_epoch = batch_size
             assert batch_size <= self._num_examples
-        
+
         end = self._index_in_epoch
         return self._images[start:end], self._labels[start:end]
 
@@ -200,28 +200,28 @@ def read_data_sets(data_dir, one_hot=True, validation_size=0):
         get_cifar10_raw_data(data_dir)
     train_images, train_labels, test_images, test_labels = \
         preprocess_cifar10_data(train_images_raw, train_labels_raw, test_images_raw, test_labels_raw)
-    
+
     # Apply one-hot encoding if specified
     if one_hot:
         num_classes = len(np.unique(train_labels))
         train_labels = dense_to_one_hot(train_labels, num_classes)
         test_labels = dense_to_one_hot(test_labels, num_classes)
-    
+
     # Subsample the validation set from the train set
     if not 0 <= validation_size <= len(train_images):
         raise ValueError("Validation size should be between 0 and {0}. Received: {1}.".format(
             len(train_images), validation_size))
-    
+
     validation_images = train_images[:validation_size]
     validation_labels = train_labels[:validation_size]
     train_images = train_images[validation_size:]
     train_labels = train_labels[validation_size:]
-    
+
     # Create datasets
     train = DataSet(train_images, train_labels)
     validation = DataSet(validation_images, validation_labels)
     test = DataSet(test_images, test_labels)
-    
+
     return {'train': train, 'validation': validation, 'test': test}
 
 

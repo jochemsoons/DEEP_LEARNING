@@ -28,7 +28,8 @@ class LinearModule(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-
+        self.params = {}
+        self.grads = {}
         self.params['weight'] = np.random.normal(0, 0.0001, size=(out_features, in_features))
         self.params['bias'] = np.zeros((1, out_features))
         self.params['grads'] = 0
@@ -57,7 +58,7 @@ class LinearModule(object):
         #######################
         self.input = x
         out = x @ self.params['weight'].T + self.params['bias']
-
+        self.output = out
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -83,7 +84,11 @@ class LinearModule(object):
         #######################
 
         self.grads['weight'] = dout.T @ self.input
-        self.grads['bias'] = np.ones((self.params['bias'].shape)) @ dout
+        # print(np.ones((self.params['bias'].shape)).shape)
+        # print(dout.shape)
+        # print(self.input.shape)
+        # print(self.output.shape)
+        self.grads['bias'] = np.ones(self.input.shape[0]).T @ dout
 
         dx = dout @ self.params['weight']
 
@@ -209,7 +214,7 @@ class CrossEntropyModule(object):
         # PUT YOUR CODE HERE  #
         #######################
         S, _ = x.shape
-        dx = - x / y * 1/S
+        dx = - x / (y+1e-9) * 1/S
 
 
         ########################
@@ -267,7 +272,7 @@ class ELUModule(object):
         # PUT YOUR CODE HERE  #
         #######################
 
-        dh_dx = np.where(self.input < 0, np.exp(x), 1)
+        dh_dx = np.where(self.input < 0, np.exp(self.input), 1)
         dx = dout * dh_dx
 
         ########################
