@@ -8,10 +8,11 @@ from __future__ import print_function
 
 import argparse
 import numpy as np
+import matplotlib.pyplot as plt
 import os
 from mlp_numpy import MLP
 from modules import CrossEntropyModule
-from modules import *
+from modules import LinearModule
 import cifar10_utils
 
 # Default constants
@@ -80,51 +81,52 @@ def train():
     # PUT YOUR CODE HERE  #
     #######################
     cifar10 = cifar10_utils.get_cifar10('cifar10/cifar-10-batches-py')
-    train = cifar10['train']
-    # print(train.images.shape)
-    # print(train.labels.shape)
 
-    # test = cifar10['test']
-    # print(test.images.shape)
-    # print(test.labels.shape)
-
-
-    # train_imgs = train.images.reshape(-1, train.images.shape[-1])
-    # train_imgs = train.images.reshape(train.images.shape[0], -1)
     depth, width, height = cifar10['train'].images[0].shape
     n_inputs = depth * width * height
     n_classes = len(cifar10['train'].labels[0])
-    print(n_inputs)
-    print(dnn_hidden_units)
-    print(n_classes)
+
     MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
     CE_module = CrossEntropyModule()
-    # print(MLP_classifier.layers)
+    loss_list = []
     for step in range(FLAGS.max_steps):
-        x, y = cifar10['train'].next_batch(FLAGS.batch_size)
+        print("STEP:", step)
+        x, y = cifar10['train'].next_batch(200)
         x = x.reshape(x.shape[0], -1)
-        print(x.shape)
-        print(y.shape)
+        # print(x.shape)
+        # print(y.shape)
         print("FORWARD PASS")
         softmax_output = MLP_classifier.forward(x)
-        print(softmax_output.shape)
+        # print("SOFTMAX", np.sum(softmax_output))
+        # print("")
+        # print("LABELS", y)
         print("\nCALCULATING LOSS")
         loss = CE_module.forward(softmax_output, y)
+        loss_list.append(loss)
         print(loss)
         loss_grad = CE_module.backward(softmax_output, y)
-        print(loss_grad.shape)
+        # print(loss_grad.shape)
         print("\nBACKWARD PASS")
         MLP_classifier.backward(loss_grad)
         # exit()
 
         for layer in MLP_classifier.layers:
-            print(type(layer))
+            # print(type(layer))
             if isinstance(layer, LinearModule):
-                print(layer)
+                # print(layer.params['bias'].shape)
+                # print(layer.grads['bias'].shape)
+                # exit()
+                # print(FLAGS.learning_rate)
+                # exit()
+                print("UPDATING WEIGHTS")
+                layer.params['weight'] -= FLAGS.learning_rate * layer.grads['weight']
+                layer.params['bias'] -= FLAGS.learning_rate * layer.grads['bias']
 
-        if step > 1:
-            exit()
-
+        # if step >= 10:
+        #     exit()
+    x = np.arange(0, 1400, 1)
+    plt.plot(x, loss_list)
+    plt.show()
     # MLP = MLP()
     ########################
     # END OF YOUR CODE    #
