@@ -49,7 +49,9 @@ def accuracy(predictions, targets):
     ########################
     # PUT YOUR CODE HERE  #
     #######################
-    raise NotImplementedError
+    preds = np.argmax(predictions, axis=1)
+    labels = np.argmax(targets, axis=1)
+    accuracy = np.mean(preds == labels)
     ########################
     # END OF YOUR CODE    #
     #######################
@@ -88,46 +90,62 @@ def train():
 
     MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
     CE_module = CrossEntropyModule()
-    loss_list = []
+    loss_train = []
+    loss_test = []
+    acc_list = []
     for step in range(FLAGS.max_steps):
-        print("STEP:", step)
+        # print("STEP:", step)
         x, y = cifar10['train'].next_batch(200)
         x = x.reshape(x.shape[0], -1)
-        # print(x.shape)
-        # print(y.shape)
-        print("FORWARD PASS")
+
+        # print("FORWARD PASS")
         softmax_output = MLP_classifier.forward(x)
-        # print("SOFTMAX", np.sum(softmax_output))
-        # print("")
-        # print("LABELS", y)
-        print("\nCALCULATING LOSS")
+
+        # print("\nCALCULATING LOSS")
         loss = CE_module.forward(softmax_output, y)
-        loss_list.append(loss)
-        print(loss)
+        # print(loss)
+
         loss_grad = CE_module.backward(softmax_output, y)
-        # print(loss_grad.shape)
-        print("\nBACKWARD PASS")
+        # print("\nBACKWARD PASS")
         MLP_classifier.backward(loss_grad)
-        # exit()
 
         for layer in MLP_classifier.layers:
-            # print(type(layer))
             if isinstance(layer, LinearModule):
-                # print(layer.params['bias'].shape)
-                # print(layer.grads['bias'].shape)
-                # exit()
-                # print(FLAGS.learning_rate)
-                # exit()
-                print("UPDATING WEIGHTS")
+                # print("UPDATING WEIGHTS")
                 layer.params['weight'] -= FLAGS.learning_rate * layer.grads['weight']
                 layer.params['bias'] -= FLAGS.learning_rate * layer.grads['bias']
 
-        # if step >= 10:
-        #     exit()
-    x = np.arange(0, 1400, 1)
-    plt.plot(x, loss_list)
+        if step % FLAGS.eval_freq == 0:
+            print(cifar10['test'].epochs_completed)
+            # print(cifar10['train'].epochs_completed)
+            # print(cifar10['test']._index_in_epoch)
+            loss_train.append(loss)
+
+            n_test = cifar10['test'].images.shape[0]
+            # print(n_test)
+
+            x_test, y_test = cifar10['test'].next_batch(n_test)
+            # print(cifar10['test']._index_in_epoch)
+            # exit()
+            x_test = x_test.reshape(x_test.shape[0], -1)
+
+            predictions = MLP_classifier.forward(x_test)
+            test_loss = CE_module.forward(predictions, y_test)
+            loss_test.append(test_loss)
+
+            acc = accuracy(predictions, y_test)
+            acc_list.append(acc)
+
+
+
+    x = np.arange(0, len(acc_list), 1)
+    plt.plot(x, loss_train, label='train loss')
+    plt.plot(x, loss_test, label='test loss')
+    plt.plot(x, acc_list, label='accuracy')
+    plt.legend()
     plt.show()
-    # MLP = MLP()
+
+
     ########################
     # END OF YOUR CODE    #
     #######################

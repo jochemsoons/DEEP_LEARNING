@@ -76,11 +76,11 @@ class MLP(object):
         #######################
         input_ = x
         for layer in self.layers:
-          print(layer)
-          print(type(layer))
-          print("INPUT:", input_.shape)
+          # print(layer)
+          # print(type(layer))
+          # print("INPUT:", input_.shape)
           out = layer.forward(input_)
-          print("OUTPUT:", out.shape)
+          # print("OUTPUT:", out.shape)
           # print(out)
           input_ = out
         ########################
@@ -104,10 +104,10 @@ class MLP(object):
         # PUT YOUR CODE HERE  #
         #######################
         for layer in reversed(self.layers):
-          print(layer)
-          print("PREV:", dout.shape)
+          # print(layer)
+          # print("PREV:", dout.shape)
           dx = layer.backward(dout)
-          print("CURRENT:", dx.shape)
+          # print("CURRENT:", dx.shape)
           dout = dx
         ########################
         # END OF YOUR CODE    #
