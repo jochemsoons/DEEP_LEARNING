@@ -82,7 +82,7 @@ def train():
     ########################
     # PUT YOUR CODE HERE  #
     #######################
-    cifar10 = cifar10_utils.get_cifar10('cifar10/cifar-10-batches-py')
+    cifar10 = cifar10_utils.get_cifar10(FLAGS.data_dir)
 
     depth, width, height = cifar10['train'].images[0].shape
     n_inputs = depth * width * height
@@ -93,19 +93,21 @@ def train():
     loss_train = []
     loss_test = []
     acc_list = []
+    eval_steps = []
     for step in range(FLAGS.max_steps):
         # print("STEP:", step)
-        x, y = cifar10['train'].next_batch(200)
-        x = x.reshape(x.shape[0], -1)
+        x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
+        x_train = x_train.reshape(x_train.shape[0], -1)
 
         # print("FORWARD PASS")
-        softmax_output = MLP_classifier.forward(x)
+        predictions = MLP_classifier.forward(x_train)
 
         # print("\nCALCULATING LOSS")
-        loss = CE_module.forward(softmax_output, y)
-        # print(loss)
+        train_loss = CE_module.forward(predictions, y_train)
+        # print(train_loss)
+        loss_train.append(train_loss)
 
-        loss_grad = CE_module.backward(softmax_output, y)
+        loss_grad = CE_module.backward(predictions, y_train)
         # print("\nBACKWARD PASS")
         MLP_classifier.backward(loss_grad)
 
@@ -116,32 +118,36 @@ def train():
                 layer.params['bias'] -= FLAGS.learning_rate * layer.grads['bias']
 
         if step % FLAGS.eval_freq == 0:
+            acc = 0
+            test_loss = 0
+            batch_count = 0
+            current_epochs = cifar10['test'].epochs_completed
+            while True:
+                x_test, y_test = cifar10['test'].next_batch(FLAGS.batch_size)
+                if cifar10['test'].epochs_completed > current_epochs:
+                    cifar10['test']._index_in_epoch = 0
+                    break
+                x_test = x_test.reshape(x_test.shape[0], -1)
+                predictions = MLP_classifier.forward(x_test)
+                test_loss += CE_module.forward(predictions, y_test)
+                acc += accuracy(predictions, y_test)
+                batch_count += 1
+            acc = acc / batch_count
+            test_loss = test_loss / batch_count
             print(cifar10['test'].epochs_completed)
-            # print(cifar10['train'].epochs_completed)
-            # print(cifar10['test']._index_in_epoch)
-            loss_train.append(loss)
-
-            n_test = cifar10['test'].images.shape[0]
-            # print(n_test)
-
-            x_test, y_test = cifar10['test'].next_batch(n_test)
-            # print(cifar10['test']._index_in_epoch)
-            # exit()
-            x_test = x_test.reshape(x_test.shape[0], -1)
-
-            predictions = MLP_classifier.forward(x_test)
-            test_loss = CE_module.forward(predictions, y_test)
+            # print(acc)
+            # print(test_loss)
+            eval_steps.append(step)
             loss_test.append(test_loss)
-
-            acc = accuracy(predictions, y_test)
             acc_list.append(acc)
 
 
 
-    x = np.arange(0, len(acc_list), 1)
+    x = np.arange(0, FLAGS.max_steps, 1)
+    # x1 = np.arange(0, FLAGS.max_steps, 1)
     plt.plot(x, loss_train, label='train loss')
-    plt.plot(x, loss_test, label='test loss')
-    plt.plot(x, acc_list, label='accuracy')
+    plt.plot(eval_steps, loss_test, label='test loss')
+    # plt.plot(eval_steps, acc_list, label='accuracy')
     plt.legend()
     plt.show()
 

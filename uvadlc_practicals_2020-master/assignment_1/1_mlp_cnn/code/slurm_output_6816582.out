@@ -1,0 +1,49 @@
+dnn_hidden_units : 1024, 512, 256, 64
+learning_rate : 0.001
+max_steps : 10000
+batch_size : 64
+eval_freq : 100
+data_dir : ./cifar10/cifar-10-batches-py
+Device cuda
+MLP(
+  (layers): ModuleList(
+    (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): Linear(in_features=3072, out_features=1024, bias=True)
+    (2): ELU(alpha=1.0)
+    (3): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): Linear(in_features=1024, out_features=512, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): Linear(in_features=512, out_features=256, bias=True)
+    (8): ELU(alpha=1.0)
+    (9): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): Linear(in_features=256, out_features=64, bias=True)
+    (11): ELU(alpha=1.0)
+    (12): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (13): Linear(in_features=64, out_features=10, bias=True)
+  )
+)
+Train epoch: 1 Test epoch: 1
+test acc:0.4939, test loss:1.4388, train loss:1.4253
+Train epoch: 2 Test epoch: 2
+test acc:0.5100, test loss:1.3849, train loss:1.4441
+Train epoch: 3 Test epoch: 3
+test acc:0.5369, test loss:1.2982, train loss:1.2310
+Train epoch: 4 Test epoch: 4
+test acc:0.5473, test loss:1.2760, train loss:1.2521
+Train epoch: 5 Test epoch: 5
+test acc:0.5546, test loss:1.2475, train loss:0.9136
+Train epoch: 6 Test epoch: 6
+test acc:0.5544, test loss:1.2468, train loss:1.0061
+Train epoch: 7 Test epoch: 7
+test acc:0.5588, test loss:1.2550, train loss:0.6701
+Train epoch: 8 Test epoch: 8
+test acc:0.5640, test loss:1.2543, train loss:0.7977
+Train epoch: 9 Test epoch: 9
+test acc:0.5614, test loss:1.2837, train loss:0.6282
+Train epoch: 10 Test epoch: 10
+test acc:0.5591, test loss:1.2917, train loss:0.6744
+Train epoch: 11 Test epoch: 11
+test acc:0.5644, test loss:1.3158, train loss:0.5479
+Train epoch: 12 Test epoch: 12
+test acc:0.5629, test loss:1.3413, train loss:0.6072
