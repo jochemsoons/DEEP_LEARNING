@@ -48,7 +48,7 @@ class MLP(nn.Module):
         for n_units in n_hidden:
           self.layers.append(nn.BatchNorm1d(in_features))
           self.layers.append(nn.Linear(in_features, n_units))
-          self.layers.append(nn.ELU())
+          self.layers.append(nn.ReLU())
           in_features = n_units
           layer_id += 1
         self.layers.append(nn.BatchNorm1d(in_features))

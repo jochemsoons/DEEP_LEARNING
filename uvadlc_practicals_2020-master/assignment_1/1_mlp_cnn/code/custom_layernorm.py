@@ -20,56 +20,71 @@ class CustomLayerNormAutograd(nn.Module):
     flag requires_grad set to True. The backward pass does not need to be implemented, it
     is dealt with by the automatic differentiation provided by PyTorch.
     """
-    
+
     def __init__(self, n_neurons, eps=1e-5):
         """
         Initializes CustomLayerNormAutograd object.
-        
+
         Args:
           n_neurons: int specifying the number of neurons
           eps: small float to be added to the variance for stability
-        
+
         TODO:
           Save parameters for the number of neurons and eps.
           Initialize parameters gamma and beta via nn.Parameter
         """
         super(CustomLayerNormAutograd, self).__init__()
-        
+
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        
-        raise NotImplementedError
-        
+
+        self.n_neurons = n_neurons
+        self.eps = eps
+        self.gamma = nn.Parameter(torch.ones(n_neurons))
+        self.beta = nn.Parameter(torch.zeros(n_neurons))
+
         ########################
         # END OF YOUR CODE    #
         #######################
-    
+
     def forward(self, input):
         """
         Compute the layer normalization
-        
+
         Args:
           input: input tensor of shape (n_batch, n_neurons)
         Returns:
           out: layer-normalized tensor
-        
+
         TODO:
           Check for the correctness of the shape of the input tensor.
           Implement layer normalization forward pass as given in the assignment.
           For the case that you make use of torch.var be aware that the flag unbiased=False should be set.
         """
-        
+
         ########################
         # PUT YOUR CODE HERE  #
         #######################
+        # print("FORWARD")
+        # print(input.shape)
 
-        raise NotImplementedError
+        assert input.shape[1] == self.n_neurons
 
+        mean = input.mean(dim=1, keepdim=True).expand_as(input)
+        # print(mean)
+        # print(input.mean(dim=1, keepdim=True).expand_as(input))
+        var = input.var(dim=1, keepdim=True, unbiased=False).expand_as(input)
+        gamma = self.gamma.expand_as(input)
+        beta = self.beta.expand_as(input)
+
+        out = (input - mean) / torch.sqrt(var + self.eps) * gamma + beta
+        # print(out.shape)
+        # print(gamma.shape)
         ########################
         # END OF YOUR CODE    #
         #######################
-        
+
         return out
 
 
@@ -90,22 +105,22 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
       my_bn_fct = CustomLayerNormManualFunction()
       normalized = fct.apply(input, gamma, beta, eps)
     """
-    
+
     @staticmethod
     def forward(ctx, input, gamma, beta, eps=1e-5):
         """
         Compute the layer normalization
-        
+
         Args:
           ctx: context object handling storing and retrival of tensors and constants and specifying
                whether tensors need gradients in backward pass
           input: input tensor of shape (n_batch, n_neurons)
-          gamma: variance scaling tensor, applied per neuron, shpae (n_neurons)
-          beta: mean bias tensor, applied per neuron, shpae (n_neurons)
+          gamma: variance scaling tensor, applied per neuron, shape (n_neurons)
+          beta: mean bias tensor, applied per neuron, shape (n_neurons)
           eps: small float added to the variance for stability
         Returns:
           out: layer-normalized tensor
-    
+
         TODO:
           Implement the forward pass of layer normalization
           Store constant non-tensor objects via ctx.constant=myconstant
@@ -114,46 +129,46 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
           for the backward pass. Do not store tensors which are unnecessary for the backward pass to save memory!
           For the case that you make use of torch.var be aware that the flag unbiased=False should be set.
         """
-        
+
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        
+
         raise NotImplementedError
 
         ########################
         # END OF YOUR CODE    #
         #######################
-        
+
         return out
-    
+
     @staticmethod
     def backward(ctx, grad_output):
         """
         Compute backward pass of the layer normalization.
-        
+
         Args:
           ctx: context object handling storing and retrival of tensors and constants and specifying
                whether tensors need gradients in backward pass
         Returns:
           out: tuple containing gradients for all input arguments
-        
+
         TODO:
           Retrieve saved tensors and constants via ctx.saved_tensors and ctx.constant
           Compute gradients for inputs where ctx.needs_input_grad[idx] is True. Set gradients for other
           inputs to None. This should be decided dynamically.
         """
-        
+
         ########################
         # PUT YOUR CODE HERE  #
         #######################
 
         raise NotImplementedError
-        
+
         ########################
         # END OF YOUR CODE    #
         #######################
-        
+
         # return gradients of the three tensor inputs and None for the constant eps
         return grad_input, grad_gamma, grad_beta, None
 
@@ -168,56 +183,56 @@ class CustomLayerNormManualModule(nn.Module):
     In self.forward the functional version CustomLayerNormManualFunction.forward is called.
     The automatic differentiation of PyTorch calls the backward method of this function in the backward pass.
     """
-    
+
     def __init__(self, n_neurons, eps=1e-5):
         """
         Initializes CustomLayerNormManualModule object.
-        
+
         Args:
           n_neurons: int specifying the number of neurons
           eps: small float to be added to the variance for stability
-        
+
         TODO:
           Save parameters for the number of neurons and eps.
           Initialize parameters gamma and beta via nn.Parameter
         """
         super(CustomLayerNormManualModule, self).__init__()
-        
+
         ########################
         # PUT YOUR CODE HERE  #
         #######################
 
         raise NotImplementedError
-        
+
         ########################
         # END OF YOUR CODE    #
         #######################
-    
+
     def forward(self, input):
         """
         Compute the layer normalization via CustomLayerNormManualFunction
-        
+
         Args:
           input: input tensor of shape (n_batch, n_neurons)
         Returns:
           out: layer-normalized tensor
-        
+
         TODO:
           Check for the correctness of the shape of the input tensor.
           Instantiate a CustomLayerNormManualFunction.
           Call it via its .apply() method.
         """
-        
+
         ########################
         # PUT YOUR CODE HERE  #
         #######################
 
         raise NotImplementedError
-        
+
         ########################
         # END OF YOUR CODE    #
         #######################
-        
+
         return out
 
 
@@ -227,14 +242,14 @@ if __name__ == '__main__':
     n_neurons = 128
     # create random tensor with variance 2 and mean 3
     x = 2 * torch.randn(n_batch, n_neurons, requires_grad=True) + 10
+    print(x.shape)
     print('Input data:\n\tmeans={}\n\tvars={}'.format(x.mean(dim=1).data, x.var(dim=1).data))
-    
     # test CustomLayerNormAutograd
     print('3.1) Test automatic differentation version')
     bn_auto = CustomLayerNormAutograd(n_neurons)
     y_auto = bn_auto(x)
     print('\tmeans={}\n\tvars={}'.format(y_auto.mean(dim=1).data, y_auto.var(dim=1).data))
-    
+
     # test CustomLayerNormManualFunction
     # this is recommended to be done in double precision
     print('3.2 b) Test functional version')
@@ -250,7 +265,7 @@ if __name__ == '__main__':
         print('\tgradient check successful')
     else:
         raise ValueError('gradient check failed')
-    
+
     # test CustomLayerNormManualModule
     print('3.2 c) Test module of functional version')
     bn_manual_mod = CustomLayerNormManualModule(n_neurons)
