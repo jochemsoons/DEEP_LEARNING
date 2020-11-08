@@ -71,15 +71,15 @@ class CustomLayerNormAutograd(nn.Module):
 
         assert input.shape[1] == self.n_neurons
 
-        mean = input.mean(dim=1, keepdim=True).expand_as(input)
+        mean = input.mean(dim=1, keepdim=True)
         # print(mean)
         # print(input.mean(dim=1, keepdim=True).expand_as(input))
-        var = input.var(dim=1, keepdim=True, unbiased=False).expand_as(input)
-        gamma = self.gamma.expand_as(input)
-        beta = self.beta.expand_as(input)
-
-        out = (input - mean) / torch.sqrt(var + self.eps) * gamma + beta
-        # print(out.shape)
+        var = input.var(dim=1, keepdim=True, unbiased=False)
+        # gamma = self.gamma.expand_as(input)
+        # beta = self.beta.expand_as(input)
+        # print(mean.shape)
+        out = (input - mean) / torch.sqrt(var + self.eps) * self.gamma + self.beta
+        print(out.shape)
         # print(gamma.shape)
         ########################
         # END OF YOUR CODE    #
@@ -133,13 +133,25 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
+        x = input
+        mean = input.mean(dim=1, keepdim=True)
+        var = input.var(dim=1, keepdim=True, unbiased=False)
 
-        raise NotImplementedError
+        xmu = input - mean
+        sq  = xmu ** 2
+        sqrtvar = torch.sqrt(var + eps)
+        ivar = 1 / sqrtvar
+
+        xhat = xmu / sqrtvar
+
+        out = gamma * xhat + beta
+
+        ctx.constant = eps
+        ctx.save_for_backward(x, xhat, gamma, mean, ivar, sqrtvar, var)
 
         ########################
         # END OF YOUR CODE    #
         #######################
-
         return out
 
     @staticmethod
@@ -163,7 +175,16 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
         # PUT YOUR CODE HERE  #
         #######################
 
-        raise NotImplementedError
+        x, xhat, gamma, mu, ivar, sqrtvar, var = ctx.saved_tensors
+        eps = ctx.constant
+        S, C = x.shape
+
+        grad_gamma = torch.sum(grad_output * xhat, dim=0)
+        grad_beta = torch.sum(grad_output, dim=0)
+
+        dxhat = grad_output * gamma
+
+        grad_input = (1 / C) * 1/sqrtvar * (C*dxhat - torch.sum(dxhat, dim=1, keepdims=True) - xhat*torch.sum(dxhat*xhat, dim=1, keepdims=True))
 
         ########################
         # END OF YOUR CODE    #
@@ -202,7 +223,10 @@ class CustomLayerNormManualModule(nn.Module):
         # PUT YOUR CODE HERE  #
         #######################
 
-        raise NotImplementedError
+        self.n_neurons = n_neurons
+        self.eps = eps
+        self.gamma = nn.Parameter(torch.ones(n_neurons))
+        self.beta = nn.Parameter(torch.zeros(n_neurons))
 
         ########################
         # END OF YOUR CODE    #
@@ -227,7 +251,9 @@ class CustomLayerNormManualModule(nn.Module):
         # PUT YOUR CODE HERE  #
         #######################
 
-        raise NotImplementedError
+        assert input.shape[1] == self.n_neurons
+        custom_layernorm_func = CustomLayerNormManualFunction()
+        out = custom_layernorm_func.apply(input, self.gamma, self.beta, self.eps)
 
         ########################
         # END OF YOUR CODE    #
@@ -242,7 +268,6 @@ if __name__ == '__main__':
     n_neurons = 128
     # create random tensor with variance 2 and mean 3
     x = 2 * torch.randn(n_batch, n_neurons, requires_grad=True) + 10
-    print(x.shape)
     print('Input data:\n\tmeans={}\n\tvars={}'.format(x.mean(dim=1).data, x.var(dim=1).data))
     # test CustomLayerNormAutograd
     print('3.1) Test automatic differentation version')
