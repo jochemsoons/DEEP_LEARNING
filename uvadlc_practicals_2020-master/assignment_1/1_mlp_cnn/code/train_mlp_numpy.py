@@ -89,10 +89,11 @@ def train():
     n_classes = len(cifar10['train'].labels[0])
 
     MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
-    CE_module = CrossEntropyModule()
-    loss_train = []
-    loss_test = []
-    acc_list = []
+    loss_module = CrossEntropyModule()
+
+    train_loss_list, test_loss_list = [], []
+    train_acc_list, test_acc_list = [], []
+    train_loss_temp_list, train_acc_temp_list = [], []
     eval_steps = []
     for step in range(FLAGS.max_steps+1):
         x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
@@ -100,22 +101,21 @@ def train():
 
         predictions = MLP_classifier.forward(x_train)
 
-        train_loss = CE_module.forward(predictions, y_train)
-        loss_train.append(train_loss)
+        train_loss = loss_module.forward(predictions, y_train)
+        train_acc = accuracy(predictions, y_train)
+        train_loss_temp_list.append(train_loss)
+        train_acc_temp_list.append(train_acc)
 
-        loss_grad = CE_module.backward(predictions, y_train)
+        loss_grad = loss_module.backward(predictions, y_train)
         MLP_classifier.backward(loss_grad)
 
         for layer in MLP_classifier.layers:
             if isinstance(layer, LinearModule):
-                # print("UPDATING WEIGHTS")
                 layer.params['weight'] -= FLAGS.learning_rate * layer.grads['weight']
                 layer.params['bias'] -= FLAGS.learning_rate * layer.grads['bias']
 
         if step % FLAGS.eval_freq == 0:
-            acc = 0
-            test_loss = 0
-            batch_count = 0
+            test_loss, test_acc, batch_count = 0, 0, 0
             current_epochs = cifar10['test'].epochs_completed
             while True:
                 x_test, y_test = cifar10['test'].next_batch(FLAGS.batch_size)
@@ -124,29 +124,42 @@ def train():
                     break
                 x_test = x_test.reshape(x_test.shape[0], -1)
                 predictions = MLP_classifier.forward(x_test)
-                test_loss += CE_module.forward(predictions, y_test)
-                acc += accuracy(predictions, y_test)
+                test_loss += loss_module.forward(predictions, y_test)
+                test_acc += accuracy(predictions, y_test)
                 batch_count += 1
-            acc = acc / batch_count
+            test_acc = test_acc / batch_count
             test_loss = test_loss / batch_count
-            print(cifar10['test'].epochs_completed)
-            # print(acc)
-            # print(test_loss)
+            train_acc = np.mean(train_acc_temp_list)
+            train_loss = np.mean(train_loss_temp_list)
+
+            train_acc_list.append(train_acc)
+            train_loss_list.append(train_loss)
+            test_loss_list.append(test_loss)
+            test_acc_list.append(test_acc)
             eval_steps.append(step)
-            loss_test.append(test_loss)
-            acc_list.append(acc)
+            print("STEP {}/{} | test acc: {:.4f}, test loss: {:.4f} | train acc: {:.4f}, train loss: {:.4f}"
+            .format(step, FLAGS.max_steps, test_acc, test_loss, train_acc, train_loss))
+
+            train_acc_temp_list, train_loss_temp_list = [], []
 
 
-
-    x = np.arange(0, FLAGS.max_steps, 1)
-    # x1 = np.arange(0, FLAGS.max_steps, 1)
-    plt.plot(x, loss_train, label='train loss')
-    plt.plot(eval_steps, loss_test, label='test loss')
-    # plt.plot(eval_steps, acc_list, label='accuracy')
+    plt.figure()
+    plt.title("Train and test loss of NumPy MLP model")
+    plt.xlabel("Iteration step")
+    plt.ylabel("Cross-entropy loss")
+    plt.plot(eval_steps, train_loss_list, label='Train loss')
+    plt.plot(eval_steps, test_loss_list, label='Test loss')
     plt.legend()
-    plt.show()
+    plt.savefig("./MLP_numpy_results/MLP_numpy_loss.png")
 
-
+    plt.figure()
+    plt.title("Train and test accuracy of NumPy MLP model")
+    plt.xlabel("Iteration step")
+    plt.ylabel("Accuracy")
+    plt.plot(eval_steps, train_acc_list, label="Train acc")
+    plt.plot(eval_steps, test_acc_list, label="Test acc")
+    plt.legend()
+    plt.savefig("./MLP_numpy_results/MLP_numpy_acc.png")
     ########################
     # END OF YOUR CODE    #
     #######################

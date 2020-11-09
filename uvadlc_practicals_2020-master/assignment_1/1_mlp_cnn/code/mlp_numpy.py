@@ -37,12 +37,7 @@ class MLP(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        # self.n_inputs = n_inputs
-        # self.n_hidden = n_hidden
-        # self.n_clases = n_classes
         self.layers = []
-        layer_id = 0
-
         in_features = n_inputs
         for n_units in n_hidden:
           self.layers.append(LinearModule(in_features, n_units))
