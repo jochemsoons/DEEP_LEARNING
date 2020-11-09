@@ -38,23 +38,19 @@ class MLP(nn.Module):
         # PUT YOUR CODE HERE  #
         #######################
         super().__init__()
-        self.n_inputs = n_inputs
-        self.n_hidden = n_hidden
-        self.n_clases = n_classes
+        # self.n_inputs = n_inputs
+        # self.n_hidden = n_hidden
+        # self.n_clases = n_classes
         self.layers = nn.ModuleList()
-
         in_features = n_inputs
-        layer_id = 1
         for n_units in n_hidden:
-          self.layers.append(nn.BatchNorm1d(in_features))
+          # self.layers.append(nn.BatchNorm1d(in_features))
           self.layers.append(nn.Linear(in_features, n_units))
           self.layers.append(nn.ReLU())
           in_features = n_units
-          layer_id += 1
-        self.layers.append(nn.BatchNorm1d(in_features))
+        # self.layers.append(nn.BatchNorm1d(in_features))
         output_layer = nn.Linear(in_features, n_classes)
         self.layers.append(output_layer)
-        # self.layers.append(nn.LogSoftmax(dim=1))
         ########################
         # END OF YOUR CODE    #
         #######################
