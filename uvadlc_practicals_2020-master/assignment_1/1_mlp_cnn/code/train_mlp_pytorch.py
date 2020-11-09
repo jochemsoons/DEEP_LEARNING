@@ -53,9 +53,6 @@ def accuracy(predictions, targets):
     #######################
     preds = torch.argmax(predictions, axis=1)
     labels = torch.argmax(targets, axis=1)
-    # print((preds == labels))
-    # print(torch.sum(preds == labels).float())
-    # print(preds.size()[0])
     accuracy = torch.sum(preds == labels).float() / preds.shape[0]
 
     ########################
@@ -90,7 +87,7 @@ def train():
     # PUT YOUR CODE HERE  #
     #######################
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    print("Device", device, flush=True)
+    print("Device", device)
 
     # GPU operations have a separate seed we also want to set
 
@@ -118,7 +115,7 @@ def train():
         MLP_classifier.to(device)
         loss_module.to(device)
 
-    print(MLP_classifier, flush=True)
+    print(MLP_classifier)
     loss_train = []
     avg_train_loss_list = []
     loss_test = []

@@ -66,21 +66,13 @@ class CustomLayerNormAutograd(nn.Module):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        # print("FORWARD")
-        # print(input.shape)
 
         assert input.shape[1] == self.n_neurons
 
         mean = input.mean(dim=1, keepdim=True)
-        # print(mean)
-        # print(input.mean(dim=1, keepdim=True).expand_as(input))
         var = input.var(dim=1, keepdim=True, unbiased=False)
-        # gamma = self.gamma.expand_as(input)
-        # beta = self.beta.expand_as(input)
-        # print(mean.shape)
         out = (input - mean) / torch.sqrt(var + self.eps) * self.gamma + self.beta
-        print(out.shape)
-        # print(gamma.shape)
+
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -133,21 +125,17 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        x = input
         mean = input.mean(dim=1, keepdim=True)
         var = input.var(dim=1, keepdim=True, unbiased=False)
 
-        xmu = input - mean
-        sq  = xmu ** 2
-        sqrtvar = torch.sqrt(var + eps)
-        ivar = 1 / sqrtvar
+        # sqrt_var = torch.sqrt(var)
+        # inv_var = 1 / sqrt_var
 
-        xhat = xmu / sqrtvar
-
+        xhat = (input - mean) / torch.sqrt(var+eps)
         out = gamma * xhat + beta
 
         ctx.constant = eps
-        ctx.save_for_backward(x, xhat, gamma, mean, ivar, sqrtvar, var)
+        ctx.save_for_backward(xhat, gamma, var)
 
         ########################
         # END OF YOUR CODE    #
@@ -175,16 +163,28 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
         # PUT YOUR CODE HERE  #
         #######################
 
-        x, xhat, gamma, mu, ivar, sqrtvar, var = ctx.saved_tensors
+        xhat, gamma, var = ctx.saved_tensors
         eps = ctx.constant
-        S, C = x.shape
+        _, M = xhat.shape
 
         grad_gamma = torch.sum(grad_output * xhat, dim=0)
+
         grad_beta = torch.sum(grad_output, dim=0)
 
-        dxhat = grad_output * gamma
+        dL_dxhat = grad_output * gamma
 
-        grad_input = (1 / C) * 1/sqrtvar * (C*dxhat - torch.sum(dxhat, dim=1, keepdims=True) - xhat*torch.sum(dxhat*xhat, dim=1, keepdims=True))
+        # part1 = inv
+        # print(torch.sum(dL_dxhat, dim=1, keepdims=True).shape)
+        # print(dL_dxhat.shape)
+        # print(torch.ones(dL_dxhat.shape[1]).shape)
+        # ones = torch.ones((dL_dxhat.shape[1], 1), dtype=torch.double)
+        # sum_ = dL_dxhat @ ones
+        # part2 = dL_dxhat - 1/M * sum_
+        part2 = dL_dxhat - 1/M * torch.sum(dL_dxhat, dim=1, keepdims=True)
+        # sum_ = (xhat * dL_dxhat) @ ones
+        # part3 = 1/M * xhat * sum_
+        part3 = 1/M * xhat * torch.sum(xhat * dL_dxhat, dim=1, keepdims=True)
+        grad_input = (1 / torch.sqrt(var+eps)) * (part2 - part3)
 
         ########################
         # END OF YOUR CODE    #

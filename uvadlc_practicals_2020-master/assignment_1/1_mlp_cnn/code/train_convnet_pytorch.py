@@ -32,7 +32,7 @@ def accuracy(predictions, targets):
     """
     Computes the prediction accuracy, i.e. the average of correct predictions
     of the network.
-    
+
     Args:
       predictions: 2D float array of size [batch_size, n_classes]
       labels: 2D int array of size [batch_size, n_classes]
@@ -41,39 +41,119 @@ def accuracy(predictions, targets):
     Returns:
       accuracy: scalar float, the accuracy of predictions,
                 i.e. the average correct predictions over the whole batch
-    
+
     TODO:
     Implement accuracy computation.
     """
-    
+
     ########################
     # PUT YOUR CODE HERE  #
     #######################
-    raise NotImplementedError
+    preds = torch.argmax(predictions, axis=1)
+    labels = torch.argmax(targets, axis=1)
+    accuracy = torch.sum(preds == labels).float() / preds.shape[0]
+
     ########################
     # END OF YOUR CODE    #
     #######################
-    
+
     return accuracy
 
 
 def train():
     """
     Performs training and evaluation of ConvNet model.
-  
+
     TODO:
     Implement training and evaluation of ConvNet model. Evaluate your model on the whole test set each eval_freq iterations.
     """
-    
+
     ### DO NOT CHANGE SEEDS!
     # Set the random seeds for reproducibility
     np.random.seed(42)
     torch.manual_seed(42)
-    
+
     ########################
     # PUT YOUR CODE HERE  #
     #######################
-    raise NotImplementedError
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    print("Device", device)
+
+    # GPU operations have a separate seed we also want to set
+
+    # Additionally, some operations on a GPU are implemented stochastic for efficiency
+    # We want to ensure that all operations are deterministic on GPU (if used) for reproducibility
+    torch.backends.cudnn.determinstic = True
+    torch.backends.cudnn.benchmark = False
+
+    cifar10 = cifar10_utils.get_cifar10(FLAGS.data_dir)
+
+    depth, width, height = cifar10['train'].images[0].shape
+    n_inputs = depth * width * height
+    n_classes = len(cifar10['train'].labels[0])
+
+    CNN = ConvNet(3, n_classes)
+    optimizer = torch.optim.Adam(CNN.parameters(), lr=FLAGS.learning_rate)
+    loss_module = nn.CrossEntropyLoss()
+    softmax = nn.Softmax(dim=1)
+
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(42)
+        torch.cuda.manual_seed_all(42)
+        CNN.to(device)
+        loss_module.to(device)
+
+    train_loss_list, test_loss_list = [], []
+    test_acc_list = []
+    for step in range(FLAGS.max_steps):
+        CNN.train()
+
+        x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
+        # x_train, y_train = cifar10['train'].next_batch(5)
+        x_train = torch.from_numpy(x_train)
+        y_train = torch.from_numpy(y_train)
+        x_train, y_train = x_train.to(device), y_train.to(device)
+
+        # x_train = x_train.reshape(x_train.size(0), -1)
+        predictions = CNN.forward(x_train)
+        # print("\nCALCULATING LOSS")
+        labels = torch.argmax(y_train, dim=1)
+        train_loss = loss_module(predictions, labels)
+
+        optimizer.zero_grad()
+        train_loss.backward()
+        optimizer.step()
+
+        if step % FLAGS.eval_freq == 0:
+            CNN.eval()
+            acc = 0
+            test_loss = 0
+            batch_count = 0
+            current_epochs = cifar10['test'].epochs_completed
+            while True:
+                with torch.no_grad():
+                    x_test, y_test = cifar10['test'].next_batch(FLAGS.batch_size)
+                    if cifar10['test'].epochs_completed > current_epochs:
+                        cifar10['test']._index_in_epoch = 0
+                        break
+                    x_test, y_test = torch.from_numpy(x_test), torch.from_numpy(y_test)
+                    x_test, y_test = x_test.to(device), y_test.to(device)
+
+                    predictions = CNN.forward(x_test)
+                    labels = torch.argmax(y_test, dim=1)
+                    test_loss += loss_module(predictions, labels)
+                    acc += accuracy(softmax(predictions), y_test)
+                    batch_count += 1
+
+            acc = acc / batch_count
+            test_loss = test_loss / batch_count
+
+            print("Train epoch: {} Test epoch: {}".format(cifar10['train'].epochs_completed, cifar10['test'].epochs_completed))
+            print("test acc:{:.4f}, test loss:{:.4f}, train loss:{:.4f}".format(float(acc), float(test_loss), float(train_loss)))
+
+            test_loss_list.append(test_loss)
+            test_acc_list.append(acc)
+
     ########################
     # END OF YOUR CODE    #
     #######################
@@ -93,10 +173,10 @@ def main():
     """
     # Print all Flags to confirm parameter settings
     print_flags()
-    
+
     if not os.path.exists(FLAGS.data_dir):
         os.makedirs(FLAGS.data_dir)
-    
+
     # Run the training operation
     train()
 
@@ -115,5 +195,5 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default=DATA_DIR_DEFAULT,
                         help='Directory for storing input data')
     FLAGS, unparsed = parser.parse_known_args()
-    
+
     main()
