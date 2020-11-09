@@ -94,21 +94,16 @@ def train():
     loss_test = []
     acc_list = []
     eval_steps = []
-    for step in range(FLAGS.max_steps):
-        # print("STEP:", step)
+    for step in range(FLAGS.max_steps+1):
         x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
         x_train = x_train.reshape(x_train.shape[0], -1)
 
-        # print("FORWARD PASS")
         predictions = MLP_classifier.forward(x_train)
 
-        # print("\nCALCULATING LOSS")
         train_loss = CE_module.forward(predictions, y_train)
-        # print(train_loss)
         loss_train.append(train_loss)
 
         loss_grad = CE_module.backward(predictions, y_train)
-        # print("\nBACKWARD PASS")
         MLP_classifier.backward(loss_grad)
 
         for layer in MLP_classifier.layers:

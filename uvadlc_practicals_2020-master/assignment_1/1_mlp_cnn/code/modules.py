@@ -32,8 +32,6 @@ class LinearModule(object):
         self.grads = {}
         self.params['weight'] = np.random.normal(0, 0.0001, size=(out_features, in_features))
         self.params['bias'] = np.zeros(out_features)
-        self.params['grads'] = 0
-
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -83,15 +81,10 @@ class LinearModule(object):
         # PUT YOUR CODE HERE  #
         #######################
 
-        self.grads['weight'] = np.dot(dout.T, self.input)
-        # dout.T.dot(self.input)
-        # print(np.ones((self.params['bias'].shape)).shape)
-        # print(dout.shape)
-        # print(self.input.shape)
-        # print(self.output.shape)
-        self.grads['bias'] = np.dot(np.ones(self.input.shape[0]).T, dout)
+        self.grads['weight'] = dout.T @ self.input
+        self.grads['bias'] = np.ones(self.input.shape[0]) @ dout
 
-        dx = np.dot(dout, self.params['weight'])
+        dx = dout @ self.params['weight']
 
         ########################
         # END OF YOUR CODE    #
@@ -123,19 +116,9 @@ class SoftMaxModule(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        # self.input = x
-        # b = np.max(x, axis=0)
-        # Y = np.exp(x - b)
-        # out = Y / np.sum(Y, axis=1)
-        # self.output = out
-
         self.input = x
-        # z = x
-        e = np.exp(x-np.max(x))
-        # print()
-        s = np.sum(e, axis=1, keepdims=True)
-        # print("S", s)
-        out = e / s
+        exp = np.exp(x - np.max(x))
+        out = exp / np.sum(exp, axis=1, keepdims=True)
         self.output = out
         ########################
         # END OF YOUR CODE    #
@@ -162,12 +145,7 @@ class SoftMaxModule(object):
         softmax_prod = np.einsum('ij,ik->ijk', self.output, self.output)
         softmax_diag = np.einsum('ij,jk->ijk', self.output, np.eye(C, C))
         d_softmax = softmax_diag - softmax_prod
-        # print(d_softmax.shape)
-        # print(dout.shape)
         dx = np.einsum('ijk,ik->ij', d_softmax, dout)
-
-
-
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -197,7 +175,6 @@ class CrossEntropyModule(object):
         # PUT YOUR CODE HERE  #
         #######################
         S, _ = x.shape
-        # x = np.clip(x, epsilon, 1 - epsilon)
         out = - np.sum(y * np.log(x + 1e-9)) / S
         ########################
         # END OF YOUR CODE    #
@@ -222,69 +199,11 @@ class CrossEntropyModule(object):
         # PUT YOUR CODE HERE  #
         #######################
         S, _ = x.shape
-        dx = - y / x * 1/S
-
+        dx = - 1/S * y / x
         ########################
         # END OF YOUR CODE    #
         #######################
-
         return dx
-
-
-# class ELUModule(object):
-#     """
-#     ELU activation module.
-#     """
-
-#     def forward(self, x):
-#         """
-#         Forward pass.
-
-#         Args:
-#           x: input to the module
-#         Returns:
-#           out: output of the module
-
-#         TODO:
-#         Implement forward pass of the module.
-
-#         Hint: You can store intermediate variables inside the object. They can be used in backward pass computation.
-#         """
-#         ########################
-#         # PUT YOUR CODE HERE  #
-#         #######################
-#         self.input = x
-#         out = np.maximum(0,x)
-#         return out
-
-#         ########################
-#         # END OF YOUR CODE    #
-#         #######################
-
-#         return out
-
-#     def backward(self, dout):
-#         """
-#         Backward pass.
-#         Args:
-#           dout: gradients of the previous module
-#         Returns:
-#           dx: gradients with respect to the input of the module
-
-#         TODO:
-#         Implement backward pass of the module.
-#         """
-
-#         ########################
-#         # PUT YOUR CODE HERE  #
-#         #######################
-
-#         relu_grad = self.input > 0
-#         return dout * relu_grad
-
-#         ########################
-#         # END OF YOUR CODE    #
-#         #######################
 
 class ELUModule(object):
     """
@@ -310,7 +229,7 @@ class ELUModule(object):
         #######################
 
         self.input = x
-        out = np.where(x > 0, x, np.exp(x)-1)
+        out = np.where(x >= 0, x, np.exp(x)-1)
 
         ########################
         # END OF YOUR CODE    #
@@ -334,7 +253,7 @@ class ELUModule(object):
         # PUT YOUR CODE HERE  #
         #######################
 
-        dh_dx = np.where(self.input > 0, 1, np.exp(self.input))
+        dh_dx = np.where(self.input >= 0, 1, np.exp(self.input))
         dx = dout * dh_dx
 
         ########################
