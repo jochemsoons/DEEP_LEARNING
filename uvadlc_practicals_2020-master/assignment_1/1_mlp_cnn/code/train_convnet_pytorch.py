@@ -98,6 +98,7 @@ def train():
     softmax = nn.Softmax(dim=1)
 
     if torch.cuda.is_available():
+        print("CUDA")
         torch.cuda.manual_seed(42)
         torch.cuda.manual_seed_all(42)
         CNN.to(device)
@@ -119,7 +120,7 @@ def train():
         # print("\nCALCULATING LOSS")
         labels = torch.argmax(y_train, dim=1)
         train_loss = loss_module(predictions, labels)
-
+        # print(train_loss)
         optimizer.zero_grad()
         train_loss.backward()
         optimizer.step()

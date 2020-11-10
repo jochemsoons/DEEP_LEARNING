@@ -5,7 +5,7 @@
 #SBATCH --job-name=Pytorch_MLP
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
-#SBATCH --time=00:10:00
+#SBATCH --time=00:15:00
 #SBATCH --mem=32000M
 #SBATCH --output=./ConvNetResults/CNN_%A.out
 
@@ -22,4 +22,4 @@ cd $HOME/practical_1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u train_convnet_pytorch.py --max_steps=10000
+srun python -u train_convnet_pytorch.py

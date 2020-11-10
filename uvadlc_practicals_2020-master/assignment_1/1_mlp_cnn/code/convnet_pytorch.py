@@ -40,27 +40,56 @@ class ConvNet(nn.Module):
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
         )
         self.conv1 = nn.Conv2d(64, 128, kernel_size=1, stride=1, padding=0)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        self.preact2 = nn.Sequential(
+        self.maxpool1 = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        self.preact2_a = nn.Sequential(
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
+        )
+        self.preact2_b = nn.Sequential(
             nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
         )
         self.conv2 = nn.Conv2d(128, 256, kernel_size=1, stride=1, padding=0)
-        self.preact3 = nn.Sequential(
+        self.maxpool2 = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        self.preact3_a = nn.Sequential(
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
+        )
+        self.preact3_b = nn.Sequential(
             nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
         )
         self.conv3 = nn.Conv2d(256, 512, kernel_size=1, stride=1, padding=0)
-        self.preact4 = nn.Sequential(
+        self.maxpool3 = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        self.preact4_a = nn.Sequential(
             nn.BatchNorm2d(512),
             nn.ReLU(),
             nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
         )
+        self.preact4_b = nn.Sequential(
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+        )
+        self.maxpool4 = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        self.preact5_a = nn.Sequential(
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+        )
+        self.preact5_b = nn.Sequential(
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+        )
+        self.maxpool5 = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         self.batchnorm = nn.BatchNorm2d(512)
         self.ReLu = nn.ReLU()
-        self.linear = nn.Linear(512*2*2, n_classes)
+        self.linear = nn.Linear(512, n_classes)
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -85,32 +114,32 @@ class ConvNet(nn.Module):
         out = self.conv0(x)
         out = out + self.preact1(out)
         out = self.conv1(out)
-        out = self.maxpool(out)
+        out = self.maxpool1(out)
 
-        out = out + self.preact2(out)
-        out = out + self.preact2(out)
+        out = out + self.preact2_a(out)
+        out = out + self.preact2_b(out)
 
         out = self.conv2(out)
-        out = self.maxpool(out)
+        out = self.maxpool1(out)
 
-        out = out + self.preact3(out)
-        out = out + self.preact3(out)
+        out = out + self.preact3_a(out)
+        out = out + self.preact3_b(out)
 
         out = self.conv3(out)
-        out = self.maxpool(out)
+        out = self.maxpool1(out)
 
-        out = out + self.preact4(out)
-        out = out + self.preact4(out)
+        out = out + self.preact4_a(out)
+        out = out + self.preact4_b(out)
 
-        out = self.maxpool(out)
+        out = self.maxpool1(out)
 
-        out = out + self.preact4(out)
-        out = out + self.preact4(out)
-        # print(out.shape)
+        out = out + self.preact5_a(out)
+        out = out + self.preact5_b(out)
+        out = self.maxpool1(out)
+
         out = self.batchnorm(out)
         out = self.ReLu(out)
         out = out.contiguous().view(out.size(0), -1)
-        # print(out.shape)
         out = self.linear(out)
 
         ########################

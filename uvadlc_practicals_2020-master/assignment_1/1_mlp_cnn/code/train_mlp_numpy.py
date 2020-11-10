@@ -11,8 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from mlp_numpy import MLP
-from modules import CrossEntropyModule
-from modules import LinearModule
+from modules import CrossEntropyModule, LinearModule
 import cifar10_utils
 
 # Default constants
@@ -49,9 +48,11 @@ def accuracy(predictions, targets):
     ########################
     # PUT YOUR CODE HERE  #
     #######################
+
     preds = np.argmax(predictions, axis=1)
     labels = np.argmax(targets, axis=1)
     accuracy = np.mean(preds == labels)
+
     ########################
     # END OF YOUR CODE    #
     #######################
@@ -82,56 +83,81 @@ def train():
     ########################
     # PUT YOUR CODE HERE  #
     #######################
+
+    # Load dataset.
     cifar10 = cifar10_utils.get_cifar10(FLAGS.data_dir)
 
+    # Determine number of input features and classes.
     depth, width, height = cifar10['train'].images[0].shape
     n_inputs = depth * width * height
     n_classes = len(cifar10['train'].labels[0])
 
+    # Initialize MLP model and CE loss module.
     MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
     loss_module = CrossEntropyModule()
 
+    # Initialize evaluation lists.
     train_loss_list, test_loss_list = [], []
     train_acc_list, test_acc_list = [], []
     train_loss_temp_list, train_acc_temp_list = [], []
     eval_steps = []
+
+    # Iterate over each step.
     for step in range(FLAGS.max_steps+1):
+        MLP_classifier.train()
+
+        # Get new training batch and flatten image dimensions.
         x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
         x_train = x_train.reshape(x_train.shape[0], -1)
 
+        # Perform forward pass of MLP model.
         predictions = MLP_classifier.forward(x_train)
 
+        # Calculate train loss and accuracy.
         train_loss = loss_module.forward(predictions, y_train)
         train_acc = accuracy(predictions, y_train)
+        # Add loss and acc. to the temporary lists.
         train_loss_temp_list.append(train_loss)
         train_acc_temp_list.append(train_acc)
 
+        # Perform backward pass.
         loss_grad = loss_module.backward(predictions, y_train)
         MLP_classifier.backward(loss_grad)
 
+        # Update parameters of all linear layers.
         for layer in MLP_classifier.layers:
             if isinstance(layer, LinearModule):
                 layer.params['weight'] -= FLAGS.learning_rate * layer.grads['weight']
                 layer.params['bias'] -= FLAGS.learning_rate * layer.grads['bias']
 
+        # Evaluate at eval frequency.
         if step % FLAGS.eval_freq == 0:
+            MLP_classifier.eval()
             test_loss, test_acc, batch_count = 0, 0, 0
             current_epochs = cifar10['test'].epochs_completed
+
+            # Keep getting new batches from test set.
             while True:
                 x_test, y_test = cifar10['test'].next_batch(FLAGS.batch_size)
+                # Stop testing if whole testset is passed.
                 if cifar10['test'].epochs_completed > current_epochs:
                     cifar10['test']._index_in_epoch = 0
                     break
-                x_test = x_test.reshape(x_test.shape[0], -1)
-                predictions = MLP_classifier.forward(x_test)
-                test_loss += loss_module.forward(predictions, y_test)
-                test_acc += accuracy(predictions, y_test)
-                batch_count += 1
+                with torch.no_grad():
+                    # Add loss and accuracy using model predictions.
+                    x_test = x_test.reshape(x_test.shape[0], -1)
+                    predictions = MLP_classifier.forward(x_test)
+                    test_loss += loss_module.forward(predictions, y_test)
+                    test_acc += accuracy(predictions, y_test)
+                    batch_count += 1
+
+            # Calculate average acc. and loss for train and test set
             test_acc = test_acc / batch_count
             test_loss = test_loss / batch_count
             train_acc = np.mean(train_acc_temp_list)
             train_loss = np.mean(train_loss_temp_list)
 
+            # Append evaluations to lists.
             train_acc_list.append(train_acc)
             train_loss_list.append(train_loss)
             test_loss_list.append(test_loss)
@@ -140,9 +166,10 @@ def train():
             print("STEP {}/{} | test acc: {:.4f}, test loss: {:.4f} | train acc: {:.4f}, train loss: {:.4f}"
             .format(step, FLAGS.max_steps, test_acc, test_loss, train_acc, train_loss))
 
+            # Reset temporary lists to calculate average train evaluations.
             train_acc_temp_list, train_loss_temp_list = [], []
 
-
+    # Plot loss figure.
     plt.figure()
     plt.title("Train and test loss of NumPy MLP model")
     plt.xlabel("Iteration step")
@@ -152,6 +179,7 @@ def train():
     plt.legend()
     plt.savefig("./MLP_numpy_results/MLP_numpy_loss.png")
 
+    # Plot test figure.
     plt.figure()
     plt.title("Train and test accuracy of NumPy MLP model")
     plt.xlabel("Iteration step")
@@ -160,6 +188,7 @@ def train():
     plt.plot(eval_steps, test_acc_list, label="Test acc")
     plt.legend()
     plt.savefig("./MLP_numpy_results/MLP_numpy_acc.png")
+
     ########################
     # END OF YOUR CODE    #
     #######################
