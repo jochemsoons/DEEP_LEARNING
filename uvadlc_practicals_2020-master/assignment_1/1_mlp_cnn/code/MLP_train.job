@@ -22,7 +22,4 @@ cd $HOME/practical_1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u train_mlp_pytorch.py --max_steps=10000 --learning_rate=0.01
-# srun python -u train_mlp_pytorch.py --max_steps=10000 --dnn_hidden_units='100' --learning_rate=0.01
-# srun python -u train_mlp_pytorch.py --max_steps=5000 --dnn_hidden_units='100' --learning_rate=0.01
-# srun python -u train_mlp_pytorch.py --dnn_hidden_units='1024, 512, 256, 64' --batch_size=128 --max_steps=2000 --eval_freq=100 --learning_rate=0.001
+srun python -u train_mlp_pytorch.py --dnn_hidden_units='1024, 512, 256, 64' --batch_size=128 --max_steps=2000 --eval_freq=100 --learning_rate=0.001

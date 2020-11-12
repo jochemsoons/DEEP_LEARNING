@@ -106,12 +106,9 @@ def train():
 
     # Initialize MLP model, optimizer and CE loss module.
     MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
-
-    optimizer = torch.optim.SGD(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
-    # optimizer = torch.optim.Adam(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
+    optimizer = torch.optim.Adam(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
     loss_module = nn.CrossEntropyLoss()
-    print("OPT:", optimizer)
-    print("MODEL:\n", MLP_classifier)
+
     # Push model and loss module to device.
     MLP_classifier.to(device)
     loss_module.to(device)
@@ -199,7 +196,7 @@ def train():
     plt.legend()
     plt.savefig("./MLP_pytorch_results/MLP_pytorch_loss.png")
 
-    # Plot test figure.
+    # Plot accuracy figure.
     plt.figure()
     plt.title("Train and test accuracy of PyTorch MLP model")
     plt.xlabel("Iteration step")

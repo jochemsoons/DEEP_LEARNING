@@ -174,7 +174,7 @@ def train():
     plt.legend()
     plt.savefig("./MLP_numpy_results/MLP_numpy_loss.png")
 
-    # Plot test figure.
+    # Plot accuracy figure.
     plt.figure()
     plt.title("Train and test accuracy of NumPy MLP model")
     plt.xlabel("Iteration step")
