@@ -120,26 +120,26 @@ class ConvNet(nn.Module):
         out = out + self.preact2_b(out)
 
         out = self.conv2(out)
-        out = self.maxpool1(out)
+        out = self.maxpool2(out)
 
         out = out + self.preact3_a(out)
         out = out + self.preact3_b(out)
 
         out = self.conv3(out)
-        out = self.maxpool1(out)
+        out = self.maxpool3(out)
 
         out = out + self.preact4_a(out)
         out = out + self.preact4_b(out)
 
-        out = self.maxpool1(out)
+        out = self.maxpool4(out)
 
         out = out + self.preact5_a(out)
         out = out + self.preact5_b(out)
-        out = self.maxpool1(out)
+        out = self.maxpool5(out)
 
         out = self.batchnorm(out)
         out = self.ReLu(out)
-        out = out.contiguous().view(out.size(0), -1)
+        out = out.reshape(out.size(0), -1)
         out = self.linear(out)
 
         ########################

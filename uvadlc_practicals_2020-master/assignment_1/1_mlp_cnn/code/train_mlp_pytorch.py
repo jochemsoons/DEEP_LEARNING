@@ -74,6 +74,9 @@ def train():
     # Set the random seeds for reproducibility
     np.random.seed(42)
     torch.manual_seed(42)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(42)
+        torch.cuda.manual_seed_all(42)
 
     ## Prepare all functions
     # Get number of units in each hidden layer specified in the string such as 100,100
@@ -87,114 +90,124 @@ def train():
     # PUT YOUR CODE HERE  #
     #######################
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    print("Device", device)
+    print("Device:", device)
 
-    # GPU operations have a separate seed we also want to set
-
-    # Additionally, some operations on a GPU are implemented stochastic for efficiency
-    # We want to ensure that all operations are deterministic on GPU (if used) for reproducibility
+    # Ensure all CUDA operations are deterministic.
     torch.backends.cudnn.determinstic = True
     torch.backends.cudnn.benchmark = False
 
+    # Load dataset.
     cifar10 = cifar10_utils.get_cifar10(FLAGS.data_dir)
 
+    # Determine number of input features and classes.
     depth, width, height = cifar10['train'].images[0].shape
     n_inputs = depth * width * height
     n_classes = len(cifar10['train'].labels[0])
 
+    # Initialize MLP model, optimizer and CE loss module.
     MLP_classifier = MLP(n_inputs, dnn_hidden_units, n_classes)
-    # optimizer = torch.optim.SGD(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
-    optimizer = torch.optim.Adam(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
-    # loss_module = nn.NLLLoss()
+
+    optimizer = torch.optim.SGD(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
+    # optimizer = torch.optim.Adam(MLP_classifier.parameters(), lr=FLAGS.learning_rate)
     loss_module = nn.CrossEntropyLoss()
-    softmax = nn.Softmax(dim=1)
+    print("OPT:", optimizer)
+    print("MODEL:\n", MLP_classifier)
+    # Push model and loss module to device.
+    MLP_classifier.to(device)
+    loss_module.to(device)
 
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed(42)
-        torch.cuda.manual_seed_all(42)
-        MLP_classifier.to(device)
-        loss_module.to(device)
-
-    print(MLP_classifier)
-    loss_train = []
-    avg_train_loss_list = []
-    loss_test = []
-    acc_list = []
+    # Initialize evaluation lists.
+    train_loss_list, test_loss_list = [], []
+    train_acc_list, test_acc_list = [], []
+    train_loss_temp_list, train_acc_temp_list = [], []
     eval_steps = []
-    num_epochs = 0
-    for step in range(FLAGS.max_steps):
+
+    # Iterate over each step.
+    for step in range(1, FLAGS.max_steps+1):
         MLP_classifier.train()
-
+        # Get new training batch and flatten image dimensions.
         x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
-        x_train = torch.from_numpy(x_train)
-        y_train = torch.from_numpy(y_train)
+        x_train, y_train = torch.from_numpy(x_train), torch.from_numpy(y_train)
         x_train, y_train = x_train.to(device), y_train.to(device)
-
         x_train = x_train.reshape(x_train.size(0), -1)
+
+        # Perform forward pass of MLP model.
         predictions = MLP_classifier.forward(x_train)
-        # print("\nCALCULATING LOSS")
+
+        # Calculate train loss and accuracy.
         labels = torch.argmax(y_train, dim=1)
         train_loss = loss_module(predictions, labels)
+        train_acc = accuracy(predictions, y_train)
+        # Add loss and acc. to the temporary lists.
+        train_loss_temp_list.append(float(train_loss))
+        train_acc_temp_list.append(float(train_acc))
 
-        loss_train.append(train_loss)
-
+        # Perform backward pass and update parameters.
         optimizer.zero_grad()
         train_loss.backward()
         optimizer.step()
 
-        # if step % FLAGS.eval_freq == 0:
-        if cifar10['train']._epochs_completed > num_epochs:
+        # Evaluate at eval frequency.
+        if step % FLAGS.eval_freq == 0:
             MLP_classifier.eval()
-            acc = 0
-            test_loss = 0
-            batch_count = 0
+            test_loss, test_acc, batch_count = 0, 0, 0
             current_epochs = cifar10['test'].epochs_completed
+            # Keep getting new batches from test set.
             while True:
                 x_test, y_test = cifar10['test'].next_batch(FLAGS.batch_size)
+                # Stop evaluating if whole testset is passed.
                 if cifar10['test'].epochs_completed > current_epochs:
                     cifar10['test']._index_in_epoch = 0
                     break
-                x_test, y_test = torch.from_numpy(x_test), torch.from_numpy(y_test)
-                x_test, y_test = x_test.to(device), y_test.to(device)
+                with torch.no_grad():
+                    # Add loss and accuracy to total using model predictions.
+                    x_test, y_test = torch.from_numpy(x_test), torch.from_numpy(y_test)
+                    x_test, y_test = x_test.to(device), y_test.to(device)
+                    x_test = x_test.reshape(x_test.size(0), -1)
+                    predictions = MLP_classifier.forward(x_test)
+                    labels = torch.argmax(y_test, dim=1)
+                    test_loss += loss_module(predictions, labels)
+                    test_acc += accuracy(predictions, y_test)
+                    batch_count += 1
 
-                x_test = x_test.reshape(x_test.size(0), -1)
-                predictions = MLP_classifier.forward(x_test)
-                labels = torch.argmax(y_test, dim=1)
-                test_loss += loss_module(predictions, labels)
-                acc += accuracy(softmax(predictions), y_test)
-                batch_count += 1
-
-            acc = acc / batch_count
+            # Calculate average loss and acc. for train and test set.
             test_loss = test_loss / batch_count
+            test_acc = test_acc / batch_count
+            train_loss = np.mean(train_loss_temp_list)
+            train_acc = np.mean(train_acc_temp_list)
 
-            print("Train epoch: {} Test epoch: {}".format(cifar10['train'].epochs_completed, cifar10['test'].epochs_completed))
-
-            # print(acc)
-            # print(test_loss)
+            # Append evaluations to lists.
+            train_loss_list.append(train_loss)
+            train_acc_list.append(train_acc)
+            test_loss_list.append(test_loss)
+            test_acc_list.append(test_acc)
             eval_steps.append(step)
-            avg_train_loss = torch.mean(train_loss)
-            # print(avg_train_loss)
-            avg_train_loss_list.append(avg_train_loss)
-            print("test acc:{:.4f}, test loss:{:.4f}, train loss:{:.4f}".format(float(acc), float(test_loss), float(avg_train_loss)))
-            train_loss = []
-            loss_test.append(test_loss)
-            acc_list.append(acc)
-            num_epochs += 1
-            # MLP_classifier.train()
 
-    x = np.arange(0, num_epochs, 1)
-    # x1 = np.arange(0, FLAGS.max_steps, 1)
-    plt.figure()
-    plt.plot(x, avg_train_loss_list, label='train loss')
-    plt.plot(x, loss_test, label='test loss')
-    # plt.plot(x, acc_list, label='accuracy')
-    plt.legend()
-    plt.savefig("loss.png")
+            print("STEP {}/{} | test acc: {:.4f}, test loss: {:.4f} | train acc: {:.4f}, train loss: {:.4f}"
+            .format(step, FLAGS.max_steps, test_acc, test_loss, train_acc, train_loss))
 
+            # Reset temporary lists to calculate average train evaluations between eval freqs.
+            train_acc_temp_list, train_loss_temp_list = [], []
+
+    # Plot loss figure.
     plt.figure()
-    plt.plot(x, acc_list, label='accuracy')
+    plt.title("Train and test loss of PyTorch MLP model")
+    plt.xlabel("Iteration step")
+    plt.ylabel("Cross-entropy loss")
+    plt.plot(eval_steps, train_loss_list, label='Train loss')
+    plt.plot(eval_steps, test_loss_list, label='Test loss')
     plt.legend()
-    plt.savefig("acc.png")
+    plt.savefig("./MLP_pytorch_results/MLP_pytorch_loss.png")
+
+    # Plot test figure.
+    plt.figure()
+    plt.title("Train and test accuracy of PyTorch MLP model")
+    plt.xlabel("Iteration step")
+    plt.ylabel("Accuracy")
+    plt.plot(eval_steps, train_acc_list, label="Train acc")
+    plt.plot(eval_steps, test_acc_list, label="Test acc")
+    plt.legend()
+    plt.savefig("./MLP_pytorch_results/MLP_pytorch_acc.png")
 
     # END OF YOUR CODE    #
     #######################

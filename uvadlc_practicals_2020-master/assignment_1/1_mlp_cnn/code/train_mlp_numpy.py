@@ -103,9 +103,7 @@ def train():
     eval_steps = []
 
     # Iterate over each step.
-    for step in range(FLAGS.max_steps+1):
-        MLP_classifier.train()
-
+    for step in range(1, FLAGS.max_steps+1):
         # Get new training batch and flatten image dimensions.
         x_train, y_train = cifar10['train'].next_batch(FLAGS.batch_size)
         x_train = x_train.reshape(x_train.shape[0], -1)
@@ -132,30 +130,27 @@ def train():
 
         # Evaluate at eval frequency.
         if step % FLAGS.eval_freq == 0:
-            MLP_classifier.eval()
             test_loss, test_acc, batch_count = 0, 0, 0
             current_epochs = cifar10['test'].epochs_completed
-
             # Keep getting new batches from test set.
             while True:
                 x_test, y_test = cifar10['test'].next_batch(FLAGS.batch_size)
-                # Stop testing if whole testset is passed.
+                # Stop evaluating if whole testset is passed.
                 if cifar10['test'].epochs_completed > current_epochs:
                     cifar10['test']._index_in_epoch = 0
                     break
-                with torch.no_grad():
-                    # Add loss and accuracy using model predictions.
-                    x_test = x_test.reshape(x_test.shape[0], -1)
-                    predictions = MLP_classifier.forward(x_test)
-                    test_loss += loss_module.forward(predictions, y_test)
-                    test_acc += accuracy(predictions, y_test)
-                    batch_count += 1
+                # Add loss and accuracy to total using model predictions.
+                x_test = x_test.reshape(x_test.shape[0], -1)
+                predictions = MLP_classifier.forward(x_test)
+                test_loss += loss_module.forward(predictions, y_test)
+                test_acc += accuracy(predictions, y_test)
+                batch_count += 1
 
-            # Calculate average acc. and loss for train and test set
-            test_acc = test_acc / batch_count
+            # Calculate average loss and acc. for train and test set.
             test_loss = test_loss / batch_count
-            train_acc = np.mean(train_acc_temp_list)
+            test_acc = test_acc / batch_count
             train_loss = np.mean(train_loss_temp_list)
+            train_acc = np.mean(train_acc_temp_list)
 
             # Append evaluations to lists.
             train_acc_list.append(train_acc)
@@ -166,7 +161,7 @@ def train():
             print("STEP {}/{} | test acc: {:.4f}, test loss: {:.4f} | train acc: {:.4f}, train loss: {:.4f}"
             .format(step, FLAGS.max_steps, test_acc, test_loss, train_acc, train_loss))
 
-            # Reset temporary lists to calculate average train evaluations.
+            # Reset temporary lists to calculate average train evaluations between eval freqs..
             train_acc_temp_list, train_loss_temp_list = [], []
 
     # Plot loss figure.

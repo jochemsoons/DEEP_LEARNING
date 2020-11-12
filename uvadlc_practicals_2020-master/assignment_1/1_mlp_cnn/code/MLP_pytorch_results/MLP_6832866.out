@@ -1,0 +1,54 @@
+dnn_hidden_units : 1024, 512, 256, 64
+learning_rate : 0.001
+max_steps : 2000
+batch_size : 128
+eval_freq : 100
+data_dir : ./cifar10/cifar-10-batches-py
+Device: cuda
+OPT: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    weight_decay: 0
+)
+MODEL:
+ MLP(
+  (layers): ModuleList(
+    (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): Linear(in_features=3072, out_features=1024, bias=True)
+    (2): ELU(alpha=1.0)
+    (3): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): Linear(in_features=1024, out_features=512, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): Linear(in_features=512, out_features=256, bias=True)
+    (8): ELU(alpha=1.0)
+    (9): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): Linear(in_features=256, out_features=64, bias=True)
+    (11): ELU(alpha=1.0)
+    (12): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (13): Linear(in_features=64, out_features=10, bias=True)
+  )
+)
+STEP 100/2000 | test acc: 0.3994, test loss: 1.6794 | train acc: 0.3615, train loss: 1.7871
+STEP 200/2000 | test acc: 0.4367, test loss: 1.5755 | train acc: 0.4198, train loss: 1.6270
+STEP 300/2000 | test acc: 0.4663, test loss: 1.5026 | train acc: 0.4383, train loss: 1.5744
+STEP 400/2000 | test acc: 0.4848, test loss: 1.4429 | train acc: 0.4634, train loss: 1.5109
+STEP 500/2000 | test acc: 0.4920, test loss: 1.4274 | train acc: 0.4884, train loss: 1.4307
+STEP 600/2000 | test acc: 0.4955, test loss: 1.4137 | train acc: 0.4969, train loss: 1.4206
+STEP 700/2000 | test acc: 0.5143, test loss: 1.3724 | train acc: 0.5015, train loss: 1.3969
+STEP 800/2000 | test acc: 0.5036, test loss: 1.3929 | train acc: 0.5184, train loss: 1.3441
+STEP 900/2000 | test acc: 0.5175, test loss: 1.3436 | train acc: 0.5410, train loss: 1.2841
+STEP 1000/2000 | test acc: 0.5234, test loss: 1.3269 | train acc: 0.5439, train loss: 1.2784
+STEP 1100/2000 | test acc: 0.5248, test loss: 1.3243 | train acc: 0.5337, train loss: 1.2998
+STEP 1200/2000 | test acc: 0.5427, test loss: 1.3040 | train acc: 0.5582, train loss: 1.2448
+STEP 1300/2000 | test acc: 0.5323, test loss: 1.3114 | train acc: 0.5786, train loss: 1.1759
+STEP 1400/2000 | test acc: 0.5366, test loss: 1.2979 | train acc: 0.5712, train loss: 1.1968
+STEP 1500/2000 | test acc: 0.5346, test loss: 1.2966 | train acc: 0.5772, train loss: 1.1982
+STEP 1600/2000 | test acc: 0.5413, test loss: 1.2930 | train acc: 0.5881, train loss: 1.1515
+STEP 1700/2000 | test acc: 0.5413, test loss: 1.2956 | train acc: 0.6088, train loss: 1.0963
+STEP 1800/2000 | test acc: 0.5412, test loss: 1.2908 | train acc: 0.6028, train loss: 1.1350
+STEP 1900/2000 | test acc: 0.5470, test loss: 1.2857 | train acc: 0.6018, train loss: 1.1158
+STEP 2000/2000 | test acc: 0.5597, test loss: 1.2722 | train acc: 0.6208, train loss: 1.0605

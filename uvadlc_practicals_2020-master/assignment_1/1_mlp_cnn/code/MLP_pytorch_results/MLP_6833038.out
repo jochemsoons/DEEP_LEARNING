@@ -1,0 +1,125 @@
+dnn_hidden_units : 100
+learning_rate : 0.01
+max_steps : 10000
+batch_size : 200
+eval_freq : 100
+data_dir : ./cifar10/cifar-10-batches-py
+Device: cuda
+OPT: SGD (
+Parameter Group 0
+    dampening: 0
+    lr: 0.01
+    momentum: 0
+    nesterov: False
+    weight_decay: 0
+)
+MODEL:
+ MLP(
+  (layers): ModuleList(
+    (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): Linear(in_features=3072, out_features=100, bias=True)
+    (2): ELU(alpha=1.0)
+    (3): BatchNorm1d(100, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): Linear(in_features=100, out_features=10, bias=True)
+  )
+)
+STEP 100/10000 | test acc: 0.3782, test loss: 1.7894 | train acc: 0.3333, train loss: 1.8928
+STEP 200/10000 | test acc: 0.3990, test loss: 1.7285 | train acc: 0.3907, train loss: 1.7614
+STEP 300/10000 | test acc: 0.4114, test loss: 1.6995 | train acc: 0.4035, train loss: 1.7286
+STEP 400/10000 | test acc: 0.4188, test loss: 1.6765 | train acc: 0.4144, train loss: 1.6927
+STEP 500/10000 | test acc: 0.4262, test loss: 1.6539 | train acc: 0.4271, train loss: 1.6594
+STEP 600/10000 | test acc: 0.4308, test loss: 1.6412 | train acc: 0.4425, train loss: 1.6287
+STEP 700/10000 | test acc: 0.4382, test loss: 1.6259 | train acc: 0.4339, train loss: 1.6372
+STEP 800/10000 | test acc: 0.4456, test loss: 1.6124 | train acc: 0.4468, train loss: 1.6076
+STEP 900/10000 | test acc: 0.4437, test loss: 1.6049 | train acc: 0.4555, train loss: 1.5865
+STEP 1000/10000 | test acc: 0.4454, test loss: 1.5908 | train acc: 0.4549, train loss: 1.5860
+STEP 1100/10000 | test acc: 0.4518, test loss: 1.5794 | train acc: 0.4583, train loss: 1.5613
+STEP 1200/10000 | test acc: 0.4517, test loss: 1.5712 | train acc: 0.4671, train loss: 1.5598
+STEP 1300/10000 | test acc: 0.4572, test loss: 1.5649 | train acc: 0.4686, train loss: 1.5474
+STEP 1400/10000 | test acc: 0.4606, test loss: 1.5516 | train acc: 0.4791, train loss: 1.5241
+STEP 1500/10000 | test acc: 0.4592, test loss: 1.5398 | train acc: 0.4757, train loss: 1.5285
+STEP 1600/10000 | test acc: 0.4647, test loss: 1.5438 | train acc: 0.4825, train loss: 1.5094
+STEP 1700/10000 | test acc: 0.4681, test loss: 1.5288 | train acc: 0.4820, train loss: 1.5059
+STEP 1800/10000 | test acc: 0.4703, test loss: 1.5219 | train acc: 0.4909, train loss: 1.4860
+STEP 1900/10000 | test acc: 0.4724, test loss: 1.5169 | train acc: 0.4840, train loss: 1.4944
+STEP 2000/10000 | test acc: 0.4740, test loss: 1.5116 | train acc: 0.4954, train loss: 1.4759
+STEP 2100/10000 | test acc: 0.4784, test loss: 1.5062 | train acc: 0.5012, train loss: 1.4571
+STEP 2200/10000 | test acc: 0.4807, test loss: 1.4977 | train acc: 0.4989, train loss: 1.4649
+STEP 2300/10000 | test acc: 0.4770, test loss: 1.4963 | train acc: 0.4926, train loss: 1.4551
+STEP 2400/10000 | test acc: 0.4810, test loss: 1.4857 | train acc: 0.5084, train loss: 1.4434
+STEP 2500/10000 | test acc: 0.4846, test loss: 1.4803 | train acc: 0.5066, train loss: 1.4367
+STEP 2600/10000 | test acc: 0.4846, test loss: 1.4728 | train acc: 0.5110, train loss: 1.4202
+STEP 2700/10000 | test acc: 0.4883, test loss: 1.4684 | train acc: 0.5106, train loss: 1.4299
+STEP 2800/10000 | test acc: 0.4883, test loss: 1.4658 | train acc: 0.5136, train loss: 1.4206
+STEP 2900/10000 | test acc: 0.4880, test loss: 1.4583 | train acc: 0.5190, train loss: 1.4008
+STEP 3000/10000 | test acc: 0.4899, test loss: 1.4568 | train acc: 0.5157, train loss: 1.4011
+STEP 3100/10000 | test acc: 0.4898, test loss: 1.4569 | train acc: 0.5241, train loss: 1.3882
+STEP 3200/10000 | test acc: 0.4926, test loss: 1.4495 | train acc: 0.5229, train loss: 1.3858
+STEP 3300/10000 | test acc: 0.4897, test loss: 1.4458 | train acc: 0.5273, train loss: 1.3722
+STEP 3400/10000 | test acc: 0.4930, test loss: 1.4431 | train acc: 0.5276, train loss: 1.3798
+STEP 3500/10000 | test acc: 0.4944, test loss: 1.4372 | train acc: 0.5248, train loss: 1.3816
+STEP 3600/10000 | test acc: 0.4949, test loss: 1.4352 | train acc: 0.5383, train loss: 1.3581
+STEP 3700/10000 | test acc: 0.4980, test loss: 1.4263 | train acc: 0.5276, train loss: 1.3609
+STEP 3800/10000 | test acc: 0.4983, test loss: 1.4317 | train acc: 0.5357, train loss: 1.3550
+STEP 3900/10000 | test acc: 0.4962, test loss: 1.4264 | train acc: 0.5394, train loss: 1.3474
+STEP 4000/10000 | test acc: 0.5001, test loss: 1.4255 | train acc: 0.5344, train loss: 1.3475
+STEP 4100/10000 | test acc: 0.5026, test loss: 1.4241 | train acc: 0.5451, train loss: 1.3276
+STEP 4200/10000 | test acc: 0.5059, test loss: 1.4164 | train acc: 0.5379, train loss: 1.3352
+STEP 4300/10000 | test acc: 0.5076, test loss: 1.4143 | train acc: 0.5401, train loss: 1.3333
+STEP 4400/10000 | test acc: 0.5044, test loss: 1.4123 | train acc: 0.5467, train loss: 1.3220
+STEP 4500/10000 | test acc: 0.5088, test loss: 1.4057 | train acc: 0.5452, train loss: 1.3190
+STEP 4600/10000 | test acc: 0.5064, test loss: 1.4066 | train acc: 0.5533, train loss: 1.3137
+STEP 4700/10000 | test acc: 0.5042, test loss: 1.4067 | train acc: 0.5468, train loss: 1.3008
+STEP 4800/10000 | test acc: 0.5092, test loss: 1.4024 | train acc: 0.5513, train loss: 1.3070
+STEP 4900/10000 | test acc: 0.5114, test loss: 1.4026 | train acc: 0.5537, train loss: 1.2984
+STEP 5000/10000 | test acc: 0.5123, test loss: 1.3960 | train acc: 0.5483, train loss: 1.3026
+STEP 5100/10000 | test acc: 0.5087, test loss: 1.3972 | train acc: 0.5619, train loss: 1.2748
+STEP 5200/10000 | test acc: 0.5128, test loss: 1.3935 | train acc: 0.5500, train loss: 1.3041
+STEP 5300/10000 | test acc: 0.5096, test loss: 1.3892 | train acc: 0.5609, train loss: 1.2813
+STEP 5400/10000 | test acc: 0.5113, test loss: 1.3900 | train acc: 0.5600, train loss: 1.2738
+STEP 5500/10000 | test acc: 0.5115, test loss: 1.3934 | train acc: 0.5568, train loss: 1.2862
+STEP 5600/10000 | test acc: 0.5111, test loss: 1.3878 | train acc: 0.5669, train loss: 1.2635
+STEP 5700/10000 | test acc: 0.5147, test loss: 1.3859 | train acc: 0.5610, train loss: 1.2716
+STEP 5800/10000 | test acc: 0.5111, test loss: 1.3909 | train acc: 0.5658, train loss: 1.2623
+STEP 5900/10000 | test acc: 0.5053, test loss: 1.4062 | train acc: 0.5710, train loss: 1.2498
+STEP 6000/10000 | test acc: 0.5196, test loss: 1.3768 | train acc: 0.5603, train loss: 1.2752
+STEP 6100/10000 | test acc: 0.5166, test loss: 1.3866 | train acc: 0.5729, train loss: 1.2379
+STEP 6200/10000 | test acc: 0.5160, test loss: 1.3785 | train acc: 0.5697, train loss: 1.2551
+STEP 6300/10000 | test acc: 0.5187, test loss: 1.3740 | train acc: 0.5706, train loss: 1.2533
+STEP 6400/10000 | test acc: 0.5146, test loss: 1.3778 | train acc: 0.5730, train loss: 1.2431
+STEP 6500/10000 | test acc: 0.5196, test loss: 1.3748 | train acc: 0.5740, train loss: 1.2329
+STEP 6600/10000 | test acc: 0.5125, test loss: 1.3793 | train acc: 0.5736, train loss: 1.2314
+STEP 6700/10000 | test acc: 0.5196, test loss: 1.3702 | train acc: 0.5737, train loss: 1.2308
+STEP 6800/10000 | test acc: 0.5177, test loss: 1.3744 | train acc: 0.5732, train loss: 1.2356
+STEP 6900/10000 | test acc: 0.5206, test loss: 1.3703 | train acc: 0.5773, train loss: 1.2187
+STEP 7000/10000 | test acc: 0.5169, test loss: 1.3731 | train acc: 0.5795, train loss: 1.2215
+STEP 7100/10000 | test acc: 0.5157, test loss: 1.3705 | train acc: 0.5876, train loss: 1.2005
+STEP 7200/10000 | test acc: 0.5138, test loss: 1.3692 | train acc: 0.5799, train loss: 1.2221
+STEP 7300/10000 | test acc: 0.5225, test loss: 1.3625 | train acc: 0.5803, train loss: 1.2116
+STEP 7400/10000 | test acc: 0.5224, test loss: 1.3589 | train acc: 0.5832, train loss: 1.2058
+STEP 7500/10000 | test acc: 0.5253, test loss: 1.3604 | train acc: 0.5839, train loss: 1.2046
+STEP 7600/10000 | test acc: 0.5168, test loss: 1.3713 | train acc: 0.5887, train loss: 1.1881
+STEP 7700/10000 | test acc: 0.5188, test loss: 1.3648 | train acc: 0.5870, train loss: 1.2000
+STEP 7800/10000 | test acc: 0.5240, test loss: 1.3627 | train acc: 0.5930, train loss: 1.1877
+STEP 7900/10000 | test acc: 0.5245, test loss: 1.3599 | train acc: 0.5876, train loss: 1.1970
+STEP 8000/10000 | test acc: 0.5256, test loss: 1.3552 | train acc: 0.5858, train loss: 1.1965
+STEP 8100/10000 | test acc: 0.5233, test loss: 1.3614 | train acc: 0.6025, train loss: 1.1640
+STEP 8200/10000 | test acc: 0.5180, test loss: 1.3697 | train acc: 0.5927, train loss: 1.1853
+STEP 8300/10000 | test acc: 0.5238, test loss: 1.3614 | train acc: 0.5862, train loss: 1.1845
+STEP 8400/10000 | test acc: 0.5225, test loss: 1.3624 | train acc: 0.5941, train loss: 1.1699
+STEP 8500/10000 | test acc: 0.5194, test loss: 1.3587 | train acc: 0.5881, train loss: 1.1879
+STEP 8600/10000 | test acc: 0.5187, test loss: 1.3616 | train acc: 0.6025, train loss: 1.1518
+STEP 8700/10000 | test acc: 0.5221, test loss: 1.3620 | train acc: 0.5972, train loss: 1.1693
+STEP 8800/10000 | test acc: 0.5206, test loss: 1.3678 | train acc: 0.5941, train loss: 1.1730
+STEP 8900/10000 | test acc: 0.5206, test loss: 1.3571 | train acc: 0.6009, train loss: 1.1592
+STEP 9000/10000 | test acc: 0.5224, test loss: 1.3633 | train acc: 0.5970, train loss: 1.1586
+STEP 9100/10000 | test acc: 0.5251, test loss: 1.3616 | train acc: 0.6031, train loss: 1.1520
+STEP 9200/10000 | test acc: 0.5228, test loss: 1.3552 | train acc: 0.6032, train loss: 1.1553
+STEP 9300/10000 | test acc: 0.5213, test loss: 1.3585 | train acc: 0.6066, train loss: 1.1368
+STEP 9400/10000 | test acc: 0.5283, test loss: 1.3537 | train acc: 0.6093, train loss: 1.1363
+STEP 9500/10000 | test acc: 0.5244, test loss: 1.3561 | train acc: 0.5950, train loss: 1.1667
+STEP 9600/10000 | test acc: 0.5235, test loss: 1.3582 | train acc: 0.6097, train loss: 1.1246
+STEP 9700/10000 | test acc: 0.5222, test loss: 1.3605 | train acc: 0.6052, train loss: 1.1479
+STEP 9800/10000 | test acc: 0.5267, test loss: 1.3515 | train acc: 0.6061, train loss: 1.1405
+STEP 9900/10000 | test acc: 0.5283, test loss: 1.3487 | train acc: 0.6062, train loss: 1.1402
+STEP 10000/10000 | test acc: 0.5285, test loss: 1.3497 | train acc: 0.6111, train loss: 1.1236

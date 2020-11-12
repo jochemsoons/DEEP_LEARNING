@@ -165,13 +165,17 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
 
         xhat, gamma, var = ctx.saved_tensors
         eps = ctx.constant
-        _, M = xhat.shape
+        S, M = xhat.shape
 
-        grad_gamma = torch.sum(grad_output * xhat, dim=0)
+        ones_S = torch.ones(S, dtype=torch.double)
+        grad_gamma = ones_S.T @ (grad_output * xhat)
+        # grad_gamma = torch.sum(grad_output * xhat, dim=0)
 
         grad_beta = torch.sum(grad_output, dim=0)
 
         dL_dxhat = grad_output * gamma
+
+
 
         # part1 = inv
         # print(torch.sum(dL_dxhat, dim=1, keepdims=True).shape)
