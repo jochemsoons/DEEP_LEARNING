@@ -1,0 +1,18 @@
+learning_rate : 0.0001
+max_steps : 5000
+batch_size : 32
+eval_freq : 500
+data_dir : ./cifar10/cifar-10-batches-py
+Device: cuda
+Downloading: "https://download.pytorch.org/models/resnet18-5c106cde.pth" to /home/lgpu0277/.cache/torch/hub/checkpoints/resnet18-5c106cde.pth
+  0%|          | 0.00/44.7M [00:00<?, ?B/s] 17%|#6        | 7.59M/44.7M [00:00<00:00, 77.6MB/s] 43%|####3     | 19.4M/44.7M [00:00<00:00, 87.3MB/s] 63%|######2   | 28.0M/44.7M [00:00<00:00, 88.3MB/s] 84%|########3 | 37.3M/44.7M [00:00<00:00, 90.9MB/s]100%|##########| 44.7M/44.7M [00:00<00:00, 96.4MB/s]
+STEP 500/5000 | test acc: 0.2806, test loss: 2.0489 | train acc: 0.1911, train loss: 2.2525
+STEP 1000/5000 | test acc: 0.3553, test loss: 1.8743 | train acc: 0.3108, train loss: 1.9482
+STEP 1500/5000 | test acc: 0.3840, test loss: 1.7935 | train acc: 0.3517, train loss: 1.8390
+STEP 2000/5000 | test acc: 0.4015, test loss: 1.7556 | train acc: 0.3804, train loss: 1.7693
+STEP 2500/5000 | test acc: 0.4076, test loss: 1.7282 | train acc: 0.3879, train loss: 1.7390
+STEP 3000/5000 | test acc: 0.4131, test loss: 1.7078 | train acc: 0.4083, train loss: 1.6962
+STEP 3500/5000 | test acc: 0.4249, test loss: 1.6735 | train acc: 0.4133, train loss: 1.6834
+STEP 4000/5000 | test acc: 0.4248, test loss: 1.6779 | train acc: 0.4151, train loss: 1.6695
+STEP 4500/5000 | test acc: 0.4363, test loss: 1.6403 | train acc: 0.4158, train loss: 1.6590
+STEP 5000/5000 | test acc: 0.4299, test loss: 1.6502 | train acc: 0.4309, train loss: 1.6412

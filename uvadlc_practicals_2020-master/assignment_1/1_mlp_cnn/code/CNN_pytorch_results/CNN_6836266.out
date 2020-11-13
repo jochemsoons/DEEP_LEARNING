@@ -1,0 +1,75 @@
+learning_rate : 0.0001
+max_steps : 5000
+batch_size : 32
+eval_freq : 500
+data_dir : ./cifar10/cifar-10-batches-py
+Device: cuda
+ConvNet(
+  (conv0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (preact1): Sequential(
+    (0): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (conv1): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1))
+  (maxpool1): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (preact2_a): Sequential(
+    (0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (preact2_b): Sequential(
+    (0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (conv2): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+  (maxpool2): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (preact3_a): Sequential(
+    (0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (preact3_b): Sequential(
+    (0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (conv3): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1))
+  (maxpool3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (preact4_a): Sequential(
+    (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (preact4_b): Sequential(
+    (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (maxpool4): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (preact5_a): Sequential(
+    (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (preact5_b): Sequential(
+    (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (1): ReLU()
+    (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (maxpool5): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (batchnorm): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (ReLu): ReLU()
+  (linear): Linear(in_features=512, out_features=10, bias=True)
+)
+STEP 500/5000 | test acc: 0.5776, test loss: 1.2145 | train acc: 0.4697, train loss: 1.5259
+STEP 1000/5000 | test acc: 0.6585, test loss: 0.9823 | train acc: 0.6250, train loss: 1.0796
+STEP 1500/5000 | test acc: 0.7043, test loss: 0.8565 | train acc: 0.6804, train loss: 0.9266
+STEP 2000/5000 | test acc: 0.7416, test loss: 0.7651 | train acc: 0.7464, train loss: 0.7401
+STEP 2500/5000 | test acc: 0.7447, test loss: 0.7625 | train acc: 0.7620, train loss: 0.7029
+STEP 3000/5000 | test acc: 0.7592, test loss: 0.7044 | train acc: 0.7739, train loss: 0.6503
+STEP 3500/5000 | test acc: 0.7593, test loss: 0.7156 | train acc: 0.8235, train loss: 0.5224
+STEP 4000/5000 | test acc: 0.7836, test loss: 0.6423 | train acc: 0.8357, train loss: 0.4787
+STEP 4500/5000 | test acc: 0.7851, test loss: 0.6266 | train acc: 0.8319, train loss: 0.4925
+STEP 5000/5000 | test acc: 0.7927, test loss: 0.6226 | train acc: 0.8796, train loss: 0.3624

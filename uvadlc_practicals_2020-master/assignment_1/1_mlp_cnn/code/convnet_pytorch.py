@@ -86,10 +86,13 @@ class ConvNet(nn.Module):
             nn.ReLU(),
             nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
         )
-        self.maxpool5 = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        self.batchnorm = nn.BatchNorm2d(512)
-        self.ReLu = nn.ReLU()
-        self.linear = nn.Linear(512, n_classes)
+        self.output_layer = nn.Sequential(
+            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.Flatten(),
+            nn.Linear(512, n_classes),
+        )
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -135,13 +138,8 @@ class ConvNet(nn.Module):
 
         out = out + self.preact5_a(out)
         out = out + self.preact5_b(out)
-        out = self.maxpool5(out)
 
-        out = self.batchnorm(out)
-        out = self.ReLu(out)
-        out = out.reshape(out.size(0), -1)
-        out = self.linear(out)
-
+        out = self.output_layer(out)
         ########################
         # END OF YOUR CODE    #
         #######################
