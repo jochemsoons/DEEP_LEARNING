@@ -46,7 +46,6 @@ class MLP(object):
 
         self.layers.append(LinearModule(in_features, n_classes))
         self.layers.append(SoftMaxModule())
-
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -97,5 +96,4 @@ class MLP(object):
         ########################
         # END OF YOUR CODE    #
         #######################
-
         return

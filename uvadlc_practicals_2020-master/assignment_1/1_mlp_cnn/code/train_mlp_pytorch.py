@@ -54,7 +54,6 @@ def accuracy(predictions, targets):
     preds = torch.argmax(predictions, axis=1)
     labels = torch.argmax(targets, axis=1)
     accuracy = torch.sum(preds == labels).float() / preds.shape[0]
-
     ########################
     # END OF YOUR CODE    #
     #######################

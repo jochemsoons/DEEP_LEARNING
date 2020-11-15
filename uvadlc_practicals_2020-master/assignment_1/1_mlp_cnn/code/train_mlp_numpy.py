@@ -48,11 +48,9 @@ def accuracy(predictions, targets):
     ########################
     # PUT YOUR CODE HERE  #
     #######################
-
     preds = np.argmax(predictions, axis=1)
     labels = np.argmax(targets, axis=1)
     accuracy = np.mean(preds == labels)
-
     ########################
     # END OF YOUR CODE    #
     #######################
@@ -79,7 +77,6 @@ def train():
         dnn_hidden_units = [int(dnn_hidden_unit_) for dnn_hidden_unit_ in dnn_hidden_units]
     else:
         dnn_hidden_units = []
-
     ########################
     # PUT YOUR CODE HERE  #
     #######################
@@ -161,7 +158,7 @@ def train():
             print("STEP {}/{} | test acc: {:.4f}, test loss: {:.4f} | train acc: {:.4f}, train loss: {:.4f}"
             .format(step, FLAGS.max_steps, test_acc, test_loss, train_acc, train_loss))
 
-            # Reset temporary lists to calculate average train evaluations between eval freqs..
+            # Reset temporary lists to calculate average train evaluations between eval freqs.
             train_acc_temp_list, train_loss_temp_list = [], []
 
     # Plot loss figure.

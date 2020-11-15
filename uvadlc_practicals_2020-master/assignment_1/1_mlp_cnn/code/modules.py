@@ -32,6 +32,8 @@ class LinearModule(object):
         self.grads = {}
         self.params['weight'] = np.random.normal(0, 0.0001, size=(out_features, in_features))
         self.params['bias'] = np.zeros(out_features)
+        self.grads['weight'] = np.zeros((out_features, in_features))
+        self.grads['bias'] = np.zeros(out_features)
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -56,11 +58,9 @@ class LinearModule(object):
         #######################
         self.input = x
         out = self.input @ self.params['weight'].T + self.params['bias']
-        self.output = out
         ########################
         # END OF YOUR CODE    #
         #######################
-
         return out
 
     def backward(self, dout):
@@ -80,12 +80,9 @@ class LinearModule(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-
         self.grads['weight'] = dout.T @ self.input
         self.grads['bias'] = np.ones(self.input.shape[0]) @ dout
-
         dx = dout @ self.params['weight']
-
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -141,7 +138,7 @@ class SoftMaxModule(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        S, C = self.input.shape
+        _, C = self.input.shape
         softmax_prod = np.einsum('ij,ik->ijk', self.output, self.output)
         softmax_diag = np.einsum('ij,jk->ijk', self.output, np.eye(C, C))
         d_softmax = softmax_diag - softmax_prod
@@ -175,6 +172,7 @@ class CrossEntropyModule(object):
         # PUT YOUR CODE HERE  #
         #######################
         S, _ = x.shape
+        # I add the small term 1e-9 to the log for numerical stability.
         out = - np.sum(y * np.log(x + 1e-9)) / S
         ########################
         # END OF YOUR CODE    #
@@ -227,10 +225,8 @@ class ELUModule(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-
         self.input = x
         out = np.where(x >= 0, x, np.exp(x)-1)
-
         ########################
         # END OF YOUR CODE    #
         #######################
@@ -252,10 +248,8 @@ class ELUModule(object):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-
         dh_dx = np.where(self.input >= 0, 1, np.exp(self.input))
         dx = dout * dh_dx
-
         ########################
         # END OF YOUR CODE    #
         #######################
