@@ -5,7 +5,7 @@
 #SBATCH --job-name=Pytorch_CNN
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
-#SBATCH --time=00:60:00
+#SBATCH --time=00:30:00
 #SBATCH --mem=32000M
 #SBATCH --output=./CNN_pytorch_results/CNN_%A.out
 
@@ -22,5 +22,5 @@ cd $HOME/practical_1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u transfer_learning.py
+srun python -u transfer_learning.py --model='DenseNet'
 # srun python -u train_convnet_pytorch.py

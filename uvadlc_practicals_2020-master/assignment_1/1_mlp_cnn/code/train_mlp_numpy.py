@@ -130,7 +130,7 @@ def train():
 
         # Evaluate at eval frequency.
         if step % FLAGS.eval_freq == 0:
-            test_loss, test_acc, batch_count = 0, 0, 0
+            test_loss = test_acc = batch_count = 0
             current_epochs = cifar10['test'].epochs_completed
             # Keep getting new batches from test set.
             while True:

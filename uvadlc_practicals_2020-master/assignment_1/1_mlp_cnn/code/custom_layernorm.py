@@ -128,9 +128,6 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
         mean = input.mean(dim=1, keepdim=True)
         var = input.var(dim=1, keepdim=True, unbiased=False)
 
-        # sqrt_var = torch.sqrt(var)
-        # inv_var = 1 / sqrt_var
-
         xhat = (input - mean) / torch.sqrt(var+eps)
         out = gamma * xhat + beta
 
@@ -165,30 +162,19 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
 
         xhat, gamma, var = ctx.saved_tensors
         eps = ctx.constant
-        S, M = xhat.shape
+        _, M = xhat.shape
+        grad_input = grad_gamma = grad_beta = None
+        if ctx.needs_input_grad[0]:
+          dL_dxhat = grad_output * gamma
+          part1 = dL_dxhat - 1/M * torch.sum(dL_dxhat, dim=1, keepdims=True)
+          part2 = 1/M * xhat * torch.sum(xhat * dL_dxhat, dim=1, keepdims=True)
+          grad_input = (1 / torch.sqrt(var+eps)) * (part1 - part2)
 
-        ones_S = torch.ones(S, dtype=torch.double)
-        grad_gamma = ones_S.T @ (grad_output * xhat)
-        # grad_gamma = torch.sum(grad_output * xhat, dim=0)
+        if ctx.needs_input_grad[1]:
+          grad_gamma = torch.sum(grad_output * xhat, dim=0)
 
-        grad_beta = torch.sum(grad_output, dim=0)
-
-        dL_dxhat = grad_output * gamma
-
-
-
-        # part1 = inv
-        # print(torch.sum(dL_dxhat, dim=1, keepdims=True).shape)
-        # print(dL_dxhat.shape)
-        # print(torch.ones(dL_dxhat.shape[1]).shape)
-        # ones = torch.ones((dL_dxhat.shape[1], 1), dtype=torch.double)
-        # sum_ = dL_dxhat @ ones
-        # part2 = dL_dxhat - 1/M * sum_
-        part2 = dL_dxhat - 1/M * torch.sum(dL_dxhat, dim=1, keepdims=True)
-        # sum_ = (xhat * dL_dxhat) @ ones
-        # part3 = 1/M * xhat * sum_
-        part3 = 1/M * xhat * torch.sum(xhat * dL_dxhat, dim=1, keepdims=True)
-        grad_input = (1 / torch.sqrt(var+eps)) * (part2 - part3)
+        if ctx.needs_input_grad[2]:
+          grad_beta = torch.sum(grad_output, dim=0)
 
         ########################
         # END OF YOUR CODE    #

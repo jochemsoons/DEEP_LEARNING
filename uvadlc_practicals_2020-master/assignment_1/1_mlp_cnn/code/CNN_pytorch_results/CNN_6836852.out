@@ -1,0 +1,17 @@
+learning_rate : 0.0001
+max_steps : 5000
+batch_size : 32
+eval_freq : 500
+data_dir : ./cifar10/cifar-10-batches-py
+Device: cuda
+MODEL: DenseNet
+STEP 500/5000 | test acc: 0.7081, test loss: 0.8555 | train acc: 0.5486, train loss: 1.3197
+STEP 1000/5000 | test acc: 0.7666, test loss: 0.6773 | train acc: 0.7114, train loss: 0.8372
+STEP 1500/5000 | test acc: 0.7973, test loss: 0.5914 | train acc: 0.7554, train loss: 0.7147
+STEP 2000/5000 | test acc: 0.8238, test loss: 0.5246 | train acc: 0.8106, train loss: 0.5518
+STEP 2500/5000 | test acc: 0.8278, test loss: 0.5001 | train acc: 0.8174, train loss: 0.5346
+STEP 3000/5000 | test acc: 0.8386, test loss: 0.4794 | train acc: 0.8345, train loss: 0.4882
+STEP 3500/5000 | test acc: 0.8439, test loss: 0.4677 | train acc: 0.8694, train loss: 0.3810
+STEP 4000/5000 | test acc: 0.8469, test loss: 0.4524 | train acc: 0.8762, train loss: 0.3567
+STEP 4500/5000 | test acc: 0.8448, test loss: 0.4519 | train acc: 0.8731, train loss: 0.3719
+STEP 5000/5000 | test acc: 0.8498, test loss: 0.4576 | train acc: 0.9028, train loss: 0.2805
