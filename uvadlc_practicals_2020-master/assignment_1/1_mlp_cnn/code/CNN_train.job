@@ -22,5 +22,5 @@ cd $HOME/practical_1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u transfer_learning.py --model='DenseNet'
-# srun python -u train_convnet_pytorch.py
+# srun python -u transfer_learning.py --model='DenseNet'
+srun python -u train_convnet_pytorch.py

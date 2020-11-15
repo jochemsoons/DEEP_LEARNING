@@ -1,0 +1,96 @@
+learning_rate : 0.0001
+max_steps : 5000
+batch_size : 32
+eval_freq : 500
+data_dir : ./cifar10/cifar-10-batches-py
+Device: cuda
+ConvNet(
+  (layers): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (2): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1))
+    (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (4): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (5): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (6): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+    (7): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (8): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (9): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (10): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1))
+    (11): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (12): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (13): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (14): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (15): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (16): ResNetBlock(
+      (block): Sequential(
+        (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (1): ReLU()
+        (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (17): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (18): Flatten()
+    (19): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (20): ReLU()
+    (21): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+STEP 500/5000 | test acc: 0.5889, test loss: 1.1764 | train acc: 0.4828, train loss: 1.5017
+STEP 1000/5000 | test acc: 0.6730, test loss: 0.9328 | train acc: 0.6428, train loss: 1.0378
+STEP 1500/5000 | test acc: 0.7100, test loss: 0.8246 | train acc: 0.6927, train loss: 0.8850
+STEP 2000/5000 | test acc: 0.7581, test loss: 0.6985 | train acc: 0.7662, train loss: 0.6893
+STEP 2500/5000 | test acc: 0.7714, test loss: 0.6769 | train acc: 0.7780, train loss: 0.6518
+STEP 3000/5000 | test acc: 0.7803, test loss: 0.6317 | train acc: 0.7884, train loss: 0.6124
+STEP 3500/5000 | test acc: 0.7904, test loss: 0.6156 | train acc: 0.8446, train loss: 0.4636
+STEP 4000/5000 | test acc: 0.8046, test loss: 0.5757 | train acc: 0.8620, train loss: 0.4094
+STEP 4500/5000 | test acc: 0.8023, test loss: 0.5776 | train acc: 0.8500, train loss: 0.4343
+STEP 5000/5000 | test acc: 0.8119, test loss: 0.5582 | train acc: 0.9039, train loss: 0.2932

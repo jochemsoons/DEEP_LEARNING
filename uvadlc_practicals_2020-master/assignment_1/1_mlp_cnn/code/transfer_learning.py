@@ -239,7 +239,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default=DATA_DIR_DEFAULT,
                         help='Directory for storing input data')
     parser.add_argument('--model', type=str, default=MODEL_DEFAULT,
-                        help='Pretrained model to load')
+                        help='Pretrained model to load (either DenseNet or ResNet')
     FLAGS, unparsed = parser.parse_known_args()
 
     main()

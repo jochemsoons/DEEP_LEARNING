@@ -159,20 +159,26 @@ class CustomLayerNormManualFunction(torch.autograd.Function):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-
+        # Retrieve saved tensors and constant.
         xhat, gamma, var = ctx.saved_tensors
         eps = ctx.constant
         _, M = xhat.shape
+
+        # Initialize gradients to None values.
         grad_input = grad_gamma = grad_beta = None
+
+        # Calculate gradient of input if needed.
         if ctx.needs_input_grad[0]:
           dL_dxhat = grad_output * gamma
           part1 = dL_dxhat - 1/M * torch.sum(dL_dxhat, dim=1, keepdims=True)
           part2 = 1/M * xhat * torch.sum(xhat * dL_dxhat, dim=1, keepdims=True)
           grad_input = (1 / torch.sqrt(var+eps)) * (part1 - part2)
 
+        # Calculate gradient of gamma if needed.
         if ctx.needs_input_grad[1]:
           grad_gamma = torch.sum(grad_output * xhat, dim=0)
 
+        # Calculate gradient of beta if needed.
         if ctx.needs_input_grad[2]:
           grad_beta = torch.sum(grad_output, dim=0)
 

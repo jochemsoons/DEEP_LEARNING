@@ -96,7 +96,6 @@ def train():
 
     # Initialize CNN model, optimizer and CE loss module.
     CNN = ConvNet(n_channels, n_classes)
-    print(CNN)
     optimizer = torch.optim.Adam(CNN.parameters(), lr=FLAGS.learning_rate)
     loss_module = nn.CrossEntropyLoss()
 
