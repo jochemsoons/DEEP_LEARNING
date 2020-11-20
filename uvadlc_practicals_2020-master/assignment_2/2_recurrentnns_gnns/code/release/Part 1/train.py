@@ -138,9 +138,11 @@ def train(config):
         # Forward pass
         log_probs = model(batch_inputs)
 
+
         # Compute the loss, gradients and update network parameters
         loss = loss_function(log_probs, batch_targets)
         loss.backward()
+        # print(log_probs[0])
 
         #######################################################################
         # Check for yourself: what happens here and why?
@@ -224,6 +226,6 @@ if __name__ == "__main__":
                         help='Output path for summaries')
 
     config = parser.parse_args()
-
+    print(config)
     # Train the model
     train(config)

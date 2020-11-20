@@ -155,8 +155,7 @@ class BinaryPalindromeDataset(data.Dataset):
         # more suitable for training, but this also works.
         full_palindrome = self.generate_binary_palindrome()
         # Split palindrome into inputs (N-1 digits) and target (1 digit)
-
-        return torch.FloatTensor(np.expand_dims(full_palindrome[0:-1] + 1, 1)), int(full_palindrome[-1])
+        return torch.LongTensor(np.expand_dims(full_palindrome[0:-1] + 1, 1)), int(full_palindrome[-1])
 
     def generate_binary_palindrome(self):
         # Generates a single, random palindrome number of 'length' digits.
