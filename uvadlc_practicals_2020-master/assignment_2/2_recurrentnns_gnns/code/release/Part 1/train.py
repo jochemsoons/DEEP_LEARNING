@@ -155,8 +155,6 @@ def train(config):
         optimizer.step()
 
         predictions = torch.argmax(log_probs, dim=1)
-        # print(predictions)
-        # print(torch.sum(predictions))
         correct = (predictions == batch_targets).sum().item()
         accuracy = correct / log_probs.size(0)
 

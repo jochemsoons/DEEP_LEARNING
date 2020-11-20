@@ -26,8 +26,18 @@ class TextGenerationModel(nn.Module):
                  lstm_num_hidden=256, lstm_num_layers=2, device='cuda:0'):
 
         super(TextGenerationModel, self).__init__()
-        # Initialization here...
+        embedding_dim = 2 * seq_length
+        self.seq_length = seq_length
+        self.embedding = nn.Embedding(vocabulary_size, embedding_dim)
+        self.LSTM = nn.LSTM(embedding_dim, lstm_num_hidden, lstm_num_layers)
+        self.linear = nn.Linear(lstm_num_hidden, vocabulary_size)
+
 
     def forward(self, x):
         # Implementation here...
-        pass
+        # x = x.to(torch.double)
+        x = self.embedding(x)
+        # print(x.shape)
+        h, _ = self.LSTM(x)
+        p = self.linear(h)
+        return p

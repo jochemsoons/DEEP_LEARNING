@@ -20,7 +20,7 @@ from __future__ import print_function
 import os
 import numpy as np
 import torch.utils.data as data
-
+import torch
 
 class TextDataset(data.Dataset):
 
@@ -40,6 +40,7 @@ class TextDataset(data.Dataset):
         offset = np.random.randint(0, len(self._data)-self._seq_length-2)
         inputs = [self._char_to_ix[ch] for ch in self._data[offset:offset+self._seq_length]]
         targets = [self._char_to_ix[ch] for ch in self._data[offset+1:offset+self._seq_length+1]]
+        # return torch.LongTensor(inputs), torch.LongTensor(targets)
         return inputs, targets
 
     def convert_to_string(self, char_ix):

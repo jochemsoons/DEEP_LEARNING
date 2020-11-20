@@ -28,8 +28,8 @@ import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from part2.dataset import TextDataset
-from part2.model import TextGenerationModel
+from dataset import TextDataset
+from model import TextGenerationModel
 
 ###############################################################################
 
@@ -38,17 +38,19 @@ def train(config):
 
     # Initialize the device which to run the model on
     device = torch.device(config.device)
-
+    print(device)
+    print(config.txt_file)
     # Initialize the dataset and data loader (note the +1)
-    dataset = TextDataset(...)  # fixme
+    dataset = TextDataset(config.txt_file, config.seq_length)  # fixme
     data_loader = DataLoader(dataset, config.batch_size)
 
     # Initialize the model that we are going to use
-    model = TextGenerationModel(...)  # FIXME
+    model = TextGenerationModel(batch_size=config.batch_size, seq_length=config.seq_length,
+            vocabulary_size=dataset.vocab_size, device=config.device).to(device)  # FIXME
 
     # Setup the loss and optimizer
-    criterion = None  # FIXME
-    optimizer = None  # FIXME
+    criterion = torch.nn.CrossEntropyLoss()  # FIXME
+    optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)  # FIXME
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
@@ -59,8 +61,34 @@ def train(config):
         # Add more code here ...
         #######################################################
 
-        loss = np.inf   # fixme
-        accuracy = 0.0  # fixme
+
+        batch_inputs = torch.stack(batch_inputs).to(device)
+        batch_targets = torch.stack(batch_targets).to(device)
+
+        # batch_inputs = batch_inputs.to(device)     # [batch_size, seq_length,1]
+        # batch_targets = batch_targets.to(device)   # [batch_size]
+        # print(batch_inputs.shape)
+        # print(batch_targets.shape)
+        output = model(batch_inputs)
+        # print(output.shape)
+        # out_perm = output.permute(1,0,2)
+        # print(out_perm.shape)
+        # exit()
+
+        # Reset for next iteration
+        model.zero_grad()
+
+        loss = acc = 0
+        for t in range(config.seq_length):
+            loss += criterion(output[t], batch_targets[t])   # fixme
+            predictions = torch.argmax(output[t], dim=1)
+            correct = (predictions == batch_targets[t]).sum().item()
+            acc += correct / output[t].size(0)
+        loss = loss / config.seq_length
+        accuracy = acc / config.seq_length
+        # print(loss, accuracy)
+        loss.backward()
+        optimizer.step()
 
         # Just for time measurement
         t2 = time.time()
@@ -72,7 +100,7 @@ def train(config):
                     Examples/Sec = {:.2f}, "
                   "Accuracy = {:.2f}, Loss = {:.3f}".format(
                     datetime.now().strftime("%Y-%m-%d %H:%M"), step,
-                    config.train_steps, config.batch_size, examples_per_second,
+                    int(config.train_steps), config.batch_size, examples_per_second,
                     accuracy, loss
                     ))
 
@@ -127,6 +155,8 @@ if __name__ == "__main__":
     parser.add_argument('--max_norm', type=float, default=5.0, help='--')
 
     # Misc params
+    parser.add_argument('--device', type=str, default="cuda:0",
+                        help="Training device 'cpu' or 'cuda:0'")
     parser.add_argument('--summary_path', type=str, default="./summaries/",
                         help='Output path for summaries')
     parser.add_argument('--print_every', type=int, default=5,
@@ -137,6 +167,6 @@ if __name__ == "__main__":
     # If needed/wanted, feel free to add more arguments
 
     config = parser.parse_args()
-
+    print(config)
     # Train the model
     train(config)
