@@ -2,12 +2,12 @@
 
 #SBATCH --partition=gpu_shared_course
 #SBATCH --gres=gpu:1
-#SBATCH --job-name=LSTM_part1
+#SBATCH --job-name=LSTM_part1_peep
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
 #SBATCH --time=00:30:00
 #SBATCH --mem=32000M
-#SBATCH --output=./LSTM_results/LSTM_%A.out
+#SBATCH --output=./LSTM_results/peepLSTM_%A.out
 
 module purge
 module load 2019
@@ -22,4 +22,4 @@ cd $HOME/practical_2
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u train.py --model='LSTM' --dataset='bipalindrome' --input_length=20 --learning_rate=0.0001
+srun python -u train.py --model='peepLSTM' --dataset='bipalindrome' --input_length=20 --learning_rate=0.0001

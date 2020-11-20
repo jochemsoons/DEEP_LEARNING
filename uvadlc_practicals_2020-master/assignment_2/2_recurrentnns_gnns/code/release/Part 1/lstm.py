@@ -26,42 +26,46 @@ class LSTM(nn.Module):
         print("batch_size:", batch_size)
         print("device:", device)
         print("\n")
-        input_dim = 128
+        embedding_dim = 2 * seq_length
         self.seq_length = seq_length
-        self.input_dim = input_dim
+        # self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.num_classes = num_classes
         self.batch_size = batch_size
         self.device = device
 
-        self.W_gx = nn.Parameter(torch.Tensor(input_dim, hidden_dim))
+        self.W_gx = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_gh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
         self.b_g = nn.Parameter(torch.Tensor(hidden_dim))
 
-        self.W_ix = nn.Parameter(torch.Tensor(input_dim, hidden_dim))
+        self.W_ix = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_ih = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
         self.b_i = nn.Parameter(torch.Tensor(hidden_dim))
 
-        self.W_fx = nn.Parameter(torch.Tensor(input_dim, hidden_dim))
+        self.W_fx = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_fh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
         self.b_f = nn.Parameter(torch.Tensor(hidden_dim))
 
-        self.W_ox = nn.Parameter(torch.Tensor(input_dim, hidden_dim))
+        self.W_ox = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_oh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
         self.b_o = nn.Parameter(torch.Tensor(hidden_dim))
 
         self.W_ph = nn.Parameter(torch.Tensor(hidden_dim, num_classes))
         self.b_p = nn.Parameter(torch.Tensor(num_classes))
-        self.embedding = nn.Embedding(3, input_dim, padding_idx=0)
-        self.softmax = nn.LogSoftmax(dim=1)
+
         self.init_weights()
+
+        self.embedding = nn.Embedding(3, embedding_dim)
+        # self.embedding.weight.requires_grad = True
+        self.softmax = nn.LogSoftmax(dim=1)
+
 
     def init_weights(self):
         for weight in self.parameters():
-            print(weight.shape)
-            try:
-                nn.init.kaiming_normal_(weight)
-            except:
+            if len(weight.size()) >= 2:
+                nn.init.kaiming_normal_(weight, nonlinearity='linear')
+                # nn.init.kaiming_normal_(weight)
+            else:
                 nn.init.zeros_(weight)
 
         ########################
@@ -72,31 +76,14 @@ class LSTM(nn.Module):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        # print("FORWARD")
-        # print(x.shape)
-        # print(x.shape)
         x = x.squeeze()
-        # print(x.shape)
-        # print(x[0])
         x = self.embedding(x)
-        # print(x[0])
-        # exit()
-        # print(x.shape)
 
-        h_t, c_t = (
-                torch.zeros(self.batch_size, self.hidden_dim).to(x.device),
-                torch.zeros(self.batch_size, self.hidden_dim).to(x.device),
-            )
-        # print(h_t.shape)
+        h_t = torch.zeros(self.batch_size, self.hidden_dim).to(self.device)
+        c_t = torch.zeros(self.batch_size, self.hidden_dim).to(self.device)
 
         for t in range(self.seq_length):
-            # print(t)
             x_t = x[:, t, :]
-            # print(x_t)
-            # exit()
-            # printself.W_gx.shape)
-            # print(h_t.shape)
-            # print(self.W_gh.shape)
             g_t = torch.tanh(x_t @ self.W_gx + h_t @ self.W_gh + self.b_g)
             i_t = torch.sigmoid(x_t @ self.W_ix + h_t @ self.W_ih + self.b_i)
             f_t = torch.sigmoid(x_t @ self.W_fx + h_t @ self.W_fh + self.b_f)
@@ -104,6 +91,7 @@ class LSTM(nn.Module):
 
             c_t = g_t * i_t + c_t * f_t
             h_t = torch.tanh(c_t) * o_t
+
         p_t =  h_t @ self.W_ph + self.b_p
         y_t = self.softmax(p_t)
 

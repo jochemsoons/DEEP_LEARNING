@@ -122,6 +122,8 @@ def train(config):
     # Setup the loss and optimizer
     loss_function = torch.nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
+    for name, param in model.named_parameters():
+        print("{} {}".format(name, param.requires_grad))
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
@@ -142,7 +144,6 @@ def train(config):
         # Compute the loss, gradients and update network parameters
         loss = loss_function(log_probs, batch_targets)
         loss.backward()
-        # print(log_probs[0])
 
         #######################################################################
         # Check for yourself: what happens here and why?
@@ -154,6 +155,8 @@ def train(config):
         optimizer.step()
 
         predictions = torch.argmax(log_probs, dim=1)
+        # print(predictions)
+        # print(torch.sum(predictions))
         correct = (predictions == batch_targets).sum().item()
         accuracy = correct / log_probs.size(0)
 
