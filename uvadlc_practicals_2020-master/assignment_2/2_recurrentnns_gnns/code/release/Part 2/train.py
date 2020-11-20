@@ -23,7 +23,7 @@ from datetime import datetime
 import argparse
 
 import numpy as np
-
+import random
 import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader
@@ -33,7 +33,27 @@ from model import TextGenerationModel
 
 ###############################################################################
 
-
+def generate_sentence(model, length, vocab_length):
+    start = random.randint(0, vocab_length-1)
+    sentence = torch.LongTensor([start])
+    for i in range(length):
+        print(sentence.shape)
+        input_sentence = sentence.unsqueeze(-1)
+        print(input_sentence.shape)
+        out = model(input_sentence)
+        prob = model.softmax(out)
+        # print(out[-1])
+        # print(out[-1].shape)
+        print(sentence)
+        char = torch.argmax(prob[-1])
+        print(char)
+        sentence = torch.cat((sentence, torch.tensor([char])))
+        print(sentence)
+        # print(out)
+        # print(out.shape)
+        # exit()
+    print(sentence)
+    exit()
 def train(config):
 
     # Initialize the device which to run the model on
@@ -67,7 +87,8 @@ def train(config):
 
         # batch_inputs = batch_inputs.to(device)     # [batch_size, seq_length,1]
         # batch_targets = batch_targets.to(device)   # [batch_size]
-        # print(batch_inputs.shape)
+        print(batch_inputs.shape)
+        print(batch_inputs[:,0])
         # print(batch_targets.shape)
         output = model(batch_inputs)
         # print(output.shape)
@@ -106,7 +127,7 @@ def train(config):
 
         if (step + 1) % config.sample_every == 0:
             # Generate some sentences by sampling from the model
-            pass
+            generate_sentence(model, 30, dataset.vocab_size)
 
         if step == config.train_steps:
             # If you receive a PyTorch data-loader error,

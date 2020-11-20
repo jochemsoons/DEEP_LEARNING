@@ -31,7 +31,7 @@ class TextGenerationModel(nn.Module):
         self.embedding = nn.Embedding(vocabulary_size, embedding_dim)
         self.LSTM = nn.LSTM(embedding_dim, lstm_num_hidden, lstm_num_layers)
         self.linear = nn.Linear(lstm_num_hidden, vocabulary_size)
-
+        self.softmax = nn.Softmax(dim=2)
 
     def forward(self, x):
         # Implementation here...
