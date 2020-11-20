@@ -136,7 +136,7 @@ class BaumSweetSequenceDataset(data.Dataset):
         # undo one hot encoding
         result_mat = np.argmax(result_mat, 0)
 
-        return torch.FloatTensor(np.expand_dims(result_mat, 1)).permute(1,0), int(label)
+        return torch.LongTensor(np.expand_dims(result_mat, 1)).permute(1,0), int(label)
 
 
 class BinaryPalindromeDataset(data.Dataset):

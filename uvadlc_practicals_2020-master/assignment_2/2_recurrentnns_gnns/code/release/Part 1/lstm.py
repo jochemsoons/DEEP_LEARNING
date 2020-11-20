@@ -26,7 +26,7 @@ class LSTM(nn.Module):
         print("batch_size:", batch_size)
         print("device:", device)
         print("\n")
-        input_dim = 256
+        input_dim = 128
         self.seq_length = seq_length
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
@@ -52,12 +52,13 @@ class LSTM(nn.Module):
 
         self.W_ph = nn.Parameter(torch.Tensor(hidden_dim, num_classes))
         self.b_p = nn.Parameter(torch.Tensor(num_classes))
-        self.embedding = nn.Embedding(3, input_dim)
+        self.embedding = nn.Embedding(3, input_dim, padding_idx=0)
         self.softmax = nn.LogSoftmax(dim=1)
         self.init_weights()
 
     def init_weights(self):
         for weight in self.parameters():
+            print(weight.shape)
             try:
                 nn.init.kaiming_normal_(weight)
             except:
@@ -76,7 +77,10 @@ class LSTM(nn.Module):
         # print(x.shape)
         x = x.squeeze()
         # print(x.shape)
+        # print(x[0])
         x = self.embedding(x)
+        # print(x[0])
+        # exit()
         # print(x.shape)
 
         h_t, c_t = (
@@ -88,14 +92,15 @@ class LSTM(nn.Module):
         for t in range(self.seq_length):
             # print(t)
             x_t = x[:, t, :]
-            # print(x_t.shape)
+            # print(x_t)
+            # exit()
             # printself.W_gx.shape)
             # print(h_t.shape)
             # print(self.W_gh.shape)
             g_t = torch.tanh(x_t @ self.W_gx + h_t @ self.W_gh + self.b_g)
-            i_t = torch.tanh(x_t @ self.W_ix + h_t @ self.W_ih + self.b_i)
-            f_t = torch.tanh(x_t @ self.W_fx + h_t @ self.W_fh + self.b_f)
-            o_t = torch.tanh(x_t @ self.W_ox + h_t @ self.W_oh + self.b_o)
+            i_t = torch.sigmoid(x_t @ self.W_ix + h_t @ self.W_ih + self.b_i)
+            f_t = torch.sigmoid(x_t @ self.W_fx + h_t @ self.W_fh + self.b_f)
+            o_t = torch.sigmoid(x_t @ self.W_ox + h_t @ self.W_oh + self.b_o)
 
             c_t = g_t * i_t + c_t * f_t
             h_t = torch.tanh(c_t) * o_t
