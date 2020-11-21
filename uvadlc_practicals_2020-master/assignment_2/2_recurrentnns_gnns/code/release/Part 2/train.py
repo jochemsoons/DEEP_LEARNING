@@ -36,24 +36,14 @@ from model import TextGenerationModel
 def generate_sentence(model, length, vocab_length):
     model.eval()
     start = random.randint(0, vocab_length-1)
+    state = None
     sentence = [start]
     for _ in range(length-1):
-        # print(sentence.shape)
-        input_sentence = torch.tensor(sentence).unsqueeze(-1).to(model.device)
-        # print(input_sentence.shape)
-        out = model(input_sentence)
-        # print(out.shape)
-        prob = model.softmax(out)
-        # print(out[-1])
-        # print(out[-1].shape)
-        # print(sentence)
+        input_tensor = torch.tensor([sentence[-1]]).unsqueeze(-1).to(model.device)
+        out, state = model(input_tensor, state=state)
         char = torch.argmax(out[-1])
-        # char = torch.argmax(prob[-1])
-        # print(char, char2)
-        # print(char)
         sentence.append(int(char))
-        # print(sentence)
-    print(len(sentence))
+    model.train()
     return sentence
 def train(config):
 
@@ -89,7 +79,7 @@ def train(config):
         # batch_inputs = batch_inputs.to(device)     # [batch_size, seq_length,1]
         # batch_targets = batch_targets.to(device)   # [batch_size]
         # print(batch_targets.shape)
-        output = model(batch_inputs)
+        output, _ = model(batch_inputs)
         # print(output.shape)
         # out_perm = output.permute(1,0,2)
         # print(out_perm.shape)
