@@ -25,6 +25,7 @@ import argparse
 import numpy as np
 import random
 import torch
+import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
@@ -33,18 +34,44 @@ from model import TextGenerationModel
 
 ###############################################################################
 
-def generate_sentence(model, sent_length, vocab_length):
-    model.eval()
+def eval_loss_acc(batch_output, batch_targets, criterion, config):
+    loss = acc = 0
+    for t in range(config.seq_length):
+        loss += criterion(batch_output[t], batch_targets[t])
+        predictions = torch.argmax(batch_output[t], dim=1)
+        correct = (predictions == batch_targets[t]).sum().item()
+        acc += correct / config.batch_size
+    loss = loss / config.seq_length
+    accuracy = acc / config.seq_length
+    return loss, accuracy
+
+def generate_sentence(model, sentence_length, vocab_length, tau=1):
     start = random.randint(0, vocab_length-1)
     state = None
     sentence = [start]
-    for _ in range(sent_length-1):
+    for _ in range(sentence_length-1):
         input_tensor = torch.LongTensor([sentence[-1]]).unsqueeze(-1).to(model.device)
         out, state = model(input_tensor, hid_state=state)
-        char = torch.argmax(out[-1])
+        probs = F.softmax(tau*out, dim=2)
+        char = torch.argmax(probs[-1])
         sentence.append(int(char))
-    model.train()
     return sentence
+
+def finish_sentence(model, sentence, sentence_length, dataset, tau=1):
+    input_length = len(sentence)
+    assert sentence_length > input_length
+    for i in range(sentence_length - input_length):
+        if i == 0:
+            input_tensor = torch.LongTensor(sentence).unsqueeze(-1).to(model.device)
+            state = None
+        else:
+            input_tensor = torch.LongTensor([sentence[-1]]).unsqueeze(-1).to(model.device)
+        out, state = model(input_tensor, hid_state=state)
+        probs = F.softmax(tau*out, dim=2)
+        char = torch.argmax(probs[-1])
+        sentence.append(int(char))
+    return sentence
+
 def train(config):
 
     # Initialize the device which to run the model on
@@ -80,15 +107,7 @@ def train(config):
         # Reset for next iteration
         model.zero_grad()
 
-        loss = acc = 0
-        for t in range(config.seq_length):
-            # print(output[t].shape)
-            loss += criterion(output[t], batch_targets[t])   # fixme
-            predictions = torch.argmax(output[t], dim=1)
-            correct = (predictions == batch_targets[t]).sum().item()
-            acc += correct / config.batch_size
-        loss = loss / config.seq_length
-        accuracy = acc / config.seq_length
+        loss, accuracy = eval_loss_acc(output, batch_targets, criterion, config)
         # print(loss, accuracy)
         loss.backward()
         optimizer.step()
@@ -98,7 +117,6 @@ def train(config):
         examples_per_second = config.batch_size/float(t2-t1)
 
         if (step + 1) % config.print_every == 0:
-
             print("[{}] Train Step {:04d}/{:04d}, Batch Size = {}, \
                     Examples/Sec = {:.2f}, "
                   "Accuracy = {:.2f}, Loss = {:.3f}".format(
@@ -108,9 +126,21 @@ def train(config):
                     ))
 
         if (step + 1) % config.sample_every == 0:
+            model.eval()
             # Generate some sentences by sampling from the model
-            sentence = generate_sentence(model, 30, dataset.vocab_size)
+            sentence = generate_sentence(model, 30, dataset.vocab_size, tau=2)
+            print("Generated sentence at step {:04d}/{:04d}:".format(step, int(config.train_steps)))
             print(dataset.convert_to_string(sentence))
+            print("Finished sentence at step {:04d}/{:04d}:".format(step, int(config.train_steps)))
+            unfinished_sent = 'Sleeping beauty is'
+            unfinished_input = dataset.convert_to_ints(unfinished_sent)
+            sentence = finish_sentence(model, unfinished_input, 30, dataset, tau=2)
+            print(dataset.convert_to_string(sentence))
+            print("#" * 50)
+            model.train()
+            # print
+
+
 
         if step == config.train_steps:
             # If you receive a PyTorch data-loader error,

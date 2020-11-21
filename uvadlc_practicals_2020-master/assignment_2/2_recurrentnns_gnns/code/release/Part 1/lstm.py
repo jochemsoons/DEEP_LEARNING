@@ -36,27 +36,26 @@ class LSTM(nn.Module):
 
         self.W_gx = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_gh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_g = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_g = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_ix = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_ih = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_i = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_i = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_fx = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_fh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_f = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_f = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_ox = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_oh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_o = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_o = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_ph = nn.Parameter(torch.Tensor(hidden_dim, num_classes))
-        self.b_p = nn.Parameter(torch.Tensor(num_classes))
+        self.b_p = nn.Parameter(torch.zeros(num_classes))
 
         self.init_weights()
 
         self.embedding = nn.Embedding(3, embedding_dim)
-        # self.embedding.weight.requires_grad = True
         self.softmax = nn.LogSoftmax(dim=1)
 
 
@@ -64,9 +63,6 @@ class LSTM(nn.Module):
         for weight in self.parameters():
             if len(weight.size()) >= 2:
                 nn.init.kaiming_normal_(weight, nonlinearity='linear')
-                # nn.init.kaiming_normal_(weight)
-            else:
-                nn.init.zeros_(weight)
 
         ########################
         # END OF YOUR CODE    #
