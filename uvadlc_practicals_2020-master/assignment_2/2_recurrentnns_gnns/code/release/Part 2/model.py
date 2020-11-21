@@ -34,12 +34,12 @@ class TextGenerationModel(nn.Module):
         self.softmax = nn.Softmax(dim=2)
         self.device = device
 
-    def forward(self, x, state=None):
+    def forward(self, x, hid_state=None):
         # Implementation here...
         # x = x.to(torch.double)
         x = self.embedding(x)
         # print(x.shape)
-        h, state = self.LSTM(x, state)
+        h, hid_state = self.LSTM(x, hid_state)
 
         p = self.linear(h)
-        return p, state
+        return p, hid_state

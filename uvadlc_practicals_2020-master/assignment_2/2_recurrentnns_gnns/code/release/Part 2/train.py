@@ -33,14 +33,14 @@ from model import TextGenerationModel
 
 ###############################################################################
 
-def generate_sentence(model, length, vocab_length):
+def generate_sentence(model, sent_length, vocab_length):
     model.eval()
     start = random.randint(0, vocab_length-1)
     state = None
     sentence = [start]
-    for _ in range(length-1):
-        input_tensor = torch.tensor([sentence[-1]]).unsqueeze(-1).to(model.device)
-        out, state = model(input_tensor, state=state)
+    for _ in range(sent_length-1):
+        input_tensor = torch.LongTensor([sentence[-1]]).unsqueeze(-1).to(model.device)
+        out, state = model(input_tensor, hid_state=state)
         char = torch.argmax(out[-1])
         sentence.append(int(char))
     model.train()
@@ -57,7 +57,7 @@ def train(config):
 
     # Initialize the model that we are going to use
     model = TextGenerationModel(batch_size=config.batch_size, seq_length=config.seq_length,
-            vocabulary_size=dataset.vocab_size, device=config.device).to(device)  # FIXME
+            vocabulary_size=dataset.vocab_size, device=device).to(device)  # FIXME
 
     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()  # FIXME
@@ -72,28 +72,21 @@ def train(config):
         # Add more code here ...
         #######################################################
 
-
         batch_inputs = torch.stack(batch_inputs).to(device)
         batch_targets = torch.stack(batch_targets).to(device)
 
-        # batch_inputs = batch_inputs.to(device)     # [batch_size, seq_length,1]
-        # batch_targets = batch_targets.to(device)   # [batch_size]
-        # print(batch_targets.shape)
         output, _ = model(batch_inputs)
-        # print(output.shape)
-        # out_perm = output.permute(1,0,2)
-        # print(out_perm.shape)
-        # exit()
 
         # Reset for next iteration
         model.zero_grad()
 
         loss = acc = 0
         for t in range(config.seq_length):
+            # print(output[t].shape)
             loss += criterion(output[t], batch_targets[t])   # fixme
             predictions = torch.argmax(output[t], dim=1)
             correct = (predictions == batch_targets[t]).sum().item()
-            acc += correct / output[t].size(0)
+            acc += correct / config.batch_size
         loss = loss / config.seq_length
         accuracy = acc / config.seq_length
         # print(loss, accuracy)
