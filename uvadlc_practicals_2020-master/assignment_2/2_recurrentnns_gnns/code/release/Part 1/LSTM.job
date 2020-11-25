@@ -5,7 +5,7 @@
 #SBATCH --job-name=LSTM_part1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
-#SBATCH --time=00:30:00
+#SBATCH --time=02:00:00
 #SBATCH --mem=32000M
 #SBATCH --output=./LSTM_results/LSTM_%A.out
 
@@ -18,8 +18,8 @@ module load NCCL/2.5.6-CUDA-10.1.243
 module load Anaconda3/2018.12
 
 # Your job starts in the directory where you call sbatch
-cd $HOME/practical_2
+cd $HOME/practical_2/part1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u train.py --model='LSTM' --dataset='bipalindrome' --input_length=20 --learning_rate=0.0001
+srun python -u train.py --model='LSTM' --dataset='bipalindrome' --input_length=10 --learning_rate=0.0001

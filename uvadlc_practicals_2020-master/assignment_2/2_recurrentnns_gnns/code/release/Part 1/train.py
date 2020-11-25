@@ -21,6 +21,8 @@ from __future__ import print_function
 import argparse
 import time
 from datetime import datetime
+import pickle
+import matplotlib.pyplot as plt
 
 import torch
 import torch.optim as optim
@@ -42,15 +44,22 @@ import numpy as np
 
 ###############################################################################
 
+# Function for setting the seed (copied from the notebook tutorials)
+def set_seed(seed):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.determinstic = True
+        torch.backends.cudnn.benchmark = False
 
-def train(config):
-    np.random.seed(0)
-    torch.manual_seed(0)
-
-
+def train(config, seed):
     # Initialize the device which to run the model on
     device = torch.device(config.device)
-    print(device)
+    set_seed(seed)
+    print("Device:", device)
+    print("Seed: ", seed)
 
     # Load dataset
     if config.dataset == 'randomcomb':
@@ -75,22 +84,20 @@ def train(config):
     elif config.dataset == 'bipalindrome':
         print('Load binary palindrome dataset ...')
         # Initialize the dataset and data loader
-        print("input length:", config.input_length)
+        seq_length = config.input_length
         config.num_classes = 2
         dataset = datasets.BinaryPalindromeDataset(config.input_length)
         data_loader = DataLoader(dataset, config.batch_size, num_workers=1,
                                  drop_last=True)
 
-        config.input_length = config.input_length*4+2-1
-        print("input length:", config.input_length)
-
+        input_length = config.input_length*4+2-1
 
 
     # Setup the model that we are going to use
     if config.model_type == 'LSTM':
         print("Initializing LSTM model ...")
         model = LSTM(
-            config.input_length, config.input_dim,
+            input_length, config.input_dim,
             config.num_hidden, config.num_classes,
             config.batch_size, device
         ).to(device)
@@ -114,7 +121,7 @@ def train(config):
     elif config.model_type == 'peepLSTM':
         print("Initializing peephole LSTM model ...")
         model = peepLSTM(
-            config.input_length, config.input_dim,
+            input_length, config.input_dim,
             config.num_hidden, config.num_classes,
             config.batch_size, device
         ).to(device)
@@ -122,9 +129,8 @@ def train(config):
     # Setup the loss and optimizer
     loss_function = torch.nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
-    for name, param in model.named_parameters():
-        print("{} {}".format(name, param.requires_grad))
 
+    loss_list, acc_list, steps_list = [], [], []
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
         # Only for time measurement of step through network
@@ -139,7 +145,6 @@ def train(config):
 
         # Forward pass
         log_probs = model(batch_inputs)
-
 
         # Compute the loss, gradients and update network parameters
         loss = loss_function(log_probs, batch_targets)
@@ -158,8 +163,6 @@ def train(config):
         correct = (predictions == batch_targets).sum().item()
         accuracy = correct / log_probs.size(0)
 
-        # print(predictions[0, ...], batch_targets[0, ...])
-
         # Just for time measurement
         t2 = time.time()
         examples_per_second = config.batch_size/float(t2-t1)
@@ -173,22 +176,110 @@ def train(config):
                     config.train_steps, config.batch_size, examples_per_second,
                     accuracy, loss
                     ))
+            loss_list.append(float(loss))
+            acc_list.append(accuracy)
+            steps_list.append(step)
 
         # Check if training is finished
         if step == config.train_steps:
             # If you receive a PyTorch data-loader error, check this bug report
             # https://github.com/pytorch/pytorch/pull/9655
+            test_steps = config.test_size // config.batch_size
+            print(test_steps)
+            test_accuracy = test_model(model, test_steps, data_loader, device)
+            print("TEST ACC:{:.3f}".format(test_accuracy))
             break
 
     print('Done training.')
+    pickle.dump(np.asarray(loss_list), open('./plotdata/loss_{}_{}_{}.sav'.format(config.model_type, seq_length, seed), 'wb'))
+    pickle.dump(np.asarray(acc_list), open('./plotdata/acc_{}_{}_{}.sav'.format(config.model_type, seq_length, seed), 'wb'))
+    pickle.dump(np.asarray(steps_list), open('./plotdata/steps_{}_{}_{}.sav'.format(config.model_type, seq_length, seed), 'wb'))
     ###########################################################################
     ###########################################################################
+
+def test_model(model, test_steps, data_loader, device):
+    acc_list = []
+    model.eval()
+    for step, (batch_inputs, batch_targets) in enumerate(data_loader):
+        # Move to GPU
+        batch_inputs = batch_inputs.to(device)     # [batch_size, seq_length,1]
+        batch_targets = batch_targets.to(device)   # [batch_size]
+
+        # Reset for next iteration
+        model.zero_grad()
+
+        # Forward pass
+        log_probs = model(batch_inputs)
+
+        predictions = torch.argmax(log_probs, dim=1)
+        correct = (predictions == batch_targets).sum().item()
+        acc = correct / log_probs.size(0)
+        acc_list.append(acc)
+        if step+1 >= test_steps:
+            break
+    return np.mean(acc_list)
+
+def plot_results(model, eval_method, seq_lengths, seeds):
+    plot_color = 'b'
+    if eval_method == 'loss':
+        title = 'loss'
+        y_label = "Loss"
+    elif eval_method == 'acc':
+        title = 'accuracy'
+        y_label = "Accuracy"
+    for seq_length in seq_lengths:
+        eval_lists = []
+        steps_lists = []
+        label = "T={} (k={})".format(seq_length, len(seeds))
+        for seed in seeds:
+            plt.figure("individual {}".format(eval_method))
+            eval_list = pickle.load(open('./plotdata/{}_{}_{}_{}.sav'.format(eval_method, model, seq_length, seed), 'rb'))
+            steps_list = pickle.load(open('./plotdata/steps_{}_{}_{}.sav'.format(model, seq_length, seed), 'rb'))
+            plt.plot(steps_list, eval_list, c=plot_color, label=label)
+            label = "_nolegend_"
+            plt.title("Separate {} plots of {} model (bipalindrome dataset)".format(title, model))
+            plt.xlabel("Train step")
+            plt.ylabel(y_label)
+
+            plt.legend(loc='best')
+            steps_lists.append(steps_list)
+            eval_lists.append(eval_list)
+
+        plt.figure("mean {}".format(eval_method))
+        eval_lists = np.asarray(eval_lists)
+        mean_eval_lists = np.mean(eval_lists, axis=0)
+        std_dev = np.std(eval_lists, axis=0)
+        plt.plot(steps_list, mean_eval_lists, c=plot_color, label="T={}".format(seq_length))
+        plt.fill_between(steps_list, mean_eval_lists+std_dev, mean_eval_lists-std_dev, alpha=0.25, color=plot_color)
+        plt.title("Averaged {} plots of {} model (bipalindrome dataset)".format(title, model))
+        plt.xlabel("Train step")
+        plt.ylabel(y_label)
+        plt.legend(loc='best')
+        plot_color = 'r'
+    plt.figure("individual {}".format(eval_method))
+    plt.savefig("./plots/{}_{}_separate".format(model, eval_method))
+    plt.figure("mean {}".format(eval_method))
+    plt.savefig("./plots/{}_{}_averaged".format(model, eval_method))
+    # plt.show()
+
+
 
 
 if __name__ == "__main__":
 
     # Parse training configuration
     parser = argparse.ArgumentParser()
+
+    # Seed
+    parser.add_argument('--seeds', type=list, default=[0, 1, 2],
+                        help='Seed for reproducibilty')
+    # Plot results or not.
+    parser.add_argument('--plot', type=bool, default=False,
+                        help='Choose whether to plot results or not')
+
+    # Train model or not
+    parser.add_argument('--train', type=bool, default=False,
+                        help='Choose whether to train or not')
 
     # dataset
     parser.add_argument('--dataset', type=str, default='bipalindrome',
@@ -198,7 +289,7 @@ if __name__ == "__main__":
     parser.add_argument('--model_type', type=str, default='biLSTM',
                         choices=['LSTM', 'biLSTM', 'GRU', 'peepLSTM'],
                         help='Model type: LSTM, biLSTM, GRU or peepLSTM')
-    parser.add_argument('--input_length', type=int, default=6,
+    parser.add_argument('--input_length', type=int, default=10,
                         help='Length of an input sequence')
     parser.add_argument('--input_dim', type=int, default=1,
                         help='Dimensionality of input sequence')
@@ -215,6 +306,8 @@ if __name__ == "__main__":
     parser.add_argument('--train_steps', type=int, default=3000,
                         help='Number of training steps')
     parser.add_argument('--max_norm', type=float, default=10.0)
+    parser.add_argument('--test_size', type=int, default=5000,
+                        help='Number of testing samples')
 
     # Misc params
     parser.add_argument('--device', type=str, default="cuda:0",
@@ -227,6 +320,16 @@ if __name__ == "__main__":
                         help='Output path for summaries')
 
     config = parser.parse_args()
-    print(config)
+    print(config.train)
+    if config.train:
+        for seq_length in [10, 20]:
+            for seed in config.seeds:
+                config.input_length = seq_length
+                train(config, int(seed))
+    if config.plot:
+        plot_results('LSTM', 'loss', [10, 20], [0, 1, 2])
+        plot_results('LSTM', 'acc', [10, 20], [0, 1, 2])
+
     # Train the model
-    train(config)
+
+

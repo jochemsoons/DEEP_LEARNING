@@ -27,6 +27,7 @@ class LSTM(nn.Module):
         print("device:", device)
         print("\n")
         embedding_dim = 2 * seq_length
+        # embedding_dim = 1
         self.seq_length = seq_length
         # self.input_dim = input_dim
         self.hidden_dim = hidden_dim
