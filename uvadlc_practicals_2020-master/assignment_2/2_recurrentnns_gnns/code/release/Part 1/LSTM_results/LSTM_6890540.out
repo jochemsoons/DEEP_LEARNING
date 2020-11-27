@@ -1,0 +1,323 @@
+True
+Device: cuda:0
+Seed:  0
+Load binary palindrome dataset ...
+Initializing LSTM model ...
+seq length: 41
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 11:59] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 575.93, Accuracy = 0.43, Loss = 1.112
+[2020-11-27 11:59] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 2976.08, Accuracy = 0.67, Loss = 0.623
+[2020-11-27 11:59] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 2831.49, Accuracy = 0.68, Loss = 0.597
+[2020-11-27 11:59] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2836.26, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:00] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2843.42, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:00] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2836.62, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  1
+Load binary palindrome dataset ...
+Initializing LSTM model ...
+seq length: 41
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:00] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 2431.45, Accuracy = 0.71, Loss = 1.522
+[2020-11-27 12:00] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 2616.66, Accuracy = 0.62, Loss = 0.659
+[2020-11-27 12:00] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 2603.98, Accuracy = 0.98, Loss = 0.130
+[2020-11-27 12:00] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2607.83, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:00] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2564.37, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:00] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2842.29, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  2
+Load binary palindrome dataset ...
+Initializing LSTM model ...
+seq length: 41
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:00] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1722.82, Accuracy = 0.34, Loss = 2.757
+[2020-11-27 12:00] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 2842.27, Accuracy = 0.68, Loss = 0.616
+[2020-11-27 12:00] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 2841.77, Accuracy = 0.67, Loss = 0.633
+[2020-11-27 12:00] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2835.57, Accuracy = 1.00, Loss = 0.055
+[2020-11-27 12:01] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2608.71, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:01] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2839.90, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:01] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 2850.17, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  0
+Load binary palindrome dataset ...
+Initializing LSTM model ...
+seq length: 81
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:01] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1639.89, Accuracy = 0.47, Loss = 1.903
+[2020-11-27 12:01] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 1651.53, Accuracy = 0.63, Loss = 0.638
+[2020-11-27 12:01] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 1662.36, Accuracy = 0.69, Loss = 0.609
+[2020-11-27 12:01] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 1664.25, Accuracy = 0.59, Loss = 0.645
+[2020-11-27 12:01] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 1658.23, Accuracy = 0.66, Loss = 0.613
+[2020-11-27 12:02] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 1667.62, Accuracy = 0.66, Loss = 0.609
+[2020-11-27 12:02] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 1668.37, Accuracy = 0.70, Loss = 0.617
+[2020-11-27 12:02] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 1660.93, Accuracy = 0.67, Loss = 0.596
+[2020-11-27 12:02] Train Step 0480/3000, Batch Size = 256,                    Examples/Sec = 1664.79, Accuracy = 0.66, Loss = 0.648
+[2020-11-27 12:02] Train Step 0540/3000, Batch Size = 256,                    Examples/Sec = 1668.22, Accuracy = 0.67, Loss = 0.615
+[2020-11-27 12:02] Train Step 0600/3000, Batch Size = 256,                    Examples/Sec = 1662.42, Accuracy = 0.68, Loss = 0.621
+[2020-11-27 12:02] Train Step 0660/3000, Batch Size = 256,                    Examples/Sec = 1580.97, Accuracy = 0.71, Loss = 0.586
+[2020-11-27 12:03] Train Step 0720/3000, Batch Size = 256,                    Examples/Sec = 1665.20, Accuracy = 0.69, Loss = 0.588
+[2020-11-27 12:03] Train Step 0780/3000, Batch Size = 256,                    Examples/Sec = 1583.00, Accuracy = 0.69, Loss = 0.631
+[2020-11-27 12:03] Train Step 0840/3000, Batch Size = 256,                    Examples/Sec = 1666.14, Accuracy = 0.70, Loss = 0.581
+[2020-11-27 12:03] Train Step 0900/3000, Batch Size = 256,                    Examples/Sec = 1664.16, Accuracy = 0.65, Loss = 0.638
+[2020-11-27 12:03] Train Step 0960/3000, Batch Size = 256,                    Examples/Sec = 1586.82, Accuracy = 0.67, Loss = 0.607
+[2020-11-27 12:03] Train Step 1020/3000, Batch Size = 256,                    Examples/Sec = 1665.71, Accuracy = 0.65, Loss = 0.625
+[2020-11-27 12:04] Train Step 1080/3000, Batch Size = 256,                    Examples/Sec = 1669.05, Accuracy = 0.69, Loss = 0.582
+[2020-11-27 12:04] Train Step 1140/3000, Batch Size = 256,                    Examples/Sec = 1666.15, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:04] Train Step 1200/3000, Batch Size = 256,                    Examples/Sec = 1662.92, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:04] Train Step 1260/3000, Batch Size = 256,                    Examples/Sec = 1669.08, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  1
+Load binary palindrome dataset ...
+Initializing LSTM model ...
+seq length: 81
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:04] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1292.97, Accuracy = 0.40, Loss = 1.826
+[2020-11-27 12:04] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 1582.46, Accuracy = 0.68, Loss = 0.622
+[2020-11-27 12:04] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 1669.27, Accuracy = 0.66, Loss = 0.628
+[2020-11-27 12:05] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 1668.64, Accuracy = 0.66, Loss = 0.622
+[2020-11-27 12:05] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 1666.27, Accuracy = 0.63, Loss = 0.628
+[2020-11-27 12:05] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 1672.51, Accuracy = 0.66, Loss = 0.607
+[2020-11-27 12:05] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 1671.46, Accuracy = 0.62, Loss = 0.652
+[2020-11-27 12:05] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 1667.38, Accuracy = 0.64, Loss = 0.640
+[2020-11-27 12:05] Train Step 0480/3000, Batch Size = 256,                    Examples/Sec = 1664.74, Accuracy = 0.68, Loss = 0.578
+[2020-11-27 12:05] Train Step 0540/3000, Batch Size = 256,                    Examples/Sec = 1582.65, Accuracy = 0.68, Loss = 0.585
+[2020-11-27 12:06] Train Step 0600/3000, Batch Size = 256,                    Examples/Sec = 1666.54, Accuracy = 0.65, Loss = 0.638
+[2020-11-27 12:06] Train Step 0660/3000, Batch Size = 256,                    Examples/Sec = 1702.31, Accuracy = 0.64, Loss = 0.628
+[2020-11-27 12:06] Train Step 0720/3000, Batch Size = 256,                    Examples/Sec = 1664.25, Accuracy = 0.65, Loss = 0.632
+[2020-11-27 12:06] Train Step 0780/3000, Batch Size = 256,                    Examples/Sec = 1668.40, Accuracy = 0.67, Loss = 0.608
+[2020-11-27 12:06] Train Step 0840/3000, Batch Size = 256,                    Examples/Sec = 1669.17, Accuracy = 0.76, Loss = 0.474
+[2020-11-27 12:06] Train Step 0900/3000, Batch Size = 256,                    Examples/Sec = 1664.95, Accuracy = 0.93, Loss = 0.431
+[2020-11-27 12:07] Train Step 0960/3000, Batch Size = 256,                    Examples/Sec = 1583.13, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:07] Train Step 1020/3000, Batch Size = 256,                    Examples/Sec = 1665.46, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:07] Train Step 1080/3000, Batch Size = 256,                    Examples/Sec = 1668.44, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  2
+Load binary palindrome dataset ...
+Initializing LSTM model ...
+seq length: 81
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:07] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1336.27, Accuracy = 0.69, Loss = 2.379
+[2020-11-27 12:07] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 1666.70, Accuracy = 0.74, Loss = 0.573
+[2020-11-27 12:07] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 1666.18, Accuracy = 0.63, Loss = 0.666
+[2020-11-27 12:07] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 1664.55, Accuracy = 0.67, Loss = 0.605
+[2020-11-27 12:08] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 1666.76, Accuracy = 0.66, Loss = 0.619
+[2020-11-27 12:08] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 1661.96, Accuracy = 0.69, Loss = 0.608
+[2020-11-27 12:08] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 1659.88, Accuracy = 0.68, Loss = 0.623
+[2020-11-27 12:08] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 1658.79, Accuracy = 0.64, Loss = 0.618
+[2020-11-27 12:08] Train Step 0480/3000, Batch Size = 256,                    Examples/Sec = 1587.91, Accuracy = 0.68, Loss = 0.594
+[2020-11-27 12:08] Train Step 0540/3000, Batch Size = 256,                    Examples/Sec = 1666.46, Accuracy = 0.69, Loss = 0.574
+[2020-11-27 12:08] Train Step 0600/3000, Batch Size = 256,                    Examples/Sec = 1580.50, Accuracy = 0.59, Loss = 0.690
+[2020-11-27 12:09] Train Step 0660/3000, Batch Size = 256,                    Examples/Sec = 1664.94, Accuracy = 0.66, Loss = 0.623
+[2020-11-27 12:09] Train Step 0720/3000, Batch Size = 256,                    Examples/Sec = 1663.28, Accuracy = 0.64, Loss = 0.644
+[2020-11-27 12:09] Train Step 0780/3000, Batch Size = 256,                    Examples/Sec = 1661.66, Accuracy = 0.69, Loss = 0.580
+[2020-11-27 12:09] Train Step 0840/3000, Batch Size = 256,                    Examples/Sec = 1667.43, Accuracy = 0.65, Loss = 0.639
+[2020-11-27 12:09] Train Step 0900/3000, Batch Size = 256,                    Examples/Sec = 1582.26, Accuracy = 0.64, Loss = 0.635
+[2020-11-27 12:09] Train Step 0960/3000, Batch Size = 256,                    Examples/Sec = 1664.34, Accuracy = 0.63, Loss = 0.664
+[2020-11-27 12:10] Train Step 1020/3000, Batch Size = 256,                    Examples/Sec = 1666.40, Accuracy = 0.71, Loss = 0.599
+[2020-11-27 12:10] Train Step 1080/3000, Batch Size = 256,                    Examples/Sec = 1666.56, Accuracy = 0.66, Loss = 0.632
+[2020-11-27 12:10] Train Step 1140/3000, Batch Size = 256,                    Examples/Sec = 1708.53, Accuracy = 0.66, Loss = 0.624
+[2020-11-27 12:10] Train Step 1200/3000, Batch Size = 256,                    Examples/Sec = 1699.28, Accuracy = 0.67, Loss = 0.594
+[2020-11-27 12:10] Train Step 1260/3000, Batch Size = 256,                    Examples/Sec = 1403.11, Accuracy = 0.65, Loss = 0.614
+[2020-11-27 12:10] Train Step 1320/3000, Batch Size = 256,                    Examples/Sec = 1399.64, Accuracy = 0.76, Loss = 0.561
+[2020-11-27 12:11] Train Step 1380/3000, Batch Size = 256,                    Examples/Sec = 1705.01, Accuracy = 0.63, Loss = 0.631
+[2020-11-27 12:11] Train Step 1440/3000, Batch Size = 256,                    Examples/Sec = 1706.81, Accuracy = 0.67, Loss = 0.617
+[2020-11-27 12:11] Train Step 1500/3000, Batch Size = 256,                    Examples/Sec = 1706.61, Accuracy = 0.68, Loss = 0.601
+[2020-11-27 12:11] Train Step 1560/3000, Batch Size = 256,                    Examples/Sec = 1707.41, Accuracy = 0.71, Loss = 0.581
+[2020-11-27 12:11] Train Step 1620/3000, Batch Size = 256,                    Examples/Sec = 1704.29, Accuracy = 0.69, Loss = 0.600
+[2020-11-27 12:11] Train Step 1680/3000, Batch Size = 256,                    Examples/Sec = 1707.73, Accuracy = 0.66, Loss = 0.612
+[2020-11-27 12:12] Train Step 1740/3000, Batch Size = 256,                    Examples/Sec = 1664.53, Accuracy = 0.69, Loss = 0.604
+[2020-11-27 12:12] Train Step 1800/3000, Batch Size = 256,                    Examples/Sec = 1708.12, Accuracy = 0.66, Loss = 0.613
+[2020-11-27 12:12] Train Step 1860/3000, Batch Size = 256,                    Examples/Sec = 1711.23, Accuracy = 0.70, Loss = 0.580
+[2020-11-27 12:12] Train Step 1920/3000, Batch Size = 256,                    Examples/Sec = 1705.88, Accuracy = 0.72, Loss = 0.599
+[2020-11-27 12:12] Train Step 1980/3000, Batch Size = 256,                    Examples/Sec = 1620.29, Accuracy = 0.66, Loss = 0.619
+[2020-11-27 12:12] Train Step 2040/3000, Batch Size = 256,                    Examples/Sec = 1618.11, Accuracy = 0.64, Loss = 0.649
+[2020-11-27 12:12] Train Step 2100/3000, Batch Size = 256,                    Examples/Sec = 1704.16, Accuracy = 1.00, Loss = 0.012
+[2020-11-27 12:13] Train Step 2160/3000, Batch Size = 256,                    Examples/Sec = 1664.85, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:13] Train Step 2220/3000, Batch Size = 256,                    Examples/Sec = 1708.58, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:13] Train Step 2280/3000, Batch Size = 256,                    Examples/Sec = 1708.32, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  0
+Load binary palindrome dataset ...
+Initializing peephole LSTM model ...
+seq length: 41
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:13] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 2550.40, Accuracy = 0.63, Loss = 1.726
+[2020-11-27 12:13] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 3595.56, Accuracy = 0.69, Loss = 0.619
+[2020-11-27 12:13] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 3577.39, Accuracy = 0.95, Loss = 0.337
+[2020-11-27 12:13] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 3596.44, Accuracy = 1.00, Loss = 0.018
+[2020-11-27 12:13] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 3596.99, Accuracy = 1.00, Loss = 0.004
+[2020-11-27 12:13] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2931.23, Accuracy = 1.00, Loss = 0.005
+[2020-11-27 12:13] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 3591.47, Accuracy = 1.00, Loss = 0.002
+[2020-11-27 12:14] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 3595.43, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:14] Train Step 0480/3000, Batch Size = 256,                    Examples/Sec = 3595.23, Accuracy = 1.00, Loss = 0.001
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  1
+Load binary palindrome dataset ...
+Initializing peephole LSTM model ...
+seq length: 41
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:14] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 2754.90, Accuracy = 0.29, Loss = 2.457
+[2020-11-27 12:14] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 3594.04, Accuracy = 0.64, Loss = 0.653
+[2020-11-27 12:14] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 3015.65, Accuracy = 0.67, Loss = 0.630
+[2020-11-27 12:14] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2942.84, Accuracy = 0.77, Loss = 0.475
+[2020-11-27 12:14] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2842.06, Accuracy = 1.00, Loss = 0.012
+[2020-11-27 12:14] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2931.64, Accuracy = 1.00, Loss = 0.005
+[2020-11-27 12:14] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 3585.19, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:14] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 2934.30, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  2
+Load binary palindrome dataset ...
+Initializing peephole LSTM model ...
+seq length: 41
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:14] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 2959.91, Accuracy = 0.33, Loss = 2.426
+[2020-11-27 12:14] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 3255.57, Accuracy = 0.66, Loss = 0.622
+[2020-11-27 12:15] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 3442.57, Accuracy = 0.95, Loss = 0.231
+[2020-11-27 12:15] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 3429.31, Accuracy = 1.00, Loss = 0.021
+[2020-11-27 12:15] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 3439.82, Accuracy = 1.00, Loss = 0.008
+[2020-11-27 12:15] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 3101.44, Accuracy = 1.00, Loss = 0.002
+[2020-11-27 12:15] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 3379.79, Accuracy = 1.00, Loss = 0.002
+[2020-11-27 12:15] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 3432.46, Accuracy = 1.00, Loss = 0.001
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  0
+Load binary palindrome dataset ...
+Initializing peephole LSTM model ...
+seq length: 81
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:15] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1497.38, Accuracy = 0.67, Loss = 1.390
+[2020-11-27 12:15] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 2029.61, Accuracy = 0.90, Loss = 0.377
+[2020-11-27 12:15] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 2102.74, Accuracy = 0.88, Loss = 0.318
+[2020-11-27 12:15] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2098.43, Accuracy = 0.89, Loss = 0.248
+[2020-11-27 12:15] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2095.43, Accuracy = 1.00, Loss = 0.021
+[2020-11-27 12:16] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2095.15, Accuracy = 1.00, Loss = 0.007
+[2020-11-27 12:16] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 2058.58, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:16] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 2098.70, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:16] Train Step 0480/3000, Batch Size = 256,                    Examples/Sec = 2081.56, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  1
+Load binary palindrome dataset ...
+Initializing peephole LSTM model ...
+seq length: 81
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:16] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1594.41, Accuracy = 0.32, Loss = 2.059
+[2020-11-27 12:16] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 2100.51, Accuracy = 0.93, Loss = 0.183
+[2020-11-27 12:16] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 2100.49, Accuracy = 1.00, Loss = 0.052
+[2020-11-27 12:16] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2103.06, Accuracy = 1.00, Loss = 0.013
+[2020-11-27 12:16] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2102.54, Accuracy = 1.00, Loss = 0.005
+[2020-11-27 12:17] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2099.28, Accuracy = 1.00, Loss = 0.004
+[2020-11-27 12:17] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 2094.13, Accuracy = 1.00, Loss = 0.003
+[2020-11-27 12:17] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 2109.21, Accuracy = 1.00, Loss = 0.009
+[2020-11-27 12:17] Train Step 0480/3000, Batch Size = 256,                    Examples/Sec = 2099.62, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:17] Train Step 0540/3000, Batch Size = 256,                    Examples/Sec = 2016.98, Accuracy = 1.00, Loss = 0.008
+[2020-11-27 12:17] Train Step 0600/3000, Batch Size = 256,                    Examples/Sec = 2093.55, Accuracy = 1.00, Loss = 0.001
+[2020-11-27 12:17] Train Step 0660/3000, Batch Size = 256,                    Examples/Sec = 2093.73, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:17] Train Step 0720/3000, Batch Size = 256,                    Examples/Sec = 2096.32, Accuracy = 1.00, Loss = 0.000
+Done training.
+TEST ACC:1.000
+Device: cuda:0
+Seed:  2
+Load binary palindrome dataset ...
+Initializing peephole LSTM model ...
+seq length: 81
+input dim: 1
+hidden dim: 256
+num classes: 2
+batch_size: 256
+device: cuda:0
+
+
+[2020-11-27 12:18] Train Step 0000/3000, Batch Size = 256,                    Examples/Sec = 1608.79, Accuracy = 0.64, Loss = 0.695
+[2020-11-27 12:18] Train Step 0060/3000, Batch Size = 256,                    Examples/Sec = 2091.36, Accuracy = 0.65, Loss = 0.649
+[2020-11-27 12:18] Train Step 0120/3000, Batch Size = 256,                    Examples/Sec = 2099.66, Accuracy = 0.64, Loss = 0.653
+[2020-11-27 12:18] Train Step 0180/3000, Batch Size = 256,                    Examples/Sec = 2089.57, Accuracy = 0.66, Loss = 0.682
+[2020-11-27 12:18] Train Step 0240/3000, Batch Size = 256,                    Examples/Sec = 2090.92, Accuracy = 0.93, Loss = 0.174
+[2020-11-27 12:18] Train Step 0300/3000, Batch Size = 256,                    Examples/Sec = 2097.94, Accuracy = 1.00, Loss = 0.003
+[2020-11-27 12:18] Train Step 0360/3000, Batch Size = 256,                    Examples/Sec = 2093.68, Accuracy = 1.00, Loss = 0.000
+[2020-11-27 12:18] Train Step 0420/3000, Batch Size = 256,                    Examples/Sec = 2064.07, Accuracy = 1.00, Loss = 0.002
+Done training.
+TEST ACC:1.000

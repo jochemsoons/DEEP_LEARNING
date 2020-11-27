@@ -35,7 +35,7 @@ from model import TextGenerationModel
 ###############################################################################
 
 def eval_loss_acc(batch_output, batch_targets, criterion, config):
-    loss = acc = 0
+    loss, acc = 0, 0
     for t in range(config.seq_length):
         loss += criterion(batch_output[t], batch_targets[t])
         predictions = torch.argmax(batch_output[t], dim=1)
@@ -68,6 +68,7 @@ def finish_sentence(model, sentence, sentence_length, dataset, tau=1):
             input_tensor = torch.LongTensor([sentence[-1]]).unsqueeze(-1).to(model.device)
         out, state = model(input_tensor, hid_state=state)
         probs = F.softmax(tau*out, dim=2)
+        # Vervangen door torch.multinomial.
         char = torch.argmax(probs[-1])
         sentence.append(int(char))
     return sentence

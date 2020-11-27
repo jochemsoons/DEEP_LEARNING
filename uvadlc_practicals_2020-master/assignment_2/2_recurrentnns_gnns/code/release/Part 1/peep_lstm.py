@@ -23,16 +23,8 @@ class peepLSTM(nn.Module):
         ########################
         # PUT YOUR CODE HERE  #
         #######################
-        print("seq length:", seq_length)
-        print("input dim:", input_dim)
-        print("hidden dim:", hidden_dim)
-        print("num classes:", num_classes)
-        print("batch_size:", batch_size)
-        print("device:", device)
-        print("\n")
         embedding_dim = 2 * seq_length
         self.seq_length = seq_length
-        # self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.num_classes = num_classes
         self.batch_size = batch_size
@@ -40,36 +32,32 @@ class peepLSTM(nn.Module):
 
         self.W_fx = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_fh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_f = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_f = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_ix = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_ih = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_i = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_i = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_ox = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
         self.W_oh = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
-        self.b_o = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_o = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_cx = nn.Parameter(torch.Tensor(embedding_dim, hidden_dim))
-        self.b_c = nn.Parameter(torch.Tensor(hidden_dim))
+        self.b_c = nn.Parameter(torch.zeros(hidden_dim))
 
         self.W_ph = nn.Parameter(torch.Tensor(hidden_dim, num_classes))
-        self.b_p = nn.Parameter(torch.Tensor(num_classes))
+        self.b_p = nn.Parameter(torch.zeros(num_classes))
 
-        self.init_weights()
-
+        self.init_kaiming([self.W_fx, self.W_fh, self.W_ix, self.W_ih,
+                        self.W_ox, self.W_oh, self.W_cx], 'sigmoid')
+        self.init_kaiming([self.W_ph], 'linear')
         self.embedding = nn.Embedding(3, embedding_dim)
-        # self.embedding.weight.requires_grad = True
         self.softmax = nn.LogSoftmax(dim=1)
 
+    def init_kaiming(self, tensors, activation):
+        for weight in tensors:
+            nn.init.kaiming_normal_(weight, nonlinearity=activation)
 
-    def init_weights(self):
-        for weight in self.parameters():
-            if len(weight.size()) >= 2:
-                nn.init.kaiming_normal_(weight, nonlinearity='linear')
-                # nn.init.kaiming_normal_(weight)
-            else:
-                nn.init.zeros_(weight)
         ########################
         # END OF YOUR CODE    #
         #######################

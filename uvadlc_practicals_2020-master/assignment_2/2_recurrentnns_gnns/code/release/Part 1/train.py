@@ -131,6 +131,7 @@ def train(config, seed):
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
 
     loss_list, acc_list, steps_list = [], [], []
+    convergence_count = 0
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
         # Only for time measurement of step through network
@@ -180,17 +181,21 @@ def train(config, seed):
             acc_list.append(accuracy)
             steps_list.append(step)
 
+            if loss <= (0 + 0.005):
+                convergence_count += 1
+            else:
+                convergence_count = 0
+
         # Check if training is finished
-        if step == config.train_steps:
+        if step == config.train_steps or convergence_count >= 3:
             # If you receive a PyTorch data-loader error, check this bug report
             # https://github.com/pytorch/pytorch/pull/9655
             test_steps = config.test_size // config.batch_size
-            print(test_steps)
             test_accuracy = test_model(model, test_steps, data_loader, device)
-            print("TEST ACC:{:.3f}".format(test_accuracy))
             break
 
     print('Done training.')
+    print("TEST ACC:{:.3f}".format(test_accuracy))
     pickle.dump(np.asarray(loss_list), open('./plotdata/loss_{}_{}_{}.sav'.format(config.model_type, seq_length, seed), 'wb'))
     pickle.dump(np.asarray(acc_list), open('./plotdata/acc_{}_{}_{}.sav'.format(config.model_type, seq_length, seed), 'wb'))
     pickle.dump(np.asarray(steps_list), open('./plotdata/steps_{}_{}_{}.sav'.format(config.model_type, seq_length, seed), 'wb'))
@@ -205,9 +210,6 @@ def test_model(model, test_steps, data_loader, device):
         batch_inputs = batch_inputs.to(device)     # [batch_size, seq_length,1]
         batch_targets = batch_targets.to(device)   # [batch_size]
 
-        # Reset for next iteration
-        model.zero_grad()
-
         # Forward pass
         log_probs = model(batch_inputs)
 
@@ -219,18 +221,34 @@ def test_model(model, test_steps, data_loader, device):
             break
     return np.mean(acc_list)
 
+def pad_lists(eval_lists, steps_lists):
+    list_lengths = [len(list_) for list_ in eval_lists]
+    index = np.argmax(np.array(list_lengths))
+    max_length = max(list_lengths)
+    max_steps_list = steps_lists[index]
+    padded_lists = []
+    for i, eval_list in enumerate(eval_lists):
+        if i != index:
+            last_value = eval_list[-1]
+            pad_length = max_length - len(eval_list)
+            padded_list = np.pad(eval_list, (0, pad_length), 'constant', constant_values=(0, last_value))
+            padded_lists.append(padded_list)
+        else:
+            padded_lists.append(eval_list)
+    return np.asarray(padded_lists), max_steps_list
+
 def plot_results(model, eval_method, seq_lengths, seeds):
     plot_color = 'b'
     if eval_method == 'loss':
         title = 'loss'
-        y_label = "Loss"
+        y_label = "Cross-Entropy loss"
     elif eval_method == 'acc':
         title = 'accuracy'
         y_label = "Accuracy"
     for seq_length in seq_lengths:
         eval_lists = []
         steps_lists = []
-        label = "T={} (k={})".format(seq_length, len(seeds))
+        label = "T={} (seeds={})".format(seq_length, len(seeds))
         for seed in seeds:
             plt.figure("individual {}".format(eval_method))
             eval_list = pickle.load(open('./plotdata/{}_{}_{}_{}.sav'.format(eval_method, model, seq_length, seed), 'rb'))
@@ -246,7 +264,8 @@ def plot_results(model, eval_method, seq_lengths, seeds):
             eval_lists.append(eval_list)
 
         plt.figure("mean {}".format(eval_method))
-        eval_lists = np.asarray(eval_lists)
+        eval_lists, steps_list = pad_lists(eval_lists, steps_lists)
+        # eval_lists = np.asarray(eval_lists)
         mean_eval_lists = np.mean(eval_lists, axis=0)
         std_dev = np.std(eval_lists, axis=0)
         plt.plot(steps_list, mean_eval_lists, c=plot_color, label="T={}".format(seq_length))
@@ -260,6 +279,8 @@ def plot_results(model, eval_method, seq_lengths, seeds):
     plt.savefig("./plots/{}_{}_separate".format(model, eval_method))
     plt.figure("mean {}".format(eval_method))
     plt.savefig("./plots/{}_{}_averaged".format(model, eval_method))
+    # plt.clf()
+    plt.close("all")
     # plt.show()
 
 
@@ -320,15 +341,20 @@ if __name__ == "__main__":
                         help='Output path for summaries')
 
     config = parser.parse_args()
+    # train(config, 0)
     print(config.train)
     if config.train:
-        for seq_length in [10, 20]:
-            for seed in config.seeds:
-                config.input_length = seq_length
-                train(config, int(seed))
+        for model in ['LSTM', 'peepLSTM']:
+            config.model_type = model
+            for seq_length in [10, 20]:
+                for seed in config.seeds:
+                    config.input_length = seq_length
+                    train(config, int(seed))
     if config.plot:
         plot_results('LSTM', 'loss', [10, 20], [0, 1, 2])
         plot_results('LSTM', 'acc', [10, 20], [0, 1, 2])
+        plot_results('peepLSTM', 'loss', [10, 20], [0, 1, 2])
+        plot_results('peepLSTM', 'acc', [10, 20], [0, 1, 2])
 
     # Train the model
 

@@ -28,18 +28,15 @@ class TextGenerationModel(nn.Module):
         super(TextGenerationModel, self).__init__()
         embedding_dim = 2 * seq_length
         self.seq_length = seq_length
+        self.device = device
         self.embedding = nn.Embedding(vocabulary_size, embedding_dim)
         self.LSTM = nn.LSTM(embedding_dim, lstm_num_hidden, lstm_num_layers)
         self.linear = nn.Linear(lstm_num_hidden, vocabulary_size)
-        self.softmax = nn.Softmax(dim=2)
-        self.device = device
+        # self.softmax = nn.Softmax(dim=2)
 
     def forward(self, x, hid_state=None):
         # Implementation here...
-        # x = x.to(torch.double)
         x = self.embedding(x)
-        # print(x.shape)
         h, hid_state = self.LSTM(x, hid_state)
-
         p = self.linear(h)
         return p, hid_state

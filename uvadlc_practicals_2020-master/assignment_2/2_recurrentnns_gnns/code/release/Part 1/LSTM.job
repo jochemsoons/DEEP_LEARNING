@@ -22,4 +22,4 @@ cd $HOME/practical_2/part1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u train.py --model='LSTM' --dataset='bipalindrome' --input_length=10 --learning_rate=0.0001
+srun python -u train.py --dataset='bipalindrome' --learning_rate=0.0001 --train=True
