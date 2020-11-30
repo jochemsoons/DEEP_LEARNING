@@ -27,15 +27,20 @@ class TextGenerationModel(nn.Module):
 
         super(TextGenerationModel, self).__init__()
         embedding_dim = 2 * seq_length
-        self.seq_length = seq_length
         self.device = device
         self.embedding = nn.Embedding(vocabulary_size, embedding_dim)
+        # Initialize LSTM model.
         self.LSTM = nn.LSTM(embedding_dim, lstm_num_hidden, lstm_num_layers)
+        # Initialize final linear output layer.
         self.linear = nn.Linear(lstm_num_hidden, vocabulary_size)
 
-    def forward(self, x, hid_state=None):
-        # Implementation here...
+    # NOTE: I added the states argument for efficiency purposes in text generation.
+    # states = (hidden_state, cell_state)
+    def forward(self, x, states=None):
+        # Embed input.
         x = self.embedding(x)
-        h, hid_state = self.LSTM(x, hid_state)
+        # Give input to LSTM model.
+        h, states = self.LSTM(x, states)
+        # Return the output and (hidden_state, cell_state).
         p = self.linear(h)
-        return p, hid_state
+        return p, states

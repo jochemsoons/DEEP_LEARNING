@@ -44,7 +44,9 @@ import numpy as np
 
 ###############################################################################
 
-# Function for setting the seed (copied from the notebook tutorials).
+"""
+Function for setting the seed (copied/adapted from the notebook tutorials).
+"""
 def set_seed(seed):
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -54,6 +56,9 @@ def set_seed(seed):
         torch.backends.cudnn.determinstic = True
         torch.backends.cudnn.benchmark = False
 
+"""
+Main training function.
+"""
 def train(config):
     # Initialize the device which to run the model on and set the seed.
     device = torch.device(config.device)
@@ -310,13 +315,13 @@ if __name__ == "__main__":
                         help='Seed for reproducibilty')
     # Plot results or not.
     parser.add_argument('--plot', action='store_true',
-                        help='Choose whether to plot results or not')
+                        help='Specify whether to plot results or not')
 
     # Train (multiple) models or not
     parser.add_argument('--train', action='store_true',
-                        help='Choose whether to train or not')
+                        help='Specify whether to train or not')
     parser.add_argument('--train_multiple', action='store_true',
-                        help='Choose whether to train multiple models sequentially')
+                        help='Specify whether to train multiple models sequentially')
 
     # Dataset.
     parser.add_argument('--dataset', type=str, default='bipalindrome',
@@ -358,11 +363,11 @@ if __name__ == "__main__":
 
     config = parser.parse_args()
 
-    # Train single run according to config.
+    # Perform single trainig run according to config.
     if config.train:
         train(config)
 
-    # Train multiple runs for the models, seq_lengths and seeds specified.
+    # Perform multiple runs for the models, seq_lengths and seeds specified below.
     if config.train_multiple:
         for model in ['LSTM', 'peepLSTM']:
             config.model_type = model
