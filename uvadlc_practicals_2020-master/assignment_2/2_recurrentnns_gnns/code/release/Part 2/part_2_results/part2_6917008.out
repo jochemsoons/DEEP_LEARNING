@@ -1,0 +1,7 @@
+Namespace(batch_size=64, device='cuda', dropout_keep_prob=1.0, learning_rate=0.002, learning_rate_decay=0.96, learning_rate_step=5000, load_model='./saved_models/model_40000.pt', lstm_num_hidden=512, lstm_num_layers=2, max_epochs=5, max_norm=5.0, plot=False, print_every=50, sample_every=5000, seq_length=30, summary_path='./summaries/', train=False, train_steps=1000000, txt_file='./assets/book_EN_grimms_fairy_tails.txt')
+Initialize dataset with 550595 characters, 91 unique.
+Traceback (most recent call last):
+  File "train.py", line 281, in <module>
+    print("Finished sentence at step {:04d}/{:04d}:".format(step, config.train_steps))
+NameError: name 'step' is not defined
+srun: error: r30n6: task 0: Exited with exit code 1

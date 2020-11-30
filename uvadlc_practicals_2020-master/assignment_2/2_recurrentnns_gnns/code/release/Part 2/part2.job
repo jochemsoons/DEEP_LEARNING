@@ -22,8 +22,9 @@ cd $HOME/practical_2/part2
 # Activate your environment
 source activate dl2020
 # Run your code
-# srun python -u train.py --txt_file='./assets/book_EN_grimms_fairy_tails.txt' --print_every=50
-# srun python -u train.py --txt_file='./assets/book_EN_democracy_in_the_US.txt' --print_every=50
-# srun python -u train.py --txt_file='./assets/book_NL_darwin_reis_om_de_wereld.txt' --print_every=50
+# srun python -u train.py --txt_file='./assets/book_EN_grimms_fairy_tails.txt' --print_every=100 --train_steps=40000 --sample_every=1000
+# srun python -u train.py --txt_file='./assets/book_EN_grimms_fairy_tails.txt' --load_model='./saved_models/model_40000.pt'
+# srun python -u train.py --txt_file='./assets/book_EN_democracy_in_the_US.txt' --load_model='./saved_models/model_50000.pt'
+srun python -u train.py --txt_file='./assets/book_NL_darwin_reis_om_de_wereld.txt' --load_model='./saved_models/model_42000.pt'
 # srun python -u train.py --txt_file='./assets/book_NL_tolstoy_anna_karenina.txt' --print_every=50
 

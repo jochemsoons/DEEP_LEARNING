@@ -1,0 +1,1178 @@
+Namespace(batch_size=64, device='cuda', dropout_keep_prob=1.0, learning_rate=0.002, learning_rate_decay=0.96, learning_rate_step=5000, lstm_num_hidden=128, lstm_num_layers=2, max_epochs=5, max_norm=5.0, print_every=50, sample_every=1000, seq_length=30, summary_path='./summaries/', train_steps=20000, txt_file='./assets/book_EN_grimms_fairy_tails.txt')
+Device: cuda
+Txt file: ./assets/book_EN_grimms_fairy_tails.txt
+Initialize dataset with 550595 characters, 91 unique.
+[2020-11-27 14:46] EPOCH 0 Train Step 0049/20000, Batch Size = 64,                         Examples/Sec = 2206.29, Accuracy = 0.29, Loss = 2.639
+[2020-11-27 14:47] EPOCH 0 Train Step 0099/20000, Batch Size = 64,                         Examples/Sec = 2254.04, Accuracy = 0.39, Loss = 2.207
+[2020-11-27 14:47] EPOCH 0 Train Step 0149/20000, Batch Size = 64,                         Examples/Sec = 2439.70, Accuracy = 0.41, Loss = 2.032
+[2020-11-27 14:47] EPOCH 0 Train Step 0199/20000, Batch Size = 64,                         Examples/Sec = 2250.56, Accuracy = 0.45, Loss = 1.921
+[2020-11-27 14:47] EPOCH 0 Train Step 0249/20000, Batch Size = 64,                         Examples/Sec = 2245.72, Accuracy = 0.46, Loss = 1.890
+[2020-11-27 14:47] EPOCH 0 Train Step 0299/20000, Batch Size = 64,                         Examples/Sec = 2524.50, Accuracy = 0.50, Loss = 1.718
+[2020-11-27 14:47] EPOCH 0 Train Step 0349/20000, Batch Size = 64,                         Examples/Sec = 2523.25, Accuracy = 0.50, Loss = 1.658
+[2020-11-27 14:47] EPOCH 0 Train Step 0399/20000, Batch Size = 64,                         Examples/Sec = 2264.84, Accuracy = 0.49, Loss = 1.756
+[2020-11-27 14:47] EPOCH 0 Train Step 0449/20000, Batch Size = 64,                         Examples/Sec = 2322.95, Accuracy = 0.51, Loss = 1.670
+[2020-11-27 14:47] EPOCH 0 Train Step 0499/20000, Batch Size = 64,                         Examples/Sec = 2413.12, Accuracy = 0.51, Loss = 1.666
+[2020-11-27 14:47] EPOCH 0 Train Step 0549/20000, Batch Size = 64,                         Examples/Sec = 2282.60, Accuracy = 0.56, Loss = 1.508
+[2020-11-27 14:47] EPOCH 0 Train Step 0599/20000, Batch Size = 64,                         Examples/Sec = 2226.33, Accuracy = 0.55, Loss = 1.490
+[2020-11-27 14:47] EPOCH 0 Train Step 0649/20000, Batch Size = 64,                         Examples/Sec = 2152.74, Accuracy = 0.56, Loss = 1.495
+[2020-11-27 14:47] EPOCH 0 Train Step 0699/20000, Batch Size = 64,                         Examples/Sec = 2211.75, Accuracy = 0.57, Loss = 1.455
+[2020-11-27 14:47] EPOCH 0 Train Step 0749/20000, Batch Size = 64,                         Examples/Sec = 2139.81, Accuracy = 0.53, Loss = 1.525
+[2020-11-27 14:47] EPOCH 0 Train Step 0799/20000, Batch Size = 64,                         Examples/Sec = 2300.91, Accuracy = 0.57, Loss = 1.432
+[2020-11-27 14:47] EPOCH 0 Train Step 0849/20000, Batch Size = 64,                         Examples/Sec = 2364.78, Accuracy = 0.57, Loss = 1.440
+[2020-11-27 14:47] EPOCH 0 Train Step 0899/20000, Batch Size = 64,                         Examples/Sec = 2197.30, Accuracy = 0.56, Loss = 1.442
+[2020-11-27 14:47] EPOCH 0 Train Step 0949/20000, Batch Size = 64,                         Examples/Sec = 2240.70, Accuracy = 0.57, Loss = 1.439
+[2020-11-27 14:47] EPOCH 0 Train Step 0999/20000, Batch Size = 64,                         Examples/Sec = 2382.58, Accuracy = 0.56, Loss = 1.487
+Generated sentences at step 0999/20000:
+### LENGTH 15 ###
+1 ‘I will giv
+3 have him the 
+Z�I will give h
+s the sent on t
+ve the sent on 
+### LENGTH 23 ###
+
+the world was the s
+l the sent on the wo
+e the sent on the wo
+E THE THE THE THE TH
+0ut the world was th
+### LENGTH 30 ###
+0ut the world was the sent on 
+Q��What was the world was the 
+When the world was the sent on
+‘I will give him the stone t
+r the sent on the world was th
+### LENGTH 45 ###
+1 ‘I will give him the stone to the world w
+e the sent on the world was the sent on the w
+Hans the sent on the world was the sent on th
+just the world was the sent on the world was 
+x the stone to the world was the sent on the 
+### LENGTH 60 ###
+2NOTHE THE THE THE THE THE THE THE THE THE THE THE THE THE T
+Z�I will give him the stone to the world was the sent on the
+�What was the sent on the world was the sent on the world wa
+9ur beard the stone to the world was the sent on the world w
+_ what was the sent on the world was the sent on the world w
+##################################################
+[2020-11-27 14:47] EPOCH 0 Train Step 1049/20000, Batch Size = 64,                         Examples/Sec = 2445.30, Accuracy = 0.57, Loss = 1.418
+[2020-11-27 14:47] EPOCH 0 Train Step 1099/20000, Batch Size = 64,                         Examples/Sec = 2439.06, Accuracy = 0.55, Loss = 1.464
+[2020-11-27 14:47] EPOCH 0 Train Step 1149/20000, Batch Size = 64,                         Examples/Sec = 2531.81, Accuracy = 0.57, Loss = 1.396
+[2020-11-27 14:47] EPOCH 0 Train Step 1199/20000, Batch Size = 64,                         Examples/Sec = 2185.19, Accuracy = 0.57, Loss = 1.368
+[2020-11-27 14:47] EPOCH 0 Train Step 1249/20000, Batch Size = 64,                         Examples/Sec = 2342.00, Accuracy = 0.58, Loss = 1.387
+[2020-11-27 14:47] EPOCH 0 Train Step 1299/20000, Batch Size = 64,                         Examples/Sec = 2399.94, Accuracy = 0.58, Loss = 1.346
+[2020-11-27 14:47] EPOCH 0 Train Step 1349/20000, Batch Size = 64,                         Examples/Sec = 2261.84, Accuracy = 0.58, Loss = 1.368
+[2020-11-27 14:47] EPOCH 0 Train Step 1399/20000, Batch Size = 64,                         Examples/Sec = 2415.68, Accuracy = 0.59, Loss = 1.299
+[2020-11-27 14:47] EPOCH 0 Train Step 1449/20000, Batch Size = 64,                         Examples/Sec = 2491.53, Accuracy = 0.58, Loss = 1.379
+[2020-11-27 14:47] EPOCH 0 Train Step 1499/20000, Batch Size = 64,                         Examples/Sec = 2572.43, Accuracy = 0.59, Loss = 1.325
+[2020-11-27 14:47] EPOCH 0 Train Step 1549/20000, Batch Size = 64,                         Examples/Sec = 2388.51, Accuracy = 0.60, Loss = 1.309
+[2020-11-27 14:47] EPOCH 0 Train Step 1599/20000, Batch Size = 64,                         Examples/Sec = 2260.32, Accuracy = 0.59, Loss = 1.328
+[2020-11-27 14:47] EPOCH 0 Train Step 1649/20000, Batch Size = 64,                         Examples/Sec = 2244.29, Accuracy = 0.60, Loss = 1.280
+[2020-11-27 14:47] EPOCH 0 Train Step 1699/20000, Batch Size = 64,                         Examples/Sec = 2234.76, Accuracy = 0.61, Loss = 1.298
+[2020-11-27 14:47] EPOCH 0 Train Step 1749/20000, Batch Size = 64,                         Examples/Sec = 2251.92, Accuracy = 0.57, Loss = 1.354
+[2020-11-27 14:47] EPOCH 0 Train Step 1799/20000, Batch Size = 64,                         Examples/Sec = 2458.49, Accuracy = 0.60, Loss = 1.258
+[2020-11-27 14:47] EPOCH 0 Train Step 1849/20000, Batch Size = 64,                         Examples/Sec = 2469.03, Accuracy = 0.60, Loss = 1.262
+[2020-11-27 14:47] EPOCH 0 Train Step 1899/20000, Batch Size = 64,                         Examples/Sec = 2398.82, Accuracy = 0.60, Loss = 1.293
+[2020-11-27 14:47] EPOCH 0 Train Step 1949/20000, Batch Size = 64,                         Examples/Sec = 2416.70, Accuracy = 0.61, Loss = 1.260
+[2020-11-27 14:47] EPOCH 0 Train Step 1999/20000, Batch Size = 64,                         Examples/Sec = 2457.91, Accuracy = 0.59, Loss = 1.307
+Generated sentences at step 1999/20000:
+### LENGTH 15 ###
+k it in the wor
+quite many will
+Cat the street 
+for the street 
+King to the cas
+### LENGTH 23 ###
+Qu the man who had b
+n the street of the 
+!’ said the fisher
+s to the castle to t
+Now the world in the
+### LENGTH 30 ###
+
+
+Then the man who had to be a
+. The man who had to be a litt
+D THE THIS THIS OF THE THIS OF
+5 the miller said to the castl
+for the street of the words an
+### LENGTH 45 ###
+quite many will be a little tailor was a corn
+UNTINT TO FOR THIS OF THE THIS OF THE THIS OF
+$ the miller said to the castle to the castle
+VER AND THE THIS THIS OF THE THIS OF THE THIS
+LISTRING OF THE THIS OF THE THIS OF THE THIS 
+### LENGTH 60 ###
+When the maid her head of the street of the words and the sa
+country of the world in the world in the world in the world 
+_ the miller said to the castle to the castle to the castle 
+Xn the street of the words and the same to the castle to the
+D THE THIS THIS OF THE THIS OF THE THIS OF THE THIS OF THE T
+##################################################
+[2020-11-27 14:48] EPOCH 0 Train Step 2049/20000, Batch Size = 64,                         Examples/Sec = 2109.48, Accuracy = 0.63, Loss = 1.212
+[2020-11-27 14:48] EPOCH 0 Train Step 2099/20000, Batch Size = 64,                         Examples/Sec = 2503.62, Accuracy = 0.60, Loss = 1.296
+[2020-11-27 14:48] EPOCH 0 Train Step 2149/20000, Batch Size = 64,                         Examples/Sec = 2271.58, Accuracy = 0.60, Loss = 1.297
+[2020-11-27 14:48] EPOCH 0 Train Step 2199/20000, Batch Size = 64,                         Examples/Sec = 2534.94, Accuracy = 0.61, Loss = 1.253
+[2020-11-27 14:48] EPOCH 0 Train Step 2249/20000, Batch Size = 64,                         Examples/Sec = 2226.74, Accuracy = 0.61, Loss = 1.274
+[2020-11-27 14:48] EPOCH 0 Train Step 2299/20000, Batch Size = 64,                         Examples/Sec = 2218.09, Accuracy = 0.59, Loss = 1.313
+[2020-11-27 14:48] EPOCH 0 Train Step 2349/20000, Batch Size = 64,                         Examples/Sec = 2302.63, Accuracy = 0.61, Loss = 1.245
+[2020-11-27 14:48] EPOCH 0 Train Step 2399/20000, Batch Size = 64,                         Examples/Sec = 2319.52, Accuracy = 0.61, Loss = 1.246
+[2020-11-27 14:48] EPOCH 0 Train Step 2449/20000, Batch Size = 64,                         Examples/Sec = 2271.26, Accuracy = 0.61, Loss = 1.239
+[2020-11-27 14:48] EPOCH 0 Train Step 2499/20000, Batch Size = 64,                         Examples/Sec = 2492.60, Accuracy = 0.61, Loss = 1.237
+[2020-11-27 14:48] EPOCH 0 Train Step 2549/20000, Batch Size = 64,                         Examples/Sec = 2277.73, Accuracy = 0.61, Loss = 1.238
+[2020-11-27 14:48] EPOCH 0 Train Step 2599/20000, Batch Size = 64,                         Examples/Sec = 2289.51, Accuracy = 0.61, Loss = 1.269
+[2020-11-27 14:48] EPOCH 0 Train Step 2649/20000, Batch Size = 64,                         Examples/Sec = 2405.57, Accuracy = 0.62, Loss = 1.202
+[2020-11-27 14:48] EPOCH 0 Train Step 2699/20000, Batch Size = 64,                         Examples/Sec = 2216.53, Accuracy = 0.63, Loss = 1.208
+[2020-11-27 14:48] EPOCH 0 Train Step 2749/20000, Batch Size = 64,                         Examples/Sec = 2523.20, Accuracy = 0.62, Loss = 1.257
+[2020-11-27 14:48] EPOCH 0 Train Step 2799/20000, Batch Size = 64,                         Examples/Sec = 2280.42, Accuracy = 0.62, Loss = 1.218
+[2020-11-27 14:48] EPOCH 0 Train Step 2849/20000, Batch Size = 64,                         Examples/Sec = 2305.24, Accuracy = 0.63, Loss = 1.181
+[2020-11-27 14:48] EPOCH 0 Train Step 2899/20000, Batch Size = 64,                         Examples/Sec = 2419.73, Accuracy = 0.62, Loss = 1.225
+[2020-11-27 14:48] EPOCH 0 Train Step 2949/20000, Batch Size = 64,                         Examples/Sec = 2240.45, Accuracy = 0.62, Loss = 1.204
+[2020-11-27 14:48] EPOCH 0 Train Step 2999/20000, Batch Size = 64,                         Examples/Sec = 2245.40, Accuracy = 0.63, Loss = 1.178
+Generated sentences at step 2999/20000:
+### LENGTH 15 ###
+@ghtened to the
+me the stream t
+� the seashore 
+: ‘I will not
+$ and said: ‘
+### LENGTH 23 ###
+E THE WAS OF AND THE
+$ and said: ‘I wil
+� the seashore that 
+d the stream the str
+8 and said: ‘I wil
+### LENGTH 30 ###
+ith her head to the first the 
+d the stream the stream the st
+Hans, and said, ‘I will not 
+�I will go to the water, and s
+�IS WARRANT OF CHANTICLEER AND
+### LENGTH 45 ###
+Project Gutenberg-tm electronic works, and sa
+
+the sea, and said: ‘I have been all that t
+You must shall be a good little man, and said
+
+the sea, and said: ‘I have been all that t
+zel, and said: ‘I will not see the first th
+### LENGTH 60 ###
+@ghtened to the water, and said: ‘I have been all that the
+[nd the sea, and said: ‘I have been all that the seashore 
+E THE WAS OF AND THE START LITTLE KIND OF THE SANT THE BUSH
+
+�ATENT OF CHANTICLEER AND THE SAAS AND THE SANT THE BUSH
+   
+When the man said, ‘I will not see the first that the seas
+##################################################
+[2020-11-27 14:48] EPOCH 0 Train Step 3049/20000, Batch Size = 64,                         Examples/Sec = 2160.39, Accuracy = 0.63, Loss = 1.205
+[2020-11-27 14:48] EPOCH 0 Train Step 3099/20000, Batch Size = 64,                         Examples/Sec = 2420.65, Accuracy = 0.63, Loss = 1.180
+[2020-11-27 14:48] EPOCH 0 Train Step 3149/20000, Batch Size = 64,                         Examples/Sec = 2290.83, Accuracy = 0.62, Loss = 1.201
+[2020-11-27 14:48] EPOCH 0 Train Step 3199/20000, Batch Size = 64,                         Examples/Sec = 2281.06, Accuracy = 0.62, Loss = 1.199
+[2020-11-27 14:48] EPOCH 0 Train Step 3249/20000, Batch Size = 64,                         Examples/Sec = 2336.37, Accuracy = 0.62, Loss = 1.197
+[2020-11-27 14:48] EPOCH 0 Train Step 3299/20000, Batch Size = 64,                         Examples/Sec = 2140.09, Accuracy = 0.63, Loss = 1.181
+[2020-11-27 14:48] EPOCH 0 Train Step 3349/20000, Batch Size = 64,                         Examples/Sec = 2310.85, Accuracy = 0.63, Loss = 1.200
+[2020-11-27 14:48] EPOCH 0 Train Step 3399/20000, Batch Size = 64,                         Examples/Sec = 2372.53, Accuracy = 0.60, Loss = 1.226
+[2020-11-27 14:48] EPOCH 0 Train Step 3449/20000, Batch Size = 64,                         Examples/Sec = 2755.64, Accuracy = 0.64, Loss = 1.158
+[2020-11-27 14:48] EPOCH 0 Train Step 3499/20000, Batch Size = 64,                         Examples/Sec = 2591.35, Accuracy = 0.64, Loss = 1.170
+[2020-11-27 14:48] EPOCH 0 Train Step 3549/20000, Batch Size = 64,                         Examples/Sec = 2293.09, Accuracy = 0.64, Loss = 1.137
+[2020-11-27 14:48] EPOCH 0 Train Step 3599/20000, Batch Size = 64,                         Examples/Sec = 2150.67, Accuracy = 0.63, Loss = 1.179
+[2020-11-27 14:48] EPOCH 0 Train Step 3649/20000, Batch Size = 64,                         Examples/Sec = 2298.05, Accuracy = 0.66, Loss = 1.152
+[2020-11-27 14:48] EPOCH 0 Train Step 3699/20000, Batch Size = 64,                         Examples/Sec = 2200.56, Accuracy = 0.63, Loss = 1.181
+[2020-11-27 14:48] EPOCH 0 Train Step 3749/20000, Batch Size = 64,                         Examples/Sec = 2260.70, Accuracy = 0.65, Loss = 1.148
+[2020-11-27 14:48] EPOCH 0 Train Step 3799/20000, Batch Size = 64,                         Examples/Sec = 2532.36, Accuracy = 0.63, Loss = 1.182
+[2020-11-27 14:48] EPOCH 0 Train Step 3849/20000, Batch Size = 64,                         Examples/Sec = 2256.44, Accuracy = 0.63, Loss = 1.180
+[2020-11-27 14:48] EPOCH 0 Train Step 3899/20000, Batch Size = 64,                         Examples/Sec = 2305.20, Accuracy = 0.63, Loss = 1.168
+[2020-11-27 14:48] EPOCH 0 Train Step 3949/20000, Batch Size = 64,                         Examples/Sec = 2621.06, Accuracy = 0.63, Loss = 1.161
+[2020-11-27 14:49] EPOCH 0 Train Step 3999/20000, Batch Size = 64,                         Examples/Sec = 2304.01, Accuracy = 0.63, Loss = 1.150
+Generated sentences at step 3999/20000:
+### LENGTH 15 ###
+(and said, ‘I
+o the six might
+me the six migh
+me the six migh
+ce with his hea
+### LENGTH 23 ###
+The second son was s
+and said, ‘I will 
+So the six might be 
+8�� said the fisherm
+Little Red-Cap, and 
+### LENGTH 30 ###
+; and the second son was so be
+E THE WHITE TRAKE
+
+A forest an
+�ought to himself, ‘I will s
+You must go into the world was
+The second son was so beautifu
+### LENGTH 45 ###
+4 with the world was so beautiful that the si
+6**********
+
+Then the second son was so beaut
+On the world was so beautiful that the six mi
+e shoes and said, ‘I will soon be a good li
+3 to see the six might be so much the work is
+### LENGTH 60 ###
+!’ said the fisherman, ‘I am so much the work is the wor
+�� ‘What a clever Elsie where he was so big and said, ‘I
+y the work is the work is the work is the work is the work i
+VER OF THE GOLDEN GOOSE
+
+There was once a little cat had bee
+beautiful that the six might be so much the work is the work
+##################################################
+[2020-11-27 14:49] EPOCH 0 Train Step 4049/20000, Batch Size = 64,                         Examples/Sec = 2246.74, Accuracy = 0.62, Loss = 1.209
+[2020-11-27 14:49] EPOCH 0 Train Step 4099/20000, Batch Size = 64,                         Examples/Sec = 2423.32, Accuracy = 0.64, Loss = 1.168
+[2020-11-27 14:49] EPOCH 0 Train Step 4149/20000, Batch Size = 64,                         Examples/Sec = 2293.71, Accuracy = 0.63, Loss = 1.164
+[2020-11-27 14:49] EPOCH 0 Train Step 4199/20000, Batch Size = 64,                         Examples/Sec = 2462.85, Accuracy = 0.62, Loss = 1.193
+[2020-11-27 14:49] EPOCH 0 Train Step 4249/20000, Batch Size = 64,                         Examples/Sec = 2422.99, Accuracy = 0.65, Loss = 1.144
+[2020-11-27 14:49] EPOCH 0 Train Step 4299/20000, Batch Size = 64,                         Examples/Sec = 2201.59, Accuracy = 0.64, Loss = 1.173
+[2020-11-27 14:49] EPOCH 0 Train Step 4349/20000, Batch Size = 64,                         Examples/Sec = 2585.59, Accuracy = 0.65, Loss = 1.113
+[2020-11-27 14:49] EPOCH 0 Train Step 4399/20000, Batch Size = 64,                         Examples/Sec = 2221.69, Accuracy = 0.64, Loss = 1.142
+[2020-11-27 14:49] EPOCH 0 Train Step 4449/20000, Batch Size = 64,                         Examples/Sec = 2239.24, Accuracy = 0.65, Loss = 1.107
+[2020-11-27 14:49] EPOCH 0 Train Step 4499/20000, Batch Size = 64,                         Examples/Sec = 2203.56, Accuracy = 0.65, Loss = 1.119
+[2020-11-27 14:49] EPOCH 0 Train Step 4549/20000, Batch Size = 64,                         Examples/Sec = 2296.30, Accuracy = 0.64, Loss = 1.129
+[2020-11-27 14:49] EPOCH 0 Train Step 4599/20000, Batch Size = 64,                         Examples/Sec = 2239.57, Accuracy = 0.63, Loss = 1.169
+[2020-11-27 14:49] EPOCH 0 Train Step 4649/20000, Batch Size = 64,                         Examples/Sec = 2286.46, Accuracy = 0.65, Loss = 1.123
+[2020-11-27 14:49] EPOCH 0 Train Step 4699/20000, Batch Size = 64,                         Examples/Sec = 2225.69, Accuracy = 0.64, Loss = 1.158
+[2020-11-27 14:49] EPOCH 0 Train Step 4749/20000, Batch Size = 64,                         Examples/Sec = 2227.00, Accuracy = 0.64, Loss = 1.110
+[2020-11-27 14:49] EPOCH 0 Train Step 4799/20000, Batch Size = 64,                         Examples/Sec = 2385.61, Accuracy = 0.66, Loss = 1.084
+[2020-11-27 14:49] EPOCH 0 Train Step 4849/20000, Batch Size = 64,                         Examples/Sec = 2375.45, Accuracy = 0.65, Loss = 1.136
+[2020-11-27 14:49] EPOCH 0 Train Step 4899/20000, Batch Size = 64,                         Examples/Sec = 2382.96, Accuracy = 0.65, Loss = 1.135
+[2020-11-27 14:49] EPOCH 0 Train Step 4949/20000, Batch Size = 64,                         Examples/Sec = 2435.94, Accuracy = 0.66, Loss = 1.088
+[2020-11-27 14:49] EPOCH 0 Train Step 4999/20000, Batch Size = 64,                         Examples/Sec = 2449.61, Accuracy = 0.65, Loss = 1.099
+Generated sentences at step 4999/20000:
+### LENGTH 15 ###
+(and the mouse 
+’ said the ma
+the man who had
+2011.  If you a
+_ I will give y
+### LENGTH 23 ###
+nd the mouse the win
+K AND THE COAL, AND 
+’ said the man, �
+quite married, and t
+f the way of the way
+### LENGTH 30 ###
+Life, and the mouse the mouse 
+ the wind, the man went to the
+[221122259, or I will give you
+[221122259, or I will give you
+Project Gutenberg-tm eBooks wi
+### LENGTH 45 ###
+d the second she was about to be able to be a
+VEN IN PARTLET WENT FORTH TO LEARN WATER OF L
+UNTILIPIRED OF AND MOUSE IN PARTLET WENT FORT
+What is the wind, the man who had a little of
+s the second brothers were still and said: �
+### LENGTH 60 ###
+joy and said: ‘What are you not tell me the wind, the man 
+5 the mouse the wind said, ‘I will give you the door, the 
+� said the miller, ‘and the mouse the mouse the mouse the 
+e the wind said, ‘I will give you the door, the door of th
+Life, and the mouse the mouse the mouse the mouse the mouse 
+##################################################
+[2020-11-27 14:49] EPOCH 0 Train Step 5049/20000, Batch Size = 64,                         Examples/Sec = 2380.49, Accuracy = 0.65, Loss = 1.107
+[2020-11-27 14:49] EPOCH 0 Train Step 5099/20000, Batch Size = 64,                         Examples/Sec = 2430.34, Accuracy = 0.63, Loss = 1.175
+[2020-11-27 14:49] EPOCH 0 Train Step 5149/20000, Batch Size = 64,                         Examples/Sec = 2264.95, Accuracy = 0.64, Loss = 1.147
+[2020-11-27 14:49] EPOCH 0 Train Step 5199/20000, Batch Size = 64,                         Examples/Sec = 2287.05, Accuracy = 0.64, Loss = 1.106
+[2020-11-27 14:49] EPOCH 0 Train Step 5249/20000, Batch Size = 64,                         Examples/Sec = 2287.79, Accuracy = 0.64, Loss = 1.105
+[2020-11-27 14:49] EPOCH 0 Train Step 5299/20000, Batch Size = 64,                         Examples/Sec = 2277.12, Accuracy = 0.66, Loss = 1.083
+[2020-11-27 14:49] EPOCH 0 Train Step 5349/20000, Batch Size = 64,                         Examples/Sec = 2456.67, Accuracy = 0.63, Loss = 1.132
+[2020-11-27 14:49] EPOCH 0 Train Step 5399/20000, Batch Size = 64,                         Examples/Sec = 2221.06, Accuracy = 0.67, Loss = 1.067
+[2020-11-27 14:49] EPOCH 0 Train Step 5449/20000, Batch Size = 64,                         Examples/Sec = 2256.94, Accuracy = 0.64, Loss = 1.124
+[2020-11-27 14:49] EPOCH 0 Train Step 5499/20000, Batch Size = 64,                         Examples/Sec = 2552.54, Accuracy = 0.64, Loss = 1.112
+[2020-11-27 14:49] EPOCH 0 Train Step 5549/20000, Batch Size = 64,                         Examples/Sec = 2286.50, Accuracy = 0.65, Loss = 1.112
+[2020-11-27 14:49] EPOCH 0 Train Step 5599/20000, Batch Size = 64,                         Examples/Sec = 2226.07, Accuracy = 0.66, Loss = 1.068
+[2020-11-27 14:49] EPOCH 0 Train Step 5649/20000, Batch Size = 64,                         Examples/Sec = 2496.47, Accuracy = 0.64, Loss = 1.119
+[2020-11-27 14:49] EPOCH 0 Train Step 5699/20000, Batch Size = 64,                         Examples/Sec = 2491.42, Accuracy = 0.65, Loss = 1.130
+[2020-11-27 14:49] EPOCH 0 Train Step 5749/20000, Batch Size = 64,                         Examples/Sec = 2383.76, Accuracy = 0.66, Loss = 1.091
+[2020-11-27 14:49] EPOCH 0 Train Step 5799/20000, Batch Size = 64,                         Examples/Sec = 2427.46, Accuracy = 0.65, Loss = 1.109
+[2020-11-27 14:49] EPOCH 0 Train Step 5849/20000, Batch Size = 64,                         Examples/Sec = 2254.64, Accuracy = 0.66, Loss = 1.083
+[2020-11-27 14:49] EPOCH 0 Train Step 5899/20000, Batch Size = 64,                         Examples/Sec = 2235.08, Accuracy = 0.67, Loss = 1.042
+[2020-11-27 14:50] EPOCH 0 Train Step 5949/20000, Batch Size = 64,                         Examples/Sec = 2195.16, Accuracy = 0.66, Loss = 1.073
+[2020-11-27 14:50] EPOCH 0 Train Step 5999/20000, Batch Size = 64,                         Examples/Sec = 2136.56, Accuracy = 0.68, Loss = 1.017
+Generated sentences at step 5999/20000:
+### LENGTH 15 ###
+UND THE COAL, A
+/ght in the wor
+_ I will give m
+s the wolf was 
+zel, and the se
+### LENGTH 23 ###
+Little Red-Cap,’ s
+] the window and the
+90000) what had happ
+he was to be so many
+% the wolf was all t
+### LENGTH 30 ###
+he was to be so many and said:
+@th his way to the sea, and th
+ke the wolf, and said, ‘I wi
+ZEL
+
+There was once a stone an
+6********
+
+
+
+
+
+THE FOX AND THE
+### LENGTH 45 ###
+3 the wolf was all the world was all the worl
+ the second time, and the second time he said
+quite like a clever to the king, and the seco
+le the world was so long time, and the second
+ve him a white dove to the water, and the sec
+### LENGTH 60 ###
+
+the second time, and the second time he said to him, ‘I w
+g the world was so long as the wolf was all the world was al
+�ought to himself, ‘I will give you to the fire, and the s
+And the second time he said to him, ‘I will give you to th
+Kywitt, Kywitt, what a state it was to be so many years, and
+##################################################
+[2020-11-27 14:50] EPOCH 0 Train Step 6049/20000, Batch Size = 64,                         Examples/Sec = 2269.93, Accuracy = 0.65, Loss = 1.123
+[2020-11-27 14:50] EPOCH 0 Train Step 6099/20000, Batch Size = 64,                         Examples/Sec = 2266.81, Accuracy = 0.68, Loss = 1.032
+[2020-11-27 14:50] EPOCH 0 Train Step 6149/20000, Batch Size = 64,                         Examples/Sec = 2268.17, Accuracy = 0.67, Loss = 1.066
+[2020-11-27 14:50] EPOCH 0 Train Step 6199/20000, Batch Size = 64,                         Examples/Sec = 2436.62, Accuracy = 0.66, Loss = 1.050
+[2020-11-27 14:50] EPOCH 0 Train Step 6249/20000, Batch Size = 64,                         Examples/Sec = 2240.21, Accuracy = 0.64, Loss = 1.122
+[2020-11-27 14:50] EPOCH 0 Train Step 6299/20000, Batch Size = 64,                         Examples/Sec = 2237.19, Accuracy = 0.67, Loss = 1.055
+[2020-11-27 14:50] EPOCH 0 Train Step 6349/20000, Batch Size = 64,                         Examples/Sec = 2237.52, Accuracy = 0.67, Loss = 1.088
+[2020-11-27 14:50] EPOCH 0 Train Step 6399/20000, Batch Size = 64,                         Examples/Sec = 3065.45, Accuracy = 0.66, Loss = 1.073
+[2020-11-27 14:50] EPOCH 0 Train Step 6449/20000, Batch Size = 64,                         Examples/Sec = 2261.08, Accuracy = 0.67, Loss = 1.050
+[2020-11-27 14:50] EPOCH 0 Train Step 6499/20000, Batch Size = 64,                         Examples/Sec = 2243.94, Accuracy = 0.65, Loss = 1.107
+[2020-11-27 14:50] EPOCH 0 Train Step 6549/20000, Batch Size = 64,                         Examples/Sec = 2239.74, Accuracy = 0.68, Loss = 1.025
+[2020-11-27 14:50] EPOCH 0 Train Step 6599/20000, Batch Size = 64,                         Examples/Sec = 2380.00, Accuracy = 0.66, Loss = 1.082
+[2020-11-27 14:50] EPOCH 0 Train Step 6649/20000, Batch Size = 64,                         Examples/Sec = 2286.97, Accuracy = 0.66, Loss = 1.060
+[2020-11-27 14:50] EPOCH 0 Train Step 6699/20000, Batch Size = 64,                         Examples/Sec = 2422.57, Accuracy = 0.66, Loss = 1.091
+[2020-11-27 14:50] EPOCH 0 Train Step 6749/20000, Batch Size = 64,                         Examples/Sec = 2505.14, Accuracy = 0.65, Loss = 1.105
+[2020-11-27 14:50] EPOCH 0 Train Step 6799/20000, Batch Size = 64,                         Examples/Sec = 2286.72, Accuracy = 0.65, Loss = 1.099
+[2020-11-27 14:50] EPOCH 0 Train Step 6849/20000, Batch Size = 64,                         Examples/Sec = 2393.24, Accuracy = 0.66, Loss = 1.057
+[2020-11-27 14:50] EPOCH 0 Train Step 6899/20000, Batch Size = 64,                         Examples/Sec = 2307.75, Accuracy = 0.65, Loss = 1.087
+[2020-11-27 14:50] EPOCH 0 Train Step 6949/20000, Batch Size = 64,                         Examples/Sec = 2283.06, Accuracy = 0.65, Loss = 1.110
+[2020-11-27 14:50] EPOCH 0 Train Step 6999/20000, Batch Size = 64,                         Examples/Sec = 2271.14, Accuracy = 0.66, Loss = 1.073
+Generated sentences at step 6999/20000:
+### LENGTH 15 ###
+2591-0.zip ****
+-tree where the
+% to the forest
+ut the stars, a
+HE THIS BEFORE 
+### LENGTH 23 ###
+E THAT THE FOUNDATIO
+me to the forester c
+8
+
+The wolf was the 
+peas and said: ‘Th
+ut the stars, and th
+### LENGTH 30 ###
+E THAT THE FOUNDATION, THE TOR
+@ther again the door to the fo
+!’ said the man, ‘I will g
+0 days the wolf was the stars,
+Kywitt, Kywitt, what a day and
+### LENGTH 45 ###
+2591-0.zip ***** This and the soldier was to 
+’ said the man, ‘I will give you to the f
+_ I am so much to the forester came to the wo
+@ther again the door to the forester came to 
+o the work and the soldier was to be so much 
+### LENGTH 60 ###
+come to the world with him, and the soldier was to be so muc
+quite married, and the soldier was to be so much to the fore
+quite married, and the soldier was to be so much to the fore
+3, and the most beautiful and the stars, and the soldier was
+�ANTICLEER AND PARTLET WENT TO VISIT MR KORBES
+
+Another day 
+##################################################
+[2020-11-27 14:50] EPOCH 0 Train Step 7049/20000, Batch Size = 64,                         Examples/Sec = 2547.24, Accuracy = 0.67, Loss = 1.039
+[2020-11-27 14:50] EPOCH 0 Train Step 7099/20000, Batch Size = 64,                         Examples/Sec = 2293.40, Accuracy = 0.66, Loss = 1.051
+[2020-11-27 14:50] EPOCH 0 Train Step 7149/20000, Batch Size = 64,                         Examples/Sec = 2529.78, Accuracy = 0.66, Loss = 1.060
+[2020-11-27 14:50] EPOCH 0 Train Step 7199/20000, Batch Size = 64,                         Examples/Sec = 2226.22, Accuracy = 0.67, Loss = 1.037
+[2020-11-27 14:50] EPOCH 0 Train Step 7249/20000, Batch Size = 64,                         Examples/Sec = 2313.36, Accuracy = 0.67, Loss = 1.059
+[2020-11-27 14:50] EPOCH 0 Train Step 7299/20000, Batch Size = 64,                         Examples/Sec = 2294.12, Accuracy = 0.68, Loss = 1.021
+[2020-11-27 14:50] EPOCH 0 Train Step 7349/20000, Batch Size = 64,                         Examples/Sec = 2401.89, Accuracy = 0.68, Loss = 1.013
+[2020-11-27 14:50] EPOCH 0 Train Step 7399/20000, Batch Size = 64,                         Examples/Sec = 2450.97, Accuracy = 0.67, Loss = 1.068
+[2020-11-27 14:50] EPOCH 0 Train Step 7449/20000, Batch Size = 64,                         Examples/Sec = 2395.61, Accuracy = 0.66, Loss = 1.062
+[2020-11-27 14:50] EPOCH 0 Train Step 7499/20000, Batch Size = 64,                         Examples/Sec = 2376.71, Accuracy = 0.66, Loss = 1.103
+[2020-11-27 14:50] EPOCH 0 Train Step 7549/20000, Batch Size = 64,                         Examples/Sec = 2304.76, Accuracy = 0.69, Loss = 1.028
+[2020-11-27 14:50] EPOCH 0 Train Step 7599/20000, Batch Size = 64,                         Examples/Sec = 2387.77, Accuracy = 0.67, Loss = 1.043
+[2020-11-27 14:50] EPOCH 0 Train Step 7649/20000, Batch Size = 64,                         Examples/Sec = 2310.93, Accuracy = 0.66, Loss = 1.037
+[2020-11-27 14:50] EPOCH 0 Train Step 7699/20000, Batch Size = 64,                         Examples/Sec = 2371.44, Accuracy = 0.67, Loss = 1.038
+[2020-11-27 14:50] EPOCH 0 Train Step 7749/20000, Batch Size = 64,                         Examples/Sec = 2728.81, Accuracy = 0.68, Loss = 1.026
+[2020-11-27 14:50] EPOCH 0 Train Step 7799/20000, Batch Size = 64,                         Examples/Sec = 2504.95, Accuracy = 0.66, Loss = 1.099
+[2020-11-27 14:50] EPOCH 0 Train Step 7849/20000, Batch Size = 64,                         Examples/Sec = 2470.37, Accuracy = 0.68, Loss = 1.034
+[2020-11-27 14:51] EPOCH 0 Train Step 7899/20000, Batch Size = 64,                         Examples/Sec = 2233.41, Accuracy = 0.66, Loss = 1.089
+[2020-11-27 14:51] EPOCH 0 Train Step 7949/20000, Batch Size = 64,                         Examples/Sec = 2487.24, Accuracy = 0.67, Loss = 1.013
+[2020-11-27 14:51] EPOCH 0 Train Step 7999/20000, Batch Size = 64,                         Examples/Sec = 2399.51, Accuracy = 0.67, Loss = 1.054
+Generated sentences at step 7999/20000:
+### LENGTH 15 ###
+d the second so
+?’ ‘I seek 
+the second son 
+Rose-red the se
+And the cat sai
+### LENGTH 23 ###
+o the second son was
+he was to be seen. T
+_ I shall soon come 
+I will give you a dr
+be a great deal of m
+### LENGTH 30 ###
+d the second son was so heavy 
+l the second son was so heavy 
+ the second son was so heavy t
+could not see the castle was a
+�I am a loud solebble, and the
+### LENGTH 45 ###
+And the cat said: ‘I have a son or and said
+Rose-red the second son was so strangers stoo
+8
+
+Then the wild man said, ‘I will give you
+could not see the castle was a man who had a 
+For a little while he saw that the wild man w
+### LENGTH 60 ###
+d the second son was so heavy that they had not the words th
+e the second son was so heavy that they had not the words th
+ZEL
+     THE FOUR CLEVER BROTHERSHIP
+
+A certain will be a si
+
+and said: ‘I have a son or and said: ‘I have a son or a
+91-0.zip, AND SHORY
+
+And now the king said, ‘I have a son 
+##################################################
+[2020-11-27 14:51] EPOCH 0 Train Step 8049/20000, Batch Size = 64,                         Examples/Sec = 2312.50, Accuracy = 0.67, Loss = 1.071
+[2020-11-27 14:51] EPOCH 0 Train Step 8099/20000, Batch Size = 64,                         Examples/Sec = 2425.94, Accuracy = 0.67, Loss = 1.006
+[2020-11-27 14:51] EPOCH 0 Train Step 8149/20000, Batch Size = 64,                         Examples/Sec = 2252.71, Accuracy = 0.65, Loss = 1.079
+[2020-11-27 14:51] EPOCH 0 Train Step 8199/20000, Batch Size = 64,                         Examples/Sec = 2311.79, Accuracy = 0.68, Loss = 1.053
+[2020-11-27 14:51] EPOCH 0 Train Step 8249/20000, Batch Size = 64,                         Examples/Sec = 2289.23, Accuracy = 0.67, Loss = 1.087
+[2020-11-27 14:51] EPOCH 0 Train Step 8299/20000, Batch Size = 64,                         Examples/Sec = 2539.77, Accuracy = 0.68, Loss = 0.994
+[2020-11-27 14:51] EPOCH 0 Train Step 8349/20000, Batch Size = 64,                         Examples/Sec = 2431.63, Accuracy = 0.68, Loss = 1.019
+[2020-11-27 14:51] EPOCH 0 Train Step 8399/20000, Batch Size = 64,                         Examples/Sec = 2422.22, Accuracy = 0.66, Loss = 1.092
+[2020-11-27 14:51] EPOCH 0 Train Step 8449/20000, Batch Size = 64,                         Examples/Sec = 2316.98, Accuracy = 0.67, Loss = 1.064
+[2020-11-27 14:51] EPOCH 0 Train Step 8499/20000, Batch Size = 64,                         Examples/Sec = 2371.61, Accuracy = 0.67, Loss = 1.030
+[2020-11-27 14:51] EPOCH 0 Train Step 8549/20000, Batch Size = 64,                         Examples/Sec = 2494.71, Accuracy = 0.68, Loss = 1.012
+[2020-11-27 14:51] EPOCH 0 Train Step 8599/20000, Batch Size = 64,                         Examples/Sec = 2474.47, Accuracy = 0.66, Loss = 1.045
+[2020-11-27 14:51] EPOCH 1 Train Step 8649/20000, Batch Size = 64,                         Examples/Sec = 2280.15, Accuracy = 0.67, Loss = 1.029
+[2020-11-27 14:51] EPOCH 1 Train Step 8699/20000, Batch Size = 64,                         Examples/Sec = 2444.17, Accuracy = 0.67, Loss = 1.028
+[2020-11-27 14:51] EPOCH 1 Train Step 8749/20000, Batch Size = 64,                         Examples/Sec = 2510.36, Accuracy = 0.66, Loss = 1.059
+[2020-11-27 14:51] EPOCH 1 Train Step 8799/20000, Batch Size = 64,                         Examples/Sec = 2486.87, Accuracy = 0.67, Loss = 1.044
+[2020-11-27 14:51] EPOCH 1 Train Step 8849/20000, Batch Size = 64,                         Examples/Sec = 2432.71, Accuracy = 0.68, Loss = 1.002
+[2020-11-27 14:51] EPOCH 1 Train Step 8899/20000, Batch Size = 64,                         Examples/Sec = 2222.70, Accuracy = 0.67, Loss = 1.073
+[2020-11-27 14:51] EPOCH 1 Train Step 8949/20000, Batch Size = 64,                         Examples/Sec = 2319.38, Accuracy = 0.67, Loss = 1.029
+[2020-11-27 14:51] EPOCH 1 Train Step 8999/20000, Batch Size = 64,                         Examples/Sec = 2502.78, Accuracy = 0.70, Loss = 1.008
+Generated sentences at step 8999/20000:
+### LENGTH 15 ###
+Under the third
+1.E.1.  1.F.1. 
+***** This will
+xt day the seco
+2000) are so mu
+### LENGTH 23 ###
+6-trees, and the sol
+When the second son 
+l the third day the 
+3; and there they we
+ing the second son, 
+### LENGTH 30 ###
+5 the others will be a good la
+[*****
+
+The second son went th
+2000) are so much that I am!�
+Then the king said, ‘I will 
+�ought to himself, ‘I will t
+### LENGTH 45 ###
+me to the forest, and the soldier was all the
+#ING MUSICIANS
+
+There was once a great feast,
+d the same time the second son went there and
+. Then she went to the king to the kitchen, a
+@ghter who was to be a son, who had the serva
+### LENGTH 60 ###
+� Then the king said, ‘I will take you there?’ said the 
+[*****
+
+The second son went there and said, ‘This is not t
+), and the second son went there and said, ‘This is not th
+ZEL
+
+There was once a great feast, and the second son went t
+One of the second son, who was the second son, who was the s
+##################################################
+[2020-11-27 14:51] EPOCH 1 Train Step 9049/20000, Batch Size = 64,                         Examples/Sec = 2257.07, Accuracy = 0.67, Loss = 1.038
+[2020-11-27 14:51] EPOCH 1 Train Step 9099/20000, Batch Size = 64,                         Examples/Sec = 2237.69, Accuracy = 0.68, Loss = 0.990
+[2020-11-27 14:51] EPOCH 1 Train Step 9149/20000, Batch Size = 64,                         Examples/Sec = 2279.32, Accuracy = 0.68, Loss = 1.039
+[2020-11-27 14:51] EPOCH 1 Train Step 9199/20000, Batch Size = 64,                         Examples/Sec = 2217.49, Accuracy = 0.69, Loss = 0.973
+[2020-11-27 14:51] EPOCH 1 Train Step 9249/20000, Batch Size = 64,                         Examples/Sec = 2286.37, Accuracy = 0.67, Loss = 1.041
+[2020-11-27 14:51] EPOCH 1 Train Step 9299/20000, Batch Size = 64,                         Examples/Sec = 2420.76, Accuracy = 0.66, Loss = 1.042
+[2020-11-27 14:51] EPOCH 1 Train Step 9349/20000, Batch Size = 64,                         Examples/Sec = 2493.41, Accuracy = 0.67, Loss = 1.044
+[2020-11-27 14:51] EPOCH 1 Train Step 9399/20000, Batch Size = 64,                         Examples/Sec = 2298.68, Accuracy = 0.66, Loss = 1.064
+[2020-11-27 14:51] EPOCH 1 Train Step 9449/20000, Batch Size = 64,                         Examples/Sec = 2277.89, Accuracy = 0.69, Loss = 1.002
+[2020-11-27 14:51] EPOCH 1 Train Step 9499/20000, Batch Size = 64,                         Examples/Sec = 2497.12, Accuracy = 0.68, Loss = 1.022
+[2020-11-27 14:51] EPOCH 1 Train Step 9549/20000, Batch Size = 64,                         Examples/Sec = 2300.87, Accuracy = 0.67, Loss = 1.085
+[2020-11-27 14:51] EPOCH 1 Train Step 9599/20000, Batch Size = 64,                         Examples/Sec = 2318.42, Accuracy = 0.68, Loss = 1.027
+[2020-11-27 14:51] EPOCH 1 Train Step 9649/20000, Batch Size = 64,                         Examples/Sec = 2267.46, Accuracy = 0.69, Loss = 1.005
+[2020-11-27 14:51] EPOCH 1 Train Step 9699/20000, Batch Size = 64,                         Examples/Sec = 2235.86, Accuracy = 0.67, Loss = 1.041
+[2020-11-27 14:51] EPOCH 1 Train Step 9749/20000, Batch Size = 64,                         Examples/Sec = 2295.46, Accuracy = 0.68, Loss = 0.992
+[2020-11-27 14:51] EPOCH 1 Train Step 9799/20000, Batch Size = 64,                         Examples/Sec = 2472.10, Accuracy = 0.68, Loss = 1.018
+[2020-11-27 14:51] EPOCH 1 Train Step 9849/20000, Batch Size = 64,                         Examples/Sec = 2244.09, Accuracy = 0.68, Loss = 0.987
+[2020-11-27 14:52] EPOCH 1 Train Step 9899/20000, Batch Size = 64,                         Examples/Sec = 2506.66, Accuracy = 0.67, Loss = 1.025
+[2020-11-27 14:52] EPOCH 1 Train Step 9949/20000, Batch Size = 64,                         Examples/Sec = 2315.04, Accuracy = 0.67, Loss = 1.026
+[2020-11-27 14:52] EPOCH 1 Train Step 9999/20000, Batch Size = 64,                         Examples/Sec = 2287.93, Accuracy = 0.66, Loss = 1.039
+Generated sentences at step 9999/20000:
+### LENGTH 15 ###
+(and I will giv
+91-00zelly in t
+$ days and said
+ZEL
+
+There was 
+and the gold wa
+### LENGTH 23 ###
+beautiful flowers an
+�and the gold was se
+�and the gold was se
+% you will give you 
+n the fire at the wa
+### LENGTH 30 ###
+$ days and said, ‘I will giv
+very day to the garden and saw
+‘I will give you to the fire
+4 will be able to get the fire
+DEN BIRD
+     CLEVER HANS
+    
+### LENGTH 45 ###
+You must go and see the door, and the gold wa
+712.  LILY AND THE LION
+     THE FOX AND THE 
+ZEL
+
+There was once a straw, who was the firs
+[***
+
+The second brother also and said to him
+712.  LILY AND THE LION
+     THE FOX AND THE 
+### LENGTH 60 ###
+ould not go to the fire and saw that the witch was a good da
+ould not go to the fire and saw that the witch was a good da
+My wonderful times and said: ‘If you will never leave your
+591/
+
+Produced to the fire and saw that the witch was a good
+�g and said, ‘I will give you to the fire, and I will give
+##################################################
+[2020-11-27 14:52] EPOCH 1 Train Step 10049/20000, Batch Size = 64,                         Examples/Sec = 2277.75, Accuracy = 0.68, Loss = 0.989
+[2020-11-27 14:52] EPOCH 1 Train Step 10099/20000, Batch Size = 64,                         Examples/Sec = 2412.79, Accuracy = 0.69, Loss = 0.984
+[2020-11-27 14:52] EPOCH 1 Train Step 10149/20000, Batch Size = 64,                         Examples/Sec = 2460.77, Accuracy = 0.69, Loss = 0.977
+[2020-11-27 14:52] EPOCH 1 Train Step 10199/20000, Batch Size = 64,                         Examples/Sec = 2500.59, Accuracy = 0.69, Loss = 0.989
+[2020-11-27 14:52] EPOCH 1 Train Step 10249/20000, Batch Size = 64,                         Examples/Sec = 2484.64, Accuracy = 0.67, Loss = 1.046
+[2020-11-27 14:52] EPOCH 1 Train Step 10299/20000, Batch Size = 64,                         Examples/Sec = 2264.36, Accuracy = 0.67, Loss = 1.036
+[2020-11-27 14:52] EPOCH 1 Train Step 10349/20000, Batch Size = 64,                         Examples/Sec = 2358.26, Accuracy = 0.68, Loss = 1.026
+[2020-11-27 14:52] EPOCH 1 Train Step 10399/20000, Batch Size = 64,                         Examples/Sec = 2377.51, Accuracy = 0.69, Loss = 0.993
+[2020-11-27 14:52] EPOCH 1 Train Step 10449/20000, Batch Size = 64,                         Examples/Sec = 2506.17, Accuracy = 0.68, Loss = 1.002
+[2020-11-27 14:52] EPOCH 1 Train Step 10499/20000, Batch Size = 64,                         Examples/Sec = 2240.62, Accuracy = 0.69, Loss = 0.986
+[2020-11-27 14:52] EPOCH 1 Train Step 10549/20000, Batch Size = 64,                         Examples/Sec = 2518.32, Accuracy = 0.68, Loss = 1.029
+[2020-11-27 14:52] EPOCH 1 Train Step 10599/20000, Batch Size = 64,                         Examples/Sec = 2232.18, Accuracy = 0.68, Loss = 1.027
+[2020-11-27 14:52] EPOCH 1 Train Step 10649/20000, Batch Size = 64,                         Examples/Sec = 2527.83, Accuracy = 0.69, Loss = 0.966
+[2020-11-27 14:52] EPOCH 1 Train Step 10699/20000, Batch Size = 64,                         Examples/Sec = 2287.75, Accuracy = 0.70, Loss = 0.951
+[2020-11-27 14:52] EPOCH 1 Train Step 10749/20000, Batch Size = 64,                         Examples/Sec = 2430.89, Accuracy = 0.70, Loss = 0.975
+[2020-11-27 14:52] EPOCH 1 Train Step 10799/20000, Batch Size = 64,                         Examples/Sec = 2261.67, Accuracy = 0.68, Loss = 0.999
+[2020-11-27 14:52] EPOCH 1 Train Step 10849/20000, Batch Size = 64,                         Examples/Sec = 2388.62, Accuracy = 0.68, Loss = 0.996
+[2020-11-27 14:52] EPOCH 1 Train Step 10899/20000, Batch Size = 64,                         Examples/Sec = 2376.80, Accuracy = 0.68, Loss = 1.005
+[2020-11-27 14:52] EPOCH 1 Train Step 10949/20000, Batch Size = 64,                         Examples/Sec = 2386.77, Accuracy = 0.69, Loss = 1.015
+[2020-11-27 14:52] EPOCH 1 Train Step 10999/20000, Batch Size = 64,                         Examples/Sec = 2315.34, Accuracy = 0.70, Loss = 0.944
+Generated sentences at step 10999/20000:
+### LENGTH 15 ###
+�gest son was s
+peasant and sai
+d the soldier s
+8 BRIAR ROSE
+
+A
+t the stars, an
+### LENGTH 23 ###
+] the man who had a 
+� said the fisherman
+Just go away, and th
+� said the fisherman
+y the way he saw the
+### LENGTH 30 ###
+be a bow that the bear was a g
+� said the fisherman, ‘I am 
+Just go away, and the most bea
+NS IN PARAGRAPH F3.  YOU AGREE
+very day the second by the wat
+### LENGTH 45 ###
+peasant and said: ‘I will not be able to se
+just as the man went to the window, and said,
+REACH OF WARRANTY OR BREACH OF CONTRACT EXCEP
+Gretel, who would be a piece of bread from th
+3. And the moon came the stars, and said, ‘
+### LENGTH 60 ###
+and the soldier said to the spring and said: ‘I will not b
+fore the steps were so heavy that they might lie
+  Underneat
+be a bow that the bear was a goose and see where I am a poor
+4 with the state of finding and said: ‘If you are stones t
+be a bow that the bear was a goose and see where I am a poor
+##################################################
+[2020-11-27 14:52] EPOCH 1 Train Step 11049/20000, Batch Size = 64,                         Examples/Sec = 2338.04, Accuracy = 0.67, Loss = 0.983
+[2020-11-27 14:52] EPOCH 1 Train Step 11099/20000, Batch Size = 64,                         Examples/Sec = 2358.15, Accuracy = 0.66, Loss = 1.090
+[2020-11-27 14:52] EPOCH 1 Train Step 11149/20000, Batch Size = 64,                         Examples/Sec = 2313.56, Accuracy = 0.67, Loss = 1.028
+[2020-11-27 14:52] EPOCH 1 Train Step 11199/20000, Batch Size = 64,                         Examples/Sec = 2170.32, Accuracy = 0.69, Loss = 0.967
+[2020-11-27 14:52] EPOCH 1 Train Step 11249/20000, Batch Size = 64,                         Examples/Sec = 2251.73, Accuracy = 0.68, Loss = 1.015
+[2020-11-27 14:52] EPOCH 1 Train Step 11299/20000, Batch Size = 64,                         Examples/Sec = 2932.60, Accuracy = 0.69, Loss = 0.979
+[2020-11-27 14:52] EPOCH 1 Train Step 11349/20000, Batch Size = 64,                         Examples/Sec = 2424.69, Accuracy = 0.70, Loss = 0.960
+[2020-11-27 14:52] EPOCH 1 Train Step 11399/20000, Batch Size = 64,                         Examples/Sec = 2537.58, Accuracy = 0.70, Loss = 0.969
+[2020-11-27 14:52] EPOCH 1 Train Step 11449/20000, Batch Size = 64,                         Examples/Sec = 2286.97, Accuracy = 0.68, Loss = 0.995
+[2020-11-27 14:52] EPOCH 1 Train Step 11499/20000, Batch Size = 64,                         Examples/Sec = 2281.31, Accuracy = 0.69, Loss = 0.961
+[2020-11-27 14:52] EPOCH 1 Train Step 11549/20000, Batch Size = 64,                         Examples/Sec = 2430.64, Accuracy = 0.69, Loss = 0.971
+[2020-11-27 14:52] EPOCH 1 Train Step 11599/20000, Batch Size = 64,                         Examples/Sec = 2233.98, Accuracy = 0.68, Loss = 0.994
+[2020-11-27 14:52] EPOCH 1 Train Step 11649/20000, Batch Size = 64,                         Examples/Sec = 2332.56, Accuracy = 0.68, Loss = 0.999
+[2020-11-27 14:52] EPOCH 1 Train Step 11699/20000, Batch Size = 64,                         Examples/Sec = 2290.21, Accuracy = 0.69, Loss = 0.955
+[2020-11-27 14:52] EPOCH 1 Train Step 11749/20000, Batch Size = 64,                         Examples/Sec = 2454.74, Accuracy = 0.69, Loss = 0.949
+[2020-11-27 14:52] EPOCH 1 Train Step 11799/20000, Batch Size = 64,                         Examples/Sec = 2483.28, Accuracy = 0.70, Loss = 0.972
+[2020-11-27 14:53] EPOCH 1 Train Step 11849/20000, Batch Size = 64,                         Examples/Sec = 2382.79, Accuracy = 0.69, Loss = 0.986
+[2020-11-27 14:53] EPOCH 1 Train Step 11899/20000, Batch Size = 64,                         Examples/Sec = 2300.53, Accuracy = 0.67, Loss = 1.020
+[2020-11-27 14:53] EPOCH 1 Train Step 11949/20000, Batch Size = 64,                         Examples/Sec = 2402.95, Accuracy = 0.68, Loss = 1.016
+[2020-11-27 14:53] EPOCH 1 Train Step 11999/20000, Batch Size = 64,                         Examples/Sec = 2436.16, Accuracy = 0.69, Loss = 0.965
+Generated sentences at step 11999/20000:
+### LENGTH 15 ###
+4 in the wood t
+He went to the 
+� The man was c
+@p to her mothe
+nd the soldier 
+### LENGTH 23 ###
+ing and the soldier 
+princess was again c
+Queen had a little w
+was a great many yea
+and the soldier said
+### LENGTH 30 ###
+) and the soldier said to him,
+’ said the man, ‘that is n
+@p to her mother, ‘I will no
+KIDS
+
+There was once a man who
+I am a poor man will soon find
+### LENGTH 45 ###
+and the soldier said nothing but a ship and s
+�AS IFORO
+AND THE HORSE
+     THE BLUE LIGHT
+
+
+63)1591, 2008 [     THE BLUE LIGHT
+
+There was
+ and the soldier said to him, ‘What a cleve
+zed of the spring. As the soldier had reached
+### LENGTH 60 ###
+Queen had a little while, and the soldier was as the window 
+USE IN PARTNERSHIP
+
+A certain copyright with the princesses 
+The soldier was as the window and said: ‘I will not do it.
+’ said the man, ‘that is not the way out of the window. 
+63)1591, 2008 [     THE BLUE LIGHT
+
+There was once a man who
+##################################################
+[2020-11-27 14:53] EPOCH 1 Train Step 12049/20000, Batch Size = 64,                         Examples/Sec = 2494.36, Accuracy = 0.68, Loss = 0.992
+[2020-11-27 14:53] EPOCH 1 Train Step 12099/20000, Batch Size = 64,                         Examples/Sec = 2524.22, Accuracy = 0.68, Loss = 0.950
+[2020-11-27 14:53] EPOCH 1 Train Step 12149/20000, Batch Size = 64,                         Examples/Sec = 2278.89, Accuracy = 0.70, Loss = 0.988
+[2020-11-27 14:53] EPOCH 1 Train Step 12199/20000, Batch Size = 64,                         Examples/Sec = 2285.49, Accuracy = 0.67, Loss = 1.003
+[2020-11-27 14:53] EPOCH 1 Train Step 12249/20000, Batch Size = 64,                         Examples/Sec = 2414.25, Accuracy = 0.67, Loss = 1.020
+[2020-11-27 14:53] EPOCH 1 Train Step 12299/20000, Batch Size = 64,                         Examples/Sec = 2342.37, Accuracy = 0.69, Loss = 0.955
+[2020-11-27 14:53] EPOCH 1 Train Step 12349/20000, Batch Size = 64,                         Examples/Sec = 2498.00, Accuracy = 0.68, Loss = 1.010
+[2020-11-27 14:53] EPOCH 1 Train Step 12399/20000, Batch Size = 64,                         Examples/Sec = 2309.16, Accuracy = 0.70, Loss = 0.951
+[2020-11-27 14:53] EPOCH 1 Train Step 12449/20000, Batch Size = 64,                         Examples/Sec = 2223.62, Accuracy = 0.70, Loss = 0.949
+[2020-11-27 14:53] EPOCH 1 Train Step 12499/20000, Batch Size = 64,                         Examples/Sec = 2241.91, Accuracy = 0.68, Loss = 0.967
+[2020-11-27 14:53] EPOCH 1 Train Step 12549/20000, Batch Size = 64,                         Examples/Sec = 2309.42, Accuracy = 0.71, Loss = 0.955
+[2020-11-27 14:53] EPOCH 1 Train Step 12599/20000, Batch Size = 64,                         Examples/Sec = 2559.45, Accuracy = 0.69, Loss = 0.959
+[2020-11-27 14:53] EPOCH 1 Train Step 12649/20000, Batch Size = 64,                         Examples/Sec = 2199.97, Accuracy = 0.67, Loss = 1.016
+[2020-11-27 14:53] EPOCH 1 Train Step 12699/20000, Batch Size = 64,                         Examples/Sec = 2401.76, Accuracy = 0.71, Loss = 0.943
+[2020-11-27 14:53] EPOCH 1 Train Step 12749/20000, Batch Size = 64,                         Examples/Sec = 2494.36, Accuracy = 0.67, Loss = 1.013
+[2020-11-27 14:53] EPOCH 1 Train Step 12799/20000, Batch Size = 64,                         Examples/Sec = 2253.89, Accuracy = 0.70, Loss = 0.926
+[2020-11-27 14:53] EPOCH 1 Train Step 12849/20000, Batch Size = 64,                         Examples/Sec = 2489.13, Accuracy = 0.70, Loss = 0.967
+[2020-11-27 14:53] EPOCH 1 Train Step 12899/20000, Batch Size = 64,                         Examples/Sec = 2485.35, Accuracy = 0.69, Loss = 0.952
+[2020-11-27 14:53] EPOCH 1 Train Step 12949/20000, Batch Size = 64,                         Examples/Sec = 2434.85, Accuracy = 0.71, Loss = 0.902
+[2020-11-27 14:53] EPOCH 1 Train Step 12999/20000, Batch Size = 64,                         Examples/Sec = 2474.47, Accuracy = 0.70, Loss = 0.970
+Generated sentences at step 12999/20000:
+### LENGTH 15 ###
+812, and the so
+ing the same ti
+@p the same tim
+91-0.. AND BREA
+But the soldier
+### LENGTH 23 ###
+I will give you to t
+; and the soldier wa
+#ING LITTLE TO VITIR
+g the same time the 
+4 will be better tha
+### LENGTH 30 ###
+63)155RING HOOD]
+     THE KING
+ut the soldier said: ‘I will
+ the same time a short time th
+What do you wish to be mayor, 
+***
+The same that they were al
+### LENGTH 45 ###
+RED RIDING HOOD]
+
+Once upon a time a short ti
+y the same time a short time the will be a si
+I will give you to the forest, and the soldie
+r the world were seen before the king’s son
+) said to him: ‘What do you see that my hea
+### LENGTH 60 ###
+/www.gutenberg.org
+
+1.E.2.  If an individual Project Gutenbe
+***
+The same that they were all of gold and sound of the sam
+ing the same time a short time the will be a sin no longer. 
+?’ ‘No,’ said the fisherman, ‘I will go out of the f
+91-0.. AND BREACK OLD MAN AND HIS GRANDSON
+       THE THREE 
+##################################################
+[2020-11-27 14:53] EPOCH 1 Train Step 13049/20000, Batch Size = 64,                         Examples/Sec = 2315.48, Accuracy = 0.69, Loss = 0.968
+[2020-11-27 14:53] EPOCH 1 Train Step 13099/20000, Batch Size = 64,                         Examples/Sec = 2277.29, Accuracy = 0.68, Loss = 0.991
+[2020-11-27 14:53] EPOCH 1 Train Step 13149/20000, Batch Size = 64,                         Examples/Sec = 2226.70, Accuracy = 0.69, Loss = 0.963
+[2020-11-27 14:53] EPOCH 1 Train Step 13199/20000, Batch Size = 64,                         Examples/Sec = 2325.18, Accuracy = 0.71, Loss = 0.933
+[2020-11-27 14:53] EPOCH 1 Train Step 13249/20000, Batch Size = 64,                         Examples/Sec = 2370.08, Accuracy = 0.69, Loss = 0.966
+[2020-11-27 14:53] EPOCH 1 Train Step 13299/20000, Batch Size = 64,                         Examples/Sec = 2201.28, Accuracy = 0.70, Loss = 0.934
+[2020-11-27 14:53] EPOCH 1 Train Step 13349/20000, Batch Size = 64,                         Examples/Sec = 2235.99, Accuracy = 0.69, Loss = 0.996
+[2020-11-27 14:53] EPOCH 1 Train Step 13399/20000, Batch Size = 64,                         Examples/Sec = 2397.47, Accuracy = 0.67, Loss = 1.019
+[2020-11-27 14:53] EPOCH 1 Train Step 13449/20000, Batch Size = 64,                         Examples/Sec = 2496.68, Accuracy = 0.69, Loss = 0.973
+[2020-11-27 14:53] EPOCH 1 Train Step 13499/20000, Batch Size = 64,                         Examples/Sec = 2218.35, Accuracy = 0.68, Loss = 0.989
+[2020-11-27 14:53] EPOCH 1 Train Step 13549/20000, Batch Size = 64,                         Examples/Sec = 2312.78, Accuracy = 0.69, Loss = 0.975
+[2020-11-27 14:53] EPOCH 1 Train Step 13599/20000, Batch Size = 64,                         Examples/Sec = 2203.25, Accuracy = 0.70, Loss = 0.934
+[2020-11-27 14:53] EPOCH 1 Train Step 13649/20000, Batch Size = 64,                         Examples/Sec = 2485.38, Accuracy = 0.69, Loss = 0.955
+[2020-11-27 14:53] EPOCH 1 Train Step 13699/20000, Batch Size = 64,                         Examples/Sec = 2514.29, Accuracy = 0.70, Loss = 0.920
+[2020-11-27 14:53] EPOCH 1 Train Step 13749/20000, Batch Size = 64,                         Examples/Sec = 2317.40, Accuracy = 0.70, Loss = 0.943
+[2020-11-27 14:54] EPOCH 1 Train Step 13799/20000, Batch Size = 64,                         Examples/Sec = 2225.32, Accuracy = 0.69, Loss = 0.944
+[2020-11-27 14:54] EPOCH 1 Train Step 13849/20000, Batch Size = 64,                         Examples/Sec = 2380.80, Accuracy = 0.70, Loss = 0.958
+[2020-11-27 14:54] EPOCH 1 Train Step 13899/20000, Batch Size = 64,                         Examples/Sec = 2216.61, Accuracy = 0.68, Loss = 0.977
+[2020-11-27 14:54] EPOCH 1 Train Step 13949/20000, Batch Size = 64,                         Examples/Sec = 2307.24, Accuracy = 0.68, Loss = 0.991
+[2020-11-27 14:54] EPOCH 1 Train Step 13999/20000, Batch Size = 64,                         Examples/Sec = 2489.99, Accuracy = 0.71, Loss = 0.913
+Generated sentences at step 13999/20000:
+### LENGTH 15 ###
+ZEL
+ THE FOX AN
+ut the stars we
+OR MRS FOX
+    
+For a little wh
+? I will soon f
+### LENGTH 23 ###
+re the wind came was
+D HOW DINTALES 
+And 
+Now the old woman sa
+21541.  Its 501(c)(3
+y and the mother sai
+### LENGTH 30 ###
+� and the mother said: ‘It i
+-tm electronic works in the wo
+�olled the cart, and said, ‘
+� and the mother said: ‘It i
+Queen, and said, ‘I will giv
+### LENGTH 45 ###
+e was always called Snowdrop was the money fo
+You have set to me.’
+
+The countryman seized
+d the soldier said to him, ‘What a clever E
+ing and said, ‘I will give thee an end of m
+ch the water which was the money for her for 
+### LENGTH 60 ###
+e was always called Snowdrop was the money for her for his f
+ll the time invisible, and the mother said: ‘It is not the
+(oy was always called Snowdrop still lest he saw the boy, an
+) and the mother said: ‘It is not the true one whom the wi
+41- GRETEL
+     THE WOLF AND THE LION
+     THE FOX AND THE C
+##################################################
+[2020-11-27 14:54] EPOCH 1 Train Step 14049/20000, Batch Size = 64,                         Examples/Sec = 2337.07, Accuracy = 0.68, Loss = 0.969
+[2020-11-27 14:54] EPOCH 1 Train Step 14099/20000, Batch Size = 64,                         Examples/Sec = 2416.25, Accuracy = 0.69, Loss = 0.963
+[2020-11-27 14:54] EPOCH 1 Train Step 14149/20000, Batch Size = 64,                         Examples/Sec = 2476.75, Accuracy = 0.68, Loss = 0.963
+[2020-11-27 14:54] EPOCH 1 Train Step 14199/20000, Batch Size = 64,                         Examples/Sec = 2292.87, Accuracy = 0.70, Loss = 0.950
+[2020-11-27 14:54] EPOCH 1 Train Step 14249/20000, Batch Size = 64,                         Examples/Sec = 2344.11, Accuracy = 0.70, Loss = 0.939
+[2020-11-27 14:54] EPOCH 1 Train Step 14299/20000, Batch Size = 64,                         Examples/Sec = 2513.37, Accuracy = 0.69, Loss = 0.960
+[2020-11-27 14:54] EPOCH 1 Train Step 14349/20000, Batch Size = 64,                         Examples/Sec = 2371.51, Accuracy = 0.69, Loss = 0.954
+[2020-11-27 14:54] EPOCH 1 Train Step 14399/20000, Batch Size = 64,                         Examples/Sec = 2238.21, Accuracy = 0.71, Loss = 0.963
+[2020-11-27 14:54] EPOCH 1 Train Step 14449/20000, Batch Size = 64,                         Examples/Sec = 2211.89, Accuracy = 0.71, Loss = 0.922
+[2020-11-27 14:54] EPOCH 1 Train Step 14499/20000, Batch Size = 64,                         Examples/Sec = 2514.31, Accuracy = 0.70, Loss = 0.927
+[2020-11-27 14:54] EPOCH 1 Train Step 14549/20000, Batch Size = 64,                         Examples/Sec = 2292.79, Accuracy = 0.70, Loss = 0.931
+[2020-11-27 14:54] EPOCH 1 Train Step 14599/20000, Batch Size = 64,                         Examples/Sec = 2299.82, Accuracy = 0.71, Loss = 0.929
+[2020-11-27 14:54] EPOCH 1 Train Step 14649/20000, Batch Size = 64,                         Examples/Sec = 2285.34, Accuracy = 0.69, Loss = 0.994
+[2020-11-27 14:54] EPOCH 1 Train Step 14699/20000, Batch Size = 64,                         Examples/Sec = 2297.64, Accuracy = 0.70, Loss = 1.001
+[2020-11-27 14:54] EPOCH 1 Train Step 14749/20000, Batch Size = 64,                         Examples/Sec = 2214.23, Accuracy = 0.70, Loss = 0.944
+[2020-11-27 14:54] EPOCH 1 Train Step 14799/20000, Batch Size = 64,                         Examples/Sec = 2348.21, Accuracy = 0.70, Loss = 0.922
+[2020-11-27 14:54] EPOCH 1 Train Step 14849/20000, Batch Size = 64,                         Examples/Sec = 2469.98, Accuracy = 0.69, Loss = 0.954
+[2020-11-27 14:54] EPOCH 1 Train Step 14899/20000, Batch Size = 64,                         Examples/Sec = 2492.07, Accuracy = 0.68, Loss = 0.996
+[2020-11-27 14:54] EPOCH 1 Train Step 14949/20000, Batch Size = 64,                         Examples/Sec = 2267.71, Accuracy = 0.70, Loss = 0.972
+[2020-11-27 14:54] EPOCH 1 Train Step 14999/20000, Batch Size = 64,                         Examples/Sec = 2231.18, Accuracy = 0.68, Loss = 0.986
+Generated sentences at step 14999/20000:
+### LENGTH 15 ###
+91-086
+
+Bxard a
+) and a bird of
+6-thought he wa
+) and a bird of
+$1     Blo on a
+### LENGTH 23 ###
+I will not be able t
+Oh, what a beautiful
+y the bread of the c
+Jorinda stretched hi
+The man was to be a 
+### LENGTH 30 ###
+. Then she was standing behind
+. Then she was standing behind
+ve the boy on the stream. ‘H
+Little Red-Cap thought to hims
+��What did you take her?’ �
+### LENGTH 45 ###
+$1     Blo on a country that she had been a s
+and the bird took out a beautiful bird am I!�
+RINES GRIMMS
+     THE STRAW, THE COAL, AND TH
+@pite at an end she saw that the bird came an
+x to the king to drink a drop of blood and be
+### LENGTH 60 ###
+; but the mother said nothing to be a silly king who had bro
+] cannot forget to be a silly be christening to my father an
+0u had sat down into the wood that something to eat and drin
+; but the mother said nothing to be a silly king who had bro
+But the cook was come back to the house, and the bird was as
+##################################################
+[2020-11-27 14:54] EPOCH 1 Train Step 15049/20000, Batch Size = 64,                         Examples/Sec = 2263.96, Accuracy = 0.70, Loss = 0.926
+[2020-11-27 14:54] EPOCH 1 Train Step 15099/20000, Batch Size = 64,                         Examples/Sec = 2391.98, Accuracy = 0.70, Loss = 0.913
+[2020-11-27 14:54] EPOCH 1 Train Step 15149/20000, Batch Size = 64,                         Examples/Sec = 2539.84, Accuracy = 0.70, Loss = 0.963
+[2020-11-27 14:54] EPOCH 1 Train Step 15199/20000, Batch Size = 64,                         Examples/Sec = 2630.82, Accuracy = 0.71, Loss = 0.901
+[2020-11-27 14:54] EPOCH 1 Train Step 15249/20000, Batch Size = 64,                         Examples/Sec = 2210.60, Accuracy = 0.70, Loss = 0.914
+[2020-11-27 14:54] EPOCH 1 Train Step 15299/20000, Batch Size = 64,                         Examples/Sec = 2234.06, Accuracy = 0.69, Loss = 0.942
+[2020-11-27 14:54] EPOCH 1 Train Step 15349/20000, Batch Size = 64,                         Examples/Sec = 2174.55, Accuracy = 0.70, Loss = 0.964
+[2020-11-27 14:54] EPOCH 1 Train Step 15399/20000, Batch Size = 64,                         Examples/Sec = 2424.32, Accuracy = 0.68, Loss = 0.985
+[2020-11-27 14:54] EPOCH 1 Train Step 15449/20000, Batch Size = 64,                         Examples/Sec = 2200.47, Accuracy = 0.71, Loss = 0.905
+[2020-11-27 14:54] EPOCH 1 Train Step 15499/20000, Batch Size = 64,                         Examples/Sec = 2286.11, Accuracy = 0.69, Loss = 0.967
+[2020-11-27 14:54] EPOCH 1 Train Step 15549/20000, Batch Size = 64,                         Examples/Sec = 2289.43, Accuracy = 0.70, Loss = 0.907
+[2020-11-27 14:54] EPOCH 1 Train Step 15599/20000, Batch Size = 64,                         Examples/Sec = 2498.93, Accuracy = 0.71, Loss = 0.925
+[2020-11-27 14:54] EPOCH 1 Train Step 15649/20000, Batch Size = 64,                         Examples/Sec = 2576.60, Accuracy = 0.70, Loss = 0.967
+[2020-11-27 14:54] EPOCH 1 Train Step 15699/20000, Batch Size = 64,                         Examples/Sec = 2491.58, Accuracy = 0.68, Loss = 0.956
+[2020-11-27 14:55] EPOCH 1 Train Step 15749/20000, Batch Size = 64,                         Examples/Sec = 2230.59, Accuracy = 0.70, Loss = 0.953
+[2020-11-27 14:55] EPOCH 1 Train Step 15799/20000, Batch Size = 64,                         Examples/Sec = 2456.99, Accuracy = 0.72, Loss = 0.918
+[2020-11-27 14:55] EPOCH 1 Train Step 15849/20000, Batch Size = 64,                         Examples/Sec = 2566.62, Accuracy = 0.69, Loss = 0.936
+[2020-11-27 14:55] EPOCH 1 Train Step 15899/20000, Batch Size = 64,                         Examples/Sec = 2553.68, Accuracy = 0.71, Loss = 0.933
+[2020-11-27 14:55] EPOCH 1 Train Step 15949/20000, Batch Size = 64,                         Examples/Sec = 2294.71, Accuracy = 0.70, Loss = 0.932
+[2020-11-27 14:55] EPOCH 1 Train Step 15999/20000, Batch Size = 64,                         Examples/Sec = 2222.98, Accuracy = 0.72, Loss = 0.899
+Generated sentences at step 15999/20000:
+### LENGTH 15 ###
+What is the wor
+cond contrive t
+Just then this 
+/plate of wine 
+X BIRES
+     TH
+### LENGTH 23 ###
+. The bean said, ‘
+nd the stars--up and
+quite safe
+with my s
+�� ‘I will give yo
+(and the soldier sai
+### LENGTH 30 ###
+: ‘I will go to the bargains
+1.E.7 and again the sparrow as
+My father grieved when I was g
+Hansel and Gretel gathered the
+2591/
+
+Produced to the king, a
+### LENGTH 45 ###
+5 as I too much as you please.’ ‘No,’ s
+: ‘I will go to the bargains.’ The peasan
+D THE MOUSE, THE BIRD, AND THE SHOEMAKER
+
+The
+ut the straw there she was as bright and said
+Kywitt, what a beautiful bird am I!’
+
+The s
+### LENGTH 60 ###
+
+the same time the door into the world, that was the stars, 
+: ‘I will go to the bargains.’ The peasant said: ‘The 
+Lina said, he said to him, ‘Why should I go into the field
+be a good dear little boat, and the stars were sitting there
+Red-Cap, however, was at the spindle wounded the door of the
+##################################################
+[2020-11-27 14:55] EPOCH 1 Train Step 16049/20000, Batch Size = 64,                         Examples/Sec = 2517.12, Accuracy = 0.69, Loss = 0.967
+[2020-11-27 14:55] EPOCH 1 Train Step 16099/20000, Batch Size = 64,                         Examples/Sec = 2370.12, Accuracy = 0.68, Loss = 0.962
+[2020-11-27 14:55] EPOCH 1 Train Step 16149/20000, Batch Size = 64,                         Examples/Sec = 2222.55, Accuracy = 0.72, Loss = 0.881
+[2020-11-27 14:55] EPOCH 1 Train Step 16199/20000, Batch Size = 64,                         Examples/Sec = 2308.88, Accuracy = 0.70, Loss = 0.946
+[2020-11-27 14:55] EPOCH 1 Train Step 16249/20000, Batch Size = 64,                         Examples/Sec = 2308.19, Accuracy = 0.70, Loss = 0.911
+[2020-11-27 14:55] EPOCH 1 Train Step 16299/20000, Batch Size = 64,                         Examples/Sec = 2216.40, Accuracy = 0.70, Loss = 0.918
+[2020-11-27 14:55] EPOCH 1 Train Step 16349/20000, Batch Size = 64,                         Examples/Sec = 2307.81, Accuracy = 0.71, Loss = 0.922
+[2020-11-27 14:55] EPOCH 1 Train Step 16399/20000, Batch Size = 64,                         Examples/Sec = 2390.26, Accuracy = 0.69, Loss = 0.965
+[2020-11-27 14:55] EPOCH 1 Train Step 16449/20000, Batch Size = 64,                         Examples/Sec = 2283.53, Accuracy = 0.70, Loss = 0.886
+[2020-11-27 14:55] EPOCH 1 Train Step 16499/20000, Batch Size = 64,                         Examples/Sec = 2301.22, Accuracy = 0.71, Loss = 0.922
+[2020-11-27 14:55] EPOCH 1 Train Step 16549/20000, Batch Size = 64,                         Examples/Sec = 2321.91, Accuracy = 0.70, Loss = 0.929
+[2020-11-27 14:55] EPOCH 1 Train Step 16599/20000, Batch Size = 64,                         Examples/Sec = 2285.98, Accuracy = 0.70, Loss = 0.951
+[2020-11-27 14:55] EPOCH 1 Train Step 16649/20000, Batch Size = 64,                         Examples/Sec = 2311.27, Accuracy = 0.71, Loss = 0.939
+[2020-11-27 14:55] EPOCH 1 Train Step 16699/20000, Batch Size = 64,                         Examples/Sec = 2401.89, Accuracy = 0.70, Loss = 0.957
+[2020-11-27 14:55] EPOCH 1 Train Step 16749/20000, Batch Size = 64,                         Examples/Sec = 2306.05, Accuracy = 0.69, Loss = 0.973
+[2020-11-27 14:55] EPOCH 1 Train Step 16799/20000, Batch Size = 64,                         Examples/Sec = 2480.78, Accuracy = 0.68, Loss = 0.959
+[2020-11-27 14:55] EPOCH 1 Train Step 16849/20000, Batch Size = 64,                         Examples/Sec = 2220.38, Accuracy = 0.71, Loss = 0.910
+[2020-11-27 14:55] EPOCH 1 Train Step 16899/20000, Batch Size = 64,                         Examples/Sec = 2231.16, Accuracy = 0.70, Loss = 0.946
+[2020-11-27 14:55] EPOCH 1 Train Step 16949/20000, Batch Size = 64,                         Examples/Sec = 2241.01, Accuracy = 0.69, Loss = 0.941
+[2020-11-27 14:55] EPOCH 1 Train Step 16999/20000, Batch Size = 64,                         Examples/Sec = 2383.87, Accuracy = 0.70, Loss = 0.933
+Generated sentences at step 16999/20000:
+### LENGTH 15 ###
+-tm electronic 
+� said the man,
+When the king o
+_ AND THE SAUSA
+� said the man,
+### LENGTH 23 ###
+�Our brothers have a
+came to the other si
+% of the seashore; a
+be able to get the w
+Fox, and said, ‘I 
+### LENGTH 30 ###
+] you will be better than find
+Queen had gone on his way and 
+UNZEL
+
+There was once a man wh
+�hat he would have his way off
+nd the soldier was afraid. Whe
+### LENGTH 45 ###
+��I will give thee the door, and said, ‘I w
+When the king ordered him to see that he had 
+% of the seashore; and the mouse had not got 
+785-1863) and the soldier was afraid. When th
+nd the soldier was afraid. When the king said
+### LENGTH 60 ###
+princess again. Then the father was as the wolf’s shoulder
+came to the other side of the sea, and said, ‘I will give 
+$ other will be a silly princess, and the giant saw that the
+My son said, ‘I will not do it.’ So she said, ‘I will 
+RED
+
+
+
+
+THE WEDD MOUNTAINS TO EAT NUTS
+
+‘There, you are no
+##################################################
+[2020-11-27 14:55] EPOCH 1 Train Step 17049/20000, Batch Size = 64,                         Examples/Sec = 2202.89, Accuracy = 0.71, Loss = 0.907
+[2020-11-27 14:55] EPOCH 1 Train Step 17099/20000, Batch Size = 64,                         Examples/Sec = 2232.81, Accuracy = 0.70, Loss = 0.904
+[2020-11-27 14:55] EPOCH 1 Train Step 17149/20000, Batch Size = 64,                         Examples/Sec = 2495.94, Accuracy = 0.70, Loss = 0.936
+[2020-11-27 14:55] EPOCH 1 Train Step 17199/20000, Batch Size = 64,                         Examples/Sec = 2607.99, Accuracy = 0.70, Loss = 0.887
+[2020-11-27 14:55] EPOCH 2 Train Step 17249/20000, Batch Size = 64,                         Examples/Sec = 2339.06, Accuracy = 0.69, Loss = 0.988
+[2020-11-27 14:55] EPOCH 2 Train Step 17299/20000, Batch Size = 64,                         Examples/Sec = 2333.86, Accuracy = 0.69, Loss = 0.950
+[2020-11-27 14:55] EPOCH 2 Train Step 17349/20000, Batch Size = 64,                         Examples/Sec = 2308.17, Accuracy = 0.69, Loss = 0.951
+[2020-11-27 14:55] EPOCH 2 Train Step 17399/20000, Batch Size = 64,                         Examples/Sec = 2376.12, Accuracy = 0.69, Loss = 0.951
+[2020-11-27 14:55] EPOCH 2 Train Step 17449/20000, Batch Size = 64,                         Examples/Sec = 2353.89, Accuracy = 0.72, Loss = 0.908
+[2020-11-27 14:55] EPOCH 2 Train Step 17499/20000, Batch Size = 64,                         Examples/Sec = 2292.50, Accuracy = 0.71, Loss = 0.907
+[2020-11-27 14:55] EPOCH 2 Train Step 17549/20000, Batch Size = 64,                         Examples/Sec = 2629.48, Accuracy = 0.69, Loss = 0.931
+[2020-11-27 14:55] EPOCH 2 Train Step 17599/20000, Batch Size = 64,                         Examples/Sec = 2519.60, Accuracy = 0.70, Loss = 0.938
+[2020-11-27 14:55] EPOCH 2 Train Step 17649/20000, Batch Size = 64,                         Examples/Sec = 2233.05, Accuracy = 0.71, Loss = 0.931
+[2020-11-27 14:56] EPOCH 2 Train Step 17699/20000, Batch Size = 64,                         Examples/Sec = 2257.45, Accuracy = 0.70, Loss = 0.930
+[2020-11-27 14:56] EPOCH 2 Train Step 17749/20000, Batch Size = 64,                         Examples/Sec = 2234.04, Accuracy = 0.72, Loss = 0.883
+[2020-11-27 14:56] EPOCH 2 Train Step 17799/20000, Batch Size = 64,                         Examples/Sec = 2220.99, Accuracy = 0.69, Loss = 0.951
+[2020-11-27 14:56] EPOCH 2 Train Step 17849/20000, Batch Size = 64,                         Examples/Sec = 2294.67, Accuracy = 0.72, Loss = 0.859
+[2020-11-27 14:56] EPOCH 2 Train Step 17899/20000, Batch Size = 64,                         Examples/Sec = 2247.54, Accuracy = 0.70, Loss = 0.915
+[2020-11-27 14:56] EPOCH 2 Train Step 17949/20000, Batch Size = 64,                         Examples/Sec = 2214.17, Accuracy = 0.69, Loss = 0.955
+[2020-11-27 14:56] EPOCH 2 Train Step 17999/20000, Batch Size = 64,                         Examples/Sec = 2391.05, Accuracy = 0.70, Loss = 0.904
+Generated sentences at step 17999/20000:
+### LENGTH 15 ###
+; and the man h
+The man promise
+814.  If I will
+!’ cried the 
+[EBIEBER AND TH
+### LENGTH 23 ###
+?’ ‘I will give 
+[EBIEBER AND THE LIL
+: ‘What a clever E
+zel. He said to hims
+Literary Archive Fou
+### LENGTH 30 ###
+5008 596?’ ‘Oh, father,’
+peasant and the sparrow said: 
+Zo he was to be so much that h
+Meanwhile he was to be so much
+was the princess agreed upon: 
+### LENGTH 45 ###
+le the wolf was to be so much that he was to 
+x was a great beast that he could not find it
+), and said, ‘I will give you to
+seek thee 
+’ Then the wild man said: ‘What a pretty 
+Project Gutenberg-tm electronic works in the 
+### LENGTH 60 ###
+0 daughter who was the princess agreed upon: and the man had
+Queen had a great deal of gold and could not find it. ‘Hav
+�I will give you to
+say get my bread and cheese.’ Then the
+(or I should have a little country that she had been upon hi
+’ Then the wild man said: ‘What a pretty good friend, wh
+##################################################
+[2020-11-27 14:56] EPOCH 2 Train Step 18049/20000, Batch Size = 64,                         Examples/Sec = 2307.40, Accuracy = 0.70, Loss = 0.938
+[2020-11-27 14:56] EPOCH 2 Train Step 18099/20000, Batch Size = 64,                         Examples/Sec = 2200.24, Accuracy = 0.70, Loss = 0.933
+[2020-11-27 14:56] EPOCH 2 Train Step 18149/20000, Batch Size = 64,                         Examples/Sec = 3175.55, Accuracy = 0.69, Loss = 0.960
+[2020-11-27 14:56] EPOCH 2 Train Step 18199/20000, Batch Size = 64,                         Examples/Sec = 2493.76, Accuracy = 0.72, Loss = 0.911
+[2020-11-27 14:56] EPOCH 2 Train Step 18249/20000, Batch Size = 64,                         Examples/Sec = 2480.62, Accuracy = 0.71, Loss = 0.919
+[2020-11-27 14:56] EPOCH 2 Train Step 18299/20000, Batch Size = 64,                         Examples/Sec = 2263.02, Accuracy = 0.71, Loss = 0.914
+[2020-11-27 14:56] EPOCH 2 Train Step 18349/20000, Batch Size = 64,                         Examples/Sec = 2434.55, Accuracy = 0.72, Loss = 0.891
+[2020-11-27 14:56] EPOCH 2 Train Step 18399/20000, Batch Size = 64,                         Examples/Sec = 2284.81, Accuracy = 0.71, Loss = 0.902
+[2020-11-27 14:56] EPOCH 2 Train Step 18449/20000, Batch Size = 64,                         Examples/Sec = 2383.32, Accuracy = 0.70, Loss = 0.912
+[2020-11-27 14:56] EPOCH 2 Train Step 18499/20000, Batch Size = 64,                         Examples/Sec = 2379.39, Accuracy = 0.69, Loss = 0.932
+[2020-11-27 14:56] EPOCH 2 Train Step 18549/20000, Batch Size = 64,                         Examples/Sec = 2455.30, Accuracy = 0.72, Loss = 0.904
+[2020-11-27 14:56] EPOCH 2 Train Step 18599/20000, Batch Size = 64,                         Examples/Sec = 2479.86, Accuracy = 0.70, Loss = 0.945
+[2020-11-27 14:56] EPOCH 2 Train Step 18649/20000, Batch Size = 64,                         Examples/Sec = 2304.72, Accuracy = 0.72, Loss = 0.901
+[2020-11-27 14:56] EPOCH 2 Train Step 18699/20000, Batch Size = 64,                         Examples/Sec = 2248.37, Accuracy = 0.70, Loss = 0.900
+[2020-11-27 14:56] EPOCH 2 Train Step 18749/20000, Batch Size = 64,                         Examples/Sec = 2467.35, Accuracy = 0.71, Loss = 0.901
+[2020-11-27 14:56] EPOCH 2 Train Step 18799/20000, Batch Size = 64,                         Examples/Sec = 2465.61, Accuracy = 0.71, Loss = 0.926
+[2020-11-27 14:56] EPOCH 2 Train Step 18849/20000, Batch Size = 64,                         Examples/Sec = 2288.88, Accuracy = 0.70, Loss = 0.926
+[2020-11-27 14:56] EPOCH 2 Train Step 18899/20000, Batch Size = 64,                         Examples/Sec = 2301.30, Accuracy = 0.70, Loss = 0.909
+[2020-11-27 14:56] EPOCH 2 Train Step 18949/20000, Batch Size = 64,                         Examples/Sec = 2328.45, Accuracy = 0.71, Loss = 0.908
+[2020-11-27 14:56] EPOCH 2 Train Step 18999/20000, Batch Size = 64,                         Examples/Sec = 2233.37, Accuracy = 0.70, Loss = 0.956
+Generated sentences at step 18999/20000:
+### LENGTH 15 ###
+and the soldier
+50015 [***** Th
+4.  Unless you 
+quite sorry to 
+ut the third ni
+### LENGTH 23 ###
+Now the old woman sa
+quite sorry to seek 
+ver the three servan
+1.E.7 you and do not
+the world.’
+
+The k
+### LENGTH 30 ###
+Now the old woman said to hims
+the world.’
+
+The king said, 
+-tm works in the world.’
+
+Th
+he castle was a great feast th
+xt morning the maiden was so p
+### LENGTH 45 ###
+zed her so that they had not gone far off the
+Just go away from him, and said, ‘I will no
+X BRIDEGROOM
+
+There was once a man who had a 
+Fox out of the window, and said, ‘I will no
+g the work was of a consent, and the soldier 
+### LENGTH 60 ###
+o the fire and watching his fire, and the soldier said, ‘I
+me to the bottom of the room, and the soldier said, ‘I wil
+Kywitt, Kywitt, what a beautiful bird am I!’
+
+The king sai
+Qul of the castle where the king ordered a long while, and s
+I will soon finish the way the most beautiful that he had be
+##################################################
+[2020-11-27 14:56] EPOCH 2 Train Step 19049/20000, Batch Size = 64,                         Examples/Sec = 2155.80, Accuracy = 0.70, Loss = 0.926
+[2020-11-27 14:56] EPOCH 2 Train Step 19099/20000, Batch Size = 64,                         Examples/Sec = 2314.16, Accuracy = 0.71, Loss = 0.910
+[2020-11-27 14:56] EPOCH 2 Train Step 19149/20000, Batch Size = 64,                         Examples/Sec = 2374.17, Accuracy = 0.72, Loss = 0.876
+[2020-11-27 14:56] EPOCH 2 Train Step 19199/20000, Batch Size = 64,                         Examples/Sec = 2425.61, Accuracy = 0.71, Loss = 0.919
+[2020-11-27 14:56] EPOCH 2 Train Step 19249/20000, Batch Size = 64,                         Examples/Sec = 2315.92, Accuracy = 0.71, Loss = 0.900
+[2020-11-27 14:56] EPOCH 2 Train Step 19299/20000, Batch Size = 64,                         Examples/Sec = 2223.95, Accuracy = 0.72, Loss = 0.876
+[2020-11-27 14:56] EPOCH 2 Train Step 19349/20000, Batch Size = 64,                         Examples/Sec = 2307.57, Accuracy = 0.70, Loss = 0.893
+[2020-11-27 14:56] EPOCH 2 Train Step 19399/20000, Batch Size = 64,                         Examples/Sec = 2509.42, Accuracy = 0.71, Loss = 0.910
+[2020-11-27 14:56] EPOCH 2 Train Step 19449/20000, Batch Size = 64,                         Examples/Sec = 2508.93, Accuracy = 0.71, Loss = 0.877
+[2020-11-27 14:56] EPOCH 2 Train Step 19499/20000, Batch Size = 64,                         Examples/Sec = 2274.68, Accuracy = 0.71, Loss = 0.919
+[2020-11-27 14:56] EPOCH 2 Train Step 19549/20000, Batch Size = 64,                         Examples/Sec = 2428.66, Accuracy = 0.70, Loss = 0.907
+[2020-11-27 14:56] EPOCH 2 Train Step 19599/20000, Batch Size = 64,                         Examples/Sec = 2525.98, Accuracy = 0.70, Loss = 0.935
+[2020-11-27 14:57] EPOCH 2 Train Step 19649/20000, Batch Size = 64,                         Examples/Sec = 2248.30, Accuracy = 0.73, Loss = 0.891
+[2020-11-27 14:57] EPOCH 2 Train Step 19699/20000, Batch Size = 64,                         Examples/Sec = 2307.85, Accuracy = 0.73, Loss = 0.863
+[2020-11-27 14:57] EPOCH 2 Train Step 19749/20000, Batch Size = 64,                         Examples/Sec = 2509.54, Accuracy = 0.70, Loss = 0.908
+[2020-11-27 14:57] EPOCH 2 Train Step 19799/20000, Batch Size = 64,                         Examples/Sec = 2307.53, Accuracy = 0.70, Loss = 0.885
+[2020-11-27 14:57] EPOCH 2 Train Step 19849/20000, Batch Size = 64,                         Examples/Sec = 2232.11, Accuracy = 0.70, Loss = 0.896
+[2020-11-27 14:57] EPOCH 2 Train Step 19899/20000, Batch Size = 64,                         Examples/Sec = 2367.80, Accuracy = 0.72, Loss = 0.868
+[2020-11-27 14:57] EPOCH 2 Train Step 19949/20000, Batch Size = 64,                         Examples/Sec = 2219.92, Accuracy = 0.70, Loss = 0.892
+[2020-11-27 14:57] EPOCH 2 Train Step 19999/20000, Batch Size = 64,                         Examples/Sec = 2526.12, Accuracy = 0.71, Loss = 0.907
+Generated sentences at step 19999/20000:
+### LENGTH 15 ###
+s and the princ
+One golden appl
+xt day the wing
+just as the win
+e the water, an
+### LENGTH 23 ###
+d the gold is dancin
+Do not feel so grew 
+8 ollow it is tired,
+1.  Its 501(c)(3) le
+Hansel, who was an e
+### LENGTH 30 ###
+me to the old man, who was ask
+just as the wind was astonishe
+Fox, and said, ‘I will give 
+Good day, Hans. Where have you
+Hansel, who was an enchanted p
+### LENGTH 45 ###
+me to the old man, who was asked to do it as 
+, and the miller was as the wind was astonish
+qually rest until he seized the water, and th
+g the water, and said, ‘I will give you to 
+4.  Unless you have seen my ball for me, and 
+### LENGTH 60 ###
+Kywitul that the bird came flying the water to get over the 
+) and said, ‘I will give you to see you use?’ ran away, 
+591/
+RUMPELSTIBEDROG GOOSE OF THE GOLDEN MOUNTAIN
+
+There was
+ou will be a fine thing for yourself with the princess and t
+�� The prince said, ‘I will give you to see you use?’ ra
+##################################################
+Done training.
+Traceback (most recent call last):
+  File "train.py", line 250, in <module>
+    train(config)
+  File "train.py", line 187, in train
+    torch.save(model.state_dict(), "./saved_models/model_{}_{}".format(config.txt_file, config.train_steps))
+  File "/home/lgpu0277/.conda/envs/dl2020/lib/python3.7/site-packages/torch/serialization.py", line 361, in save
+    with _open_file_like(f, 'wb') as opened_file:
+  File "/home/lgpu0277/.conda/envs/dl2020/lib/python3.7/site-packages/torch/serialization.py", line 229, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/lgpu0277/.conda/envs/dl2020/lib/python3.7/site-packages/torch/serialization.py", line 210, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: './saved_models/model_./assets/book_EN_grimms_fairy_tails.txt_20000'
+srun: error: r31n1: task 0: Exited with exit code 1

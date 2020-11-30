@@ -279,11 +279,7 @@ def plot_results(model, eval_method, seq_lengths, seeds):
     plt.savefig("./plots/{}_{}_separate".format(model, eval_method))
     plt.figure("mean {}".format(eval_method))
     plt.savefig("./plots/{}_{}_averaged".format(model, eval_method))
-    # plt.clf()
     plt.close("all")
-    # plt.show()
-
-
 
 
 if __name__ == "__main__":

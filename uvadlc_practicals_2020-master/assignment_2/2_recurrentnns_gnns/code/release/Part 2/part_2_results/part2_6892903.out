@@ -1,0 +1,5 @@
+  File "train.py", line 187
+    write_sentences("sentences.txt", num_sentences=10, step, config, model, dataset, tau=1)
+                                                      ^
+srun: error: r30n6: task 0: Exited with exit code 1
+SyntaxError: positional argument follows keyword argument
