@@ -310,6 +310,10 @@ if __name__ == "__main__":
     if config.plot:
         plot("./plotdata", "acc", 40000, "Grimms Fairy Tails")
         plot("./plotdata", "loss", 40000, "Grimms Fairy Tails")
+        plot("./plotdata", "acc", 50000, "Democracy in the US")
+        plot("./plotdata", "loss", 50000, "Democracy in the US")
+        plot("./plotdata", "acc", 42000, "Darwins reis om de wereld")
+        plot("./plotdata", "loss", 42000, "Darwins reis om de wereld")
 
     # Load trained model (for text generating purposes).
     if config.load_model:
