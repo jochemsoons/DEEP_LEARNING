@@ -64,11 +64,14 @@ class VAE(pl.LightningModule):
             bpd - The average bits per dimension metric of the batch.
                   This is also the loss we train on. Shape: single scalar
         """
-
-        L_rec = None
-        L_reg = None
-        bpd = None
-        raise NotImplementedError
+        mean, log_std = self.encoder(imgs)
+        std = log_std.exp()
+        sample = sample_reparameterize(mean, std)
+        decoded_out = self.decoder(sample)
+        L_rec = F.binary_cross_entropy_with_logits(decoded_out, imgs, reduction='none')
+        L_reg = KLD(mean, log_std)
+        elbo = L_rec + L_reg
+        bpd = elbo_to_bpd(elbo, imgs.shape)
         return L_rec, L_reg, bpd
 
     @torch.no_grad()
@@ -176,7 +179,7 @@ def train_vae(args):
                          gpus=1 if torch.cuda.is_available() else 0,
                          max_epochs=args.epochs,
                          callbacks=[gen_callback],
-                         progress_bar_refresh_rate=1 if args.progress_bar else 0) 
+                         progress_bar_refresh_rate=1 if args.progress_bar else 0)
     trainer.logger._default_hp_metric = None  # Optional logging argument that we don't need
 
     # Create model

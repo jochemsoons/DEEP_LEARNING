@@ -34,9 +34,15 @@ class MLPEncoder(nn.Module):
         super().__init__()
 
         # For an intial architecture, you can use a sequence of linear layers and ReLU activations.
-        # Feel free to experiment with the architecture yourself, but the one specified here is 
+        # Feel free to experiment with the architecture yourself, but the one specified here is
         # sufficient for the assignment.
-        raise NotImplementedError
+        self.layers = nn.ModuleList()
+        for hidden_dim in hidden_dims:
+          self.layers.append(nn.Linear(input_dim, hidden_dim))
+          self.layers.append(nn.ReLU())
+          input_dim = hidden_dim
+        self.mean_layer = nn.Linear(input_dim, z_dim)
+        self.log_std_layer = nn.Linear(input_dim, z_dim)
 
     def forward(self, x):
         """
@@ -49,9 +55,12 @@ class MLPEncoder(nn.Module):
         """
 
         # Remark: Make sure to understand why we are predicting the log_std and not std
-        mean = None
-        log_std = None
-        raise NotImplementedError
+        input_ = x.view(x.shape[0], -1)
+        for layer in self.layers:
+          out = layer(input_)
+          input_ = out
+        mean = self.mean_layer(out)
+        log_std = self.log_std_layer(out)
         return mean, log_std
 
 
@@ -71,9 +80,16 @@ class MLPDecoder(nn.Module):
         self.output_shape = output_shape
 
         # For an intial architecture, you can use a sequence of linear layers and ReLU activations.
-        # Feel free to experiment with the architecture yourself, but the one specified here is 
+        # Feel free to experiment with the architecture yourself, but the one specified here is
         # sufficient for the assignment.
-        raise NotImplementedError
+        input_dim = z_dim
+        self.layers = nn.ModuleList()
+        for hidden_dim in hidden_dims:
+          self.layers.append(nn.Linear(input_dim, hidden_dim))
+          self.layers.append(nn.ReLU())
+          input_dim = hidden_dim
+
+        self.layers.append(nn.Linear(input_dim, np.prod(output_shape)))
 
     def forward(self, z):
         """
@@ -84,9 +100,11 @@ class MLPDecoder(nn.Module):
                 This should be a logit output *without* a sigmoid applied on it.
                 Shape: [B,output_shape[0],output_shape[1],output_shape[2]]
         """
-
-        x = None
-        raise NotImplementedError
+        input_ = z
+        for layer in self.layers:
+          out = layer(input_)
+          input_ = out
+        x = out.view(out.shape[0], self.output_shape[0], self.output_shape[1], self.output_shape[2])
         return x
 
     @property
