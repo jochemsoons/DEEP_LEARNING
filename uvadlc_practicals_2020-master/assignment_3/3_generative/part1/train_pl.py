@@ -45,7 +45,7 @@ class VAE(pl.LightningModule):
         """
         super().__init__()
         self.save_hyperparameters()
-
+        self.prior = torch.distributions.normal.Normal(loc=0.0, scale=1.0)
         if model_name == 'MLP':
             self.encoder = MLPEncoder(z_dim=z_dim, hidden_dims=hidden_dims)
             self.decoder = MLPDecoder(z_dim=z_dim, hidden_dims=hidden_dims[::-1])
@@ -69,10 +69,11 @@ class VAE(pl.LightningModule):
         sample = sample_reparameterize(mean, std)
         decoded_out = self.decoder(sample)
         L_rec = F.binary_cross_entropy_with_logits(decoded_out, imgs, reduction='none')
+        L_rec = torch.sum(L_rec, dim=(1,2,3))
         L_reg = KLD(mean, log_std)
         elbo = L_rec + L_reg
         bpd = elbo_to_bpd(elbo, imgs.shape)
-        return L_rec, L_reg, bpd
+        return torch.mean(L_rec), torch.mean(L_reg), bpd
 
     @torch.no_grad()
     def sample(self, batch_size):
@@ -86,9 +87,9 @@ class VAE(pl.LightningModule):
                      between 0 and 1 from which we obtain "x_samples".
                      Shape: [B,C,H,W]
         """
-        x_mean = None
-        x_samples = None
-        raise NotImplementedError
+        sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.decoder.device)
+        x_mean = torch.sigmoid(self.decoder(sampled_z))
+        x_samples = torch.bernoulli(x_mean)
         return x_samples, x_mean
 
     def configure_optimizers(self):
@@ -116,7 +117,7 @@ class VAE(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         # Make use of the forward function, and add logging statements
-        L_rec, L_reg, bpd = self.forward(batch[0])
+        _, _, bpd = self.forward(batch[0])
         self.log("test_bpd", bpd)
 
 
@@ -157,8 +158,14 @@ class GenerateCallback(pl.Callback):
         # - You can access the tensorboard logger via trainer.logger.experiment
         # - Use the torchvision function "make_grid" to create a grid of multiple images
         # - Use the torchvision function "save_image" to save an image grid to disk
-
-        raise NotImplementedError
+        x_samples, x_mean = pl_module.sample(self.batch_size)
+        x_samples = make_grid(x_samples)
+        x_mean = make_grid(x_mean)
+        trainer.logger.experiment.add_image("Binarized images", x_samples, epoch)
+        trainer.logger.experiment.add_image("Continous images", x_mean, epoch)
+        if self.save_to_disk:
+            save_image(x_samples, "{}/sampled_{}.png".format(trainer.logger.log_dir, epoch))
+            save_image(x_mean, "{}/mean_{}.png".format(trainer.logger.log_dir, epoch))
 
 
 def train_vae(args):

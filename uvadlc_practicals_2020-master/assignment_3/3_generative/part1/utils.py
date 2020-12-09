@@ -48,7 +48,8 @@ def KLD(mean, log_std):
         KLD - Tensor with one less dimension than mean and log_std (summed over last dimension).
               The values represent the Kullback-Leibler divergence to unit Gaussians.
     """
-    KLD = 0.5 * torch.sum(log_std.exp()**2 + mean**2 - 1 - log_std**2, dim=-1)
+    std = log_std.exp()
+    KLD = 0.5 * torch.sum(std**2 + mean**2 - 1 - torch.log(std**2), dim=-1)
     return KLD
 
 

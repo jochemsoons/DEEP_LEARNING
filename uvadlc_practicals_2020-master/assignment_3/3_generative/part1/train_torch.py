@@ -88,10 +88,10 @@ class VAE(nn.Module):
             x_mean - The sigmoid output of the decoder with continuous values
                      between 0 and 1 from which we obtain "x_samples"
         """
-
-        x_mean = None
-        x_samples = None
-        raise NotImplementedError
+        # sampled_z = self.prior.sample(sample_shape=[batch_size, self.z_dim]).to(device(self.decoder))
+        sampled_z = torch.randn((batch_size, self.z_dim)).to(self.decoder.device())
+        x_mean = F.sigmoid(self.decoder(sampled_z))
+        x_samples = torch.bernoulli(x_mean)
         return x_samples, x_mean
 
     @property
