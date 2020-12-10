@@ -1,0 +1,38 @@
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+ModuleList(
+  (0): Linear(in_features=784, out_features=1024, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=1024, out_features=512, bias=True)
+  (3): ReLU()
+  (4): Linear(in_features=512, out_features=256, bias=True)
+  (5): ReLU()
+)
+Set SLURM handle signals.
+
+  | Name    | Type       | Params
+---------------------------------------
+0 | encoder | MLPEncoder | 1 M   
+1 | decoder | MLPDecoder | 1 M   
+ModuleList(
+  (0): Linear(in_features=784, out_features=1024, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=1024, out_features=512, bias=True)
+  (3): ReLU()
+  (4): Linear(in_features=512, out_features=256, bias=True)
+  (5): ReLU()
+)
+Set SLURM handle signals.
+--------------------------------------------------------------------------------
+DATALOADER:0 TEST RESULTS
+{'test_bpd': tensor(0.1803, device='cuda:0'),
+ 'train_ELBO': tensor(80.8172, device='cuda:0'),
+ 'train_bpd': tensor(0.1487, device='cuda:0'),
+ 'train_reconstruction_loss': tensor(64.2151, device='cuda:0'),
+ 'train_regularization_loss': tensor(16.6021, device='cuda:0'),
+ 'val_ELBO': tensor(108.2047, device='cuda:0'),
+ 'val_bpd': tensor(0.1991, device='cuda:0'),
+ 'val_reconstruction_loss': tensor(91.7176, device='cuda:0'),
+ 'val_regularization_loss': tensor(16.4872, device='cuda:0')}
+--------------------------------------------------------------------------------

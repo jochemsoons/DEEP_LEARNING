@@ -1,0 +1,9 @@
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+
+  | Name    | Type       | Params
+---------------------------------------
+0 | encoder | CNNEncoder | 122 K 
+1 | decoder | CNNDecoder | 123 K 

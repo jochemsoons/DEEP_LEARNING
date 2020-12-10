@@ -31,7 +31,6 @@ def sample_reparameterize(mean, std):
         z - A sample of the distributions, with gradient support for both mean and std.
             The tensor should have the same shape as the mean and std input tensors.
     """
-
     eps = torch.randn_like(std)
     z = mean + eps*std
     return z
@@ -88,8 +87,12 @@ def visualize_manifold(decoder, grid_size=20):
     # - torch.meshgrid might be helpful for creating the grid of values
     # - You can use torchvision's function "make_grid" to combine the grid_size**2 images into a grid
     # - Remember to apply a sigmoid after the decoder
-
-    img_grid = None
-    raise NotImplementedError
-
+    x_range = torch.linspace(0.5/(grid_size+1), (grid_size+0.5)/(grid_size+1), steps=grid_size)
+    y_range = torch.linspace(0.5/(grid_size+1), (grid_size+0.5)/(grid_size+1), steps=grid_size)
+    z_x = torch.from_numpy(norm.ppf(x_range))
+    z_y = torch.from_numpy(norm.ppf(y_range))
+    grid_x, grid_y = torch.meshgrid(z_x, z_y)
+    z_list = torch.stack([grid_x.reshape(-1), grid_y.reshape(-1)], dim=1).float()
+    x_mean = torch.sigmoid(decoder(z_list.to(decoder.device)))
+    img_grid = make_grid(x_mean, nrow=grid_size)
     return img_grid

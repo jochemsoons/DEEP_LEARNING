@@ -1,0 +1,7 @@
+hidden_dims:
+- 512
+- 512
+lr: 0.001
+model_name: MLP
+num_filters: 32
+z_dim: 20

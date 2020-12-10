@@ -161,8 +161,8 @@ class GenerateCallback(pl.Callback):
         x_samples, x_mean = pl_module.sample(self.batch_size)
         x_samples = make_grid(x_samples)
         x_mean = make_grid(x_mean)
-        trainer.logger.experiment.add_image("Binarized images", x_samples, epoch)
-        trainer.logger.experiment.add_image("Continous images", x_mean, epoch)
+        trainer.logger.experiment.add_image("Binarized images {}".format(epoch), x_samples, epoch)
+        trainer.logger.experiment.add_image("Continous images {}".format(epoch), x_mean, epoch)
         if self.save_to_disk:
             save_image(x_samples, "{}/sampled_{}.png".format(trainer.logger.log_dir, epoch))
             save_image(x_mean, "{}/mean_{}.png".format(trainer.logger.log_dir, epoch))

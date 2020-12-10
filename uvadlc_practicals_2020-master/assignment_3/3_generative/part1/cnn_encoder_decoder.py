@@ -34,9 +34,23 @@ class CNNEncoder(nn.Module):
         super().__init__()
 
         # For an intial architecture, you can use the encoder of Tutorial 9.
-        # Feel free to experiment with the architecture yourself, but the one specified here is 
+        # Feel free to experiment with the architecture yourself, but the one specified here is
         # sufficient for the assignment.
-        raise NotImplementedError
+        act_fn = nn.ReLU
+        self.encoder = nn.Sequential(
+            nn.Conv2d(num_input_channels, num_filters, kernel_size=3, padding=1, stride=2), # 28x28 => 16x16
+            act_fn(),
+            nn.Conv2d(num_filters, num_filters, kernel_size=3, padding=1),
+            act_fn(),
+            nn.Conv2d(num_filters, 2*num_filters, kernel_size=3, padding=1, stride=2), # 16x16 => 8x8
+            act_fn(),
+            nn.Conv2d(2*num_filters, 2*num_filters, kernel_size=3, padding=1),
+            act_fn(),
+            nn.Conv2d(2*num_filters, 2*num_filters, kernel_size=3, padding=1, stride=2), # 8x8 => 4x4
+            act_fn(),
+            nn.Flatten(), # Image grid to single feature vector
+            nn.Linear(2*16*num_filters, z_dim)
+        )
 
     def forward(self, x):
         """
@@ -47,10 +61,8 @@ class CNNEncoder(nn.Module):
             log_std - Tensor of shape [B,z_dim] representing the predicted log standard deviation
                       of the latent distributions.
         """
-
-        mean = None
-        log_std = None
-        raise NotImplementedError
+        mean = self.encoder(x)
+        log_std = self.encoder(x)
         return mean, log_std
 
 
@@ -69,9 +81,25 @@ class CNNDecoder(nn.Module):
         super().__init__()
 
         # For an intial architecture, you can use the decoder of Tutorial 9.
-        # Feel free to experiment with the architecture yourself, but the one specified here is 
+        # Feel free to experiment with the architecture yourself, but the one specified here is
         # sufficient for the assignment.
-        raise NotImplementedError
+        act_fn = nn.ReLU
+        self.linear = nn.Sequential(
+            nn.Linear(z_dim, 2*16*num_filters),
+            act_fn()
+        )
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(2*num_filters, 2*num_filters, kernel_size=3, output_padding=0, padding=1, stride=2), # 4x4 => 8x8
+            act_fn(),
+            nn.Conv2d(2*num_filters, 2*num_filters, kernel_size=3, padding=1),
+            act_fn(),
+            nn.ConvTranspose2d(2*num_filters, num_filters, kernel_size=3, output_padding=1, padding=1, stride=2), # 8x8 => 16x16
+            act_fn(),
+            nn.Conv2d(num_filters, num_filters, kernel_size=3, padding=1),
+            act_fn(),
+            nn.ConvTranspose2d(num_filters, num_input_channels, kernel_size=3, output_padding=1, padding=1, stride=2), # 16x16 => 32x32
+            nn.Tanh() # The input images is scaled between -1 and 1, hence the output has to be bounded as well
+        )
 
     def forward(self, z):
         """
@@ -82,9 +110,9 @@ class CNNDecoder(nn.Module):
                 This should be a logit output *without* a sigmoid applied on it.
                 Shape: [B,num_input_channels,28,28]
         """
-
-        x = None
-        raise NotImplementedError
+        x = self.linear(z)
+        x = x.reshape(x.shape[0], -1, 4, 4)
+        x = self.decoder(x)
         return x
 
     @property
