@@ -13,7 +13,7 @@
 # Author: Deep Learning Course | Fall 2020
 # Date Created: 2020-11-22
 ################################################################################
-# TEST
+
 import argparse
 import os
 import torch
