@@ -36,8 +36,22 @@ class CNNEncoder(nn.Module):
         # For an intial architecture, you can use the encoder of Tutorial 9.
         # Feel free to experiment with the architecture yourself, but the one specified here is
         # sufficient for the assignment.
-        act_fn = nn.ReLU
-        self.encoder = nn.Sequential(
+        act_fn = nn.GELU
+        self.mean_encoder = nn.Sequential(
+            nn.Conv2d(num_input_channels, num_filters, kernel_size=3, padding=1, stride=2), # 28x28 => 16x16
+            act_fn(),
+            nn.Conv2d(num_filters, num_filters, kernel_size=3, padding=1),
+            act_fn(),
+            nn.Conv2d(num_filters, 2*num_filters, kernel_size=3, padding=1, stride=2), # 16x16 => 8x8
+            act_fn(),
+            nn.Conv2d(2*num_filters, 2*num_filters, kernel_size=3, padding=1),
+            act_fn(),
+            nn.Conv2d(2*num_filters, 2*num_filters, kernel_size=3, padding=1, stride=2), # 8x8 => 4x4
+            act_fn(),
+            nn.Flatten(), # Image grid to single feature vector
+            nn.Linear(2*16*num_filters, z_dim)
+        )
+        self.logstd_encoder = nn.Sequential(
             nn.Conv2d(num_input_channels, num_filters, kernel_size=3, padding=1, stride=2), # 28x28 => 16x16
             act_fn(),
             nn.Conv2d(num_filters, num_filters, kernel_size=3, padding=1),
@@ -61,8 +75,8 @@ class CNNEncoder(nn.Module):
             log_std - Tensor of shape [B,z_dim] representing the predicted log standard deviation
                       of the latent distributions.
         """
-        mean = self.encoder(x)
-        log_std = self.encoder(x)
+        mean = self.mean_encoder(x)
+        log_std = self.logstd_encoder(x)
         return mean, log_std
 
 
@@ -111,8 +125,12 @@ class CNNDecoder(nn.Module):
                 Shape: [B,num_input_channels,28,28]
         """
         x = self.linear(z)
+        # print(x.shape)
         x = x.reshape(x.shape[0], -1, 4, 4)
+        # print(x.shape)
         x = self.decoder(x)
+        # print(x.shape)
+        # exit()
         return x
 
     @property

@@ -38,7 +38,16 @@ class GeneratorMLP(nn.Module):
         # You are allowed to experiment with the architecture and change the activation function, normalization, etc.
         # However, the default setup is sufficient to generate fine images and gain full points in the assignment.
         # The default setup is a sequence of Linear, Dropout, LeakyReLU (alpha=0.2)
-        raise NotImplementedError
+        input_dim = z_dim
+        self.output_shape = output_shape
+        self.layers = nn.ModuleList()
+        for hidden_dim in hidden_dims:
+          self.layers.append(nn.Linear(input_dim, hidden_dim))
+          self.layers.append(nn.Dropout(dp_rate))
+          self.layers.append(nn.LeakyReLU(negative_slope=0.2))
+          input_dim = hidden_dim
+        self.layers.append(nn.Linear(input_dim, np.prod(output_shape)))
+        self.layers.append(nn.Tanh())
 
     def forward(self, z):
         """
@@ -47,8 +56,11 @@ class GeneratorMLP(nn.Module):
         Outputs:
             x - Generated image of shape [B,output_shape[0],output_shape[1],output_shape[2]]
         """
-        x = None
-        raise NotImplementedError
+        input_ = z
+        for layer in self.layers:
+            out = layer(input_)
+            input_ = out
+        x = out.view(out.shape[0], self.output_shape[0], self.output_shape[1], self.output_shape[2])
         return x
 
     @property
@@ -67,7 +79,7 @@ class DiscriminatorMLP(nn.Module):
 
         Inputs:
             input_dims - Number of input neurons/pixels. For MNIST, 28*28=784
-            hidden_dims - List of dimensionalities of the hidden layers in the network. 
+            hidden_dims - List of dimensionalities of the hidden layers in the network.
                           The NN should have the same number of hidden layers as the length of the list.
             dp_rate - Dropout probability to apply after every linear layer except the output.
         """
@@ -75,7 +87,14 @@ class DiscriminatorMLP(nn.Module):
         # You are allowed to experiment with the architecture and change the activation function, normalization, etc.
         # However, the default setup is sufficient to generate fine images and gain full points in the assignment.
         # The default setup is the same as the generator: a sequence of Linear, Dropout, LeakyReLU (alpha=0.2)
-        raise NotImplementedError
+        self.layers = nn.ModuleList()
+        for hidden_dim in hidden_dims:
+          self.layers.append(nn.Linear(input_dims, hidden_dim))
+          self.layers.append(nn.Dropout(dp_rate))
+          self.layers.append(nn.LeakyReLU(negative_slope=0.2))
+          input_dims = hidden_dim
+        self.layers.append(nn.Linear(input_dims, 1))
+        # self.layers.append(nn.Tanh)
 
     def forward(self, x):
         """
@@ -86,6 +105,9 @@ class DiscriminatorMLP(nn.Module):
                     Note that this should be a logit output *without* a sigmoid applied on it.
                     Shape: [B,1]
         """
-        preds = None
-        raise NotImplementedError
+        input_ = x
+        for layer in self.layers:
+            out = layer(input_)
+            input_ = out
+        preds = out
         return preds
