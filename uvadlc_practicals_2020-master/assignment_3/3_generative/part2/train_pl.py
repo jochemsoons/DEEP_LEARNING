@@ -63,8 +63,8 @@ class GAN(pl.LightningModule):
         Outputs:
             x - Generated images of shape [B,C,H,W]
         """
-        x = None
-        raise NotImplementedError
+        sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.decoder.device)
+        x = self.generator(sampled_z)
         return x
 
     @torch.no_grad()
@@ -90,9 +90,8 @@ class GAN(pl.LightningModule):
         # Create optimizer for both generator and discriminator.
         # You can use the Adam optimizer for both models.
         # It is recommended to reduce the momentum (beta1) to e.g. 0.5
-        optimizer_gen = None
-        optimizer_disc = None
-        raise NotImplementedError
+        optimizer_gen = torch.optim.Adam(self.generator.parameters(), lr=self.params.lr, betas=(0.5,0.999))
+        optimizer_disc = torch.optim.Adam(self.discriminator.parameters(), lr=self.params.lr, betas=(0.5,0.999))
         return [optimizer_gen, optimizer_disc], []
 
     def training_step(self, batch, batch_idx, optimizer_idx):
@@ -136,8 +135,12 @@ class GAN(pl.LightningModule):
         Outputs:
             loss - The loss for the generator to optimize
         """
-
-        loss = None
+        batch_size = x_real.shape[0]
+        x_fake = self.sample(batch_size)
+        disc_fake = self.discriminator(x_fake)
+        loss_fake = F.binary_cross_entropy_with_logits(x_gen, torch.zeros(batch_size))
+        loss_real = F.binary_cross_entropy_with_logits(x_real, torch.ones(batch_size))
+        loss = F.binary_cross_entropy_with_logits()
         self.log("generator/loss", loss)
         raise NotImplementedError
 
@@ -157,10 +160,10 @@ class GAN(pl.LightningModule):
             loss - The loss for the discriminator to optimize
         """
 
-        # Remark: there are more metrics that you can add. 
+        # Remark: there are more metrics that you can add.
         # For instance, how about the accuracy of the discriminator?
         loss = None
-        self.log("generator/loss", loss)
+        self.log("discriminator/loss", loss)
         raise NotImplementedError
 
         return loss
@@ -259,8 +262,8 @@ class InterpolationCallback(pl.Callback):
         # - Use the torchvision function "make_grid" to create a grid of multiple images
         # - Use the torchvision function "save_image" to save an image grid to disk
 
-        # You also have to implement this function in a later question of the assignemnt. 
-        # By default it is skipped to allow you to test your other code so far. 
+        # You also have to implement this function in a later question of the assignemnt.
+        # By default it is skipped to allow you to test your other code so far.
         print("WARNING: Interpolation function has not been implemented yet.")
         pass
 
@@ -319,12 +322,12 @@ if __name__ == '__main__':
     # Model hyperparameters
     parser.add_argument('--z_dim', default=32, type=int,
                         help='Dimensionality of latent space')
-    parser.add_argument('--hidden_dims_gen', default=[128, 256, 512], 
+    parser.add_argument('--hidden_dims_gen', default=[128, 256, 512],
                         type=int, nargs='+',
                         help='Hidden dimensionalities to use inside the ' + \
                              'generator. To specify multiple, use " " to ' + \
                              'separate them. Example: \"128 256 512\"')
-    parser.add_argument('--hidden_dims_disc', default=[512, 256], 
+    parser.add_argument('--hidden_dims_disc', default=[512, 256],
                         type=int, nargs='+',
                         help='Hidden dimensionalities to use inside the ' + \
                              'discriminator. To specify multiple, use " " to ' + \
