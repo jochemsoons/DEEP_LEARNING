@@ -63,7 +63,7 @@ class GAN(pl.LightningModule):
         Outputs:
             x - Generated images of shape [B,C,H,W]
         """
-        sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.decoder.device)
+        sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.generator.device)
         x = self.generator(sampled_z)
         return x
 
@@ -90,8 +90,8 @@ class GAN(pl.LightningModule):
         # Create optimizer for both generator and discriminator.
         # You can use the Adam optimizer for both models.
         # It is recommended to reduce the momentum (beta1) to e.g. 0.5
-        optimizer_gen = torch.optim.Adam(self.generator.parameters(), lr=self.params.lr, betas=(0.5,0.999))
-        optimizer_disc = torch.optim.Adam(self.discriminator.parameters(), lr=self.params.lr, betas=(0.5,0.999))
+        optimizer_gen = torch.optim.Adam(self.generator.parameters(), lr=self.hparams.lr, betas=(0.5,0.999))
+        optimizer_disc = torch.optim.Adam(self.discriminator.parameters(), lr=self.hparams.lr, betas=(0.5,0.999))
         return [optimizer_gen, optimizer_disc], []
 
     def training_step(self, batch, batch_idx, optimizer_idx):
@@ -136,15 +136,13 @@ class GAN(pl.LightningModule):
             loss - The loss for the generator to optimize
         """
         batch_size = x_real.shape[0]
-        x_fake = self.sample(batch_size)
+        sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.generator.device)
+        x_fake = self.generator(sampled_z)
         disc_fake = self.discriminator(x_fake)
-        loss_fake = F.binary_cross_entropy_with_logits(x_gen, torch.zeros(batch_size))
-        loss_real = F.binary_cross_entropy_with_logits(x_real, torch.ones(batch_size))
-        loss = F.binary_cross_entropy_with_logits()
-        self.log("generator/loss", loss)
-        raise NotImplementedError
-
-        return loss
+        loss_gen = F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.ones(batch_size))
+        # print(loss_gen)
+        self.log("generator/loss", loss_gen)
+        return loss_gen
 
     def discriminator_step(self, x_real):
         """
@@ -162,11 +160,25 @@ class GAN(pl.LightningModule):
 
         # Remark: there are more metrics that you can add.
         # For instance, how about the accuracy of the discriminator?
-        loss = None
-        self.log("discriminator/loss", loss)
-        raise NotImplementedError
-
-        return loss
+        batch_size = x_real.shape[0]
+        x_fake = self.sample(batch_size)
+        disc_fake = self.discriminator(x_fake)
+        disc_real = self.discriminator(x_real)
+        loss_disc = (F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size))
+                    + F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size)))
+        # print(F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size)), F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size)))
+        # print(disc_fake.shape)
+        # print(torch.round(torch.sigmoid(disc_fake)[0]))
+        preds_fake = torch.round(torch.sigmoid(disc_fake).squeeze())
+        preds_real = torch.round(torch.sigmoid(disc_real).squeeze())
+        acc_fake = (preds_fake == torch.zeros(batch_size)).float().mean()
+        acc_real = (preds_real == torch.ones(batch_size)).float().mean()
+        acc_disc = (acc_fake + acc_real) / 2
+        self.log("discriminator/loss", loss_disc)
+        self.log("discriminator/accuracy_real", acc_real)
+        self.log("discriminator/accuracy_fake", acc_fake)
+        self.log("discriminator/accuracy", acc_disc)
+        return loss_disc
 
 
 class GenerateCallback(pl.Callback):
@@ -211,8 +223,11 @@ class GenerateCallback(pl.Callback):
         # - You can access the tensorboard logger via trainer.logger.experiment
         # - Use torchvision function "make_grid" to create a grid of multiple images
         # - Use torchvision function "save_image" to save an image grid to disk
-
-        raise NotImplementedError
+        gen_samples = pl_module.sample(self.batch_size)
+        gen_samples = make_grid(gen_samples)
+        trainer.logger.experiment.add_image("Generated GAN images {}".format(epoch), gen_samples, epoch)
+        if self.save_to_disk:
+            save_image(gen_samples, "{}/generated_{}.png".format(trainer.logger.log_dir, epoch))
 
 
 class InterpolationCallback(pl.Callback):

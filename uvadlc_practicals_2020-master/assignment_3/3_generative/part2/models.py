@@ -105,7 +105,7 @@ class DiscriminatorMLP(nn.Module):
                     Note that this should be a logit output *without* a sigmoid applied on it.
                     Shape: [B,1]
         """
-        input_ = x
+        input_ = x.view(x.shape[0], -1)
         for layer in self.layers:
             out = layer(input_)
             input_ = out
