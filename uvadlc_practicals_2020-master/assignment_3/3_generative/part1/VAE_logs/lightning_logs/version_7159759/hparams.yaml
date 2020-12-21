@@ -1,0 +1,8 @@
+hidden_dims:
+- 512
+- 512
+- 256
+lr: 0.001
+model_name: CNN
+num_filters: 32
+z_dim: 20

@@ -73,8 +73,6 @@ class VAE(pl.LightningModule):
         L_reg = KLD(mean, log_std)
         elbo = L_rec + L_reg
         bpd = elbo_to_bpd(elbo, imgs.shape)
-        print(torch.mean(L_rec), torch.mean(L_reg))
-        print(bpd)
         return torch.mean(L_rec), torch.mean(L_reg), bpd
 
     @torch.no_grad()

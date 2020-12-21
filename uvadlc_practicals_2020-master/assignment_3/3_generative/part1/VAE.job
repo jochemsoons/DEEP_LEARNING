@@ -2,7 +2,7 @@
 
 #SBATCH --partition=gpu_shared_course
 #SBATCH --gres=gpu:1
-#SBATCH --job-name=VAE_part1
+#SBATCH --job-name=GAN_part2
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
 #SBATCH --time=01:30:00
@@ -22,4 +22,4 @@ cd $HOME/assignment_3/3_generative/part1
 # Activate your environment
 source activate dl2020
 # Run your code
-srun python -u train_pl.py --z_dim 2 --hidden_dims 512 512
+srun python -u train_pl.py --hidden_dims 512 512 --z_dim 2

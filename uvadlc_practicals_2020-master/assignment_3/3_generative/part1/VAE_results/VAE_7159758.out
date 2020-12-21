@@ -1,0 +1,22 @@
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+
+  | Name    | Type       | Params
+---------------------------------------
+0 | encoder | MLPEncoder | 796 K 
+1 | decoder | MLPDecoder | 797 K 
+Set SLURM handle signals.
+--------------------------------------------------------------------------------
+DATALOADER:0 TEST RESULTS
+{'test_bpd': tensor(0.2376, device='cuda:0'),
+ 'train_ELBO': tensor(124.8576, device='cuda:0'),
+ 'train_bpd': tensor(0.2298, device='cuda:0'),
+ 'train_reconstruction_loss': tensor(117.1985, device='cuda:0'),
+ 'train_regularization_loss': tensor(7.6592, device='cuda:0'),
+ 'val_ELBO': tensor(133.3372, device='cuda:0'),
+ 'val_bpd': tensor(0.2454, device='cuda:0'),
+ 'val_reconstruction_loss': tensor(125.8577, device='cuda:0'),
+ 'val_regularization_loss': tensor(7.4795, device='cuda:0')}
+--------------------------------------------------------------------------------

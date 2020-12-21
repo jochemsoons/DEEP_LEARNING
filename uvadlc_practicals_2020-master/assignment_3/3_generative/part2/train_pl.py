@@ -94,7 +94,7 @@ class GAN(pl.LightningModule):
                 latent_between[step] = current + diff
                 current = current + diff
             latent_between[step+1] = end
-            images = self.generator(latent_between)
+            images = self.generator(latent_between.to(self.generator.device))
             x[pair] = images
         return x
 
@@ -151,7 +151,7 @@ class GAN(pl.LightningModule):
         sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.generator.device)
         x_fake = self.generator(sampled_z)
         disc_fake = self.discriminator(x_fake)
-        loss_gen = F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.ones(batch_size))
+        loss_gen = F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.ones(batch_size).to(self.generator.device))
         # print(loss_gen)
         self.log("generator/loss", loss_gen)
         return loss_gen
@@ -176,15 +176,15 @@ class GAN(pl.LightningModule):
         x_fake = self.sample(batch_size)
         disc_fake = self.discriminator(x_fake)
         disc_real = self.discriminator(x_real)
-        loss_disc = (F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size))
-                    + F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size)))
+        loss_disc = (F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size).to(self.generator.device))
+                    + F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size).to(self.generator.device)))
         # print(F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size)), F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size)))
         # print(disc_fake.shape)
         # print(torch.round(torch.sigmoid(disc_fake)[0]))
         preds_fake = torch.round(torch.sigmoid(disc_fake).squeeze())
         preds_real = torch.round(torch.sigmoid(disc_real).squeeze())
-        acc_fake = (preds_fake == torch.zeros(batch_size)).float().mean()
-        acc_real = (preds_real == torch.ones(batch_size)).float().mean()
+        acc_fake = (preds_fake == torch.zeros(batch_size).to(self.generator.device)).float().mean()
+        acc_real = (preds_real == torch.ones(batch_size).to(self.generator.device)).float().mean()
         acc_disc = (acc_fake + acc_real) / 2
         self.log("discriminator/loss", loss_disc)
         self.log("discriminator/accuracy_real", acc_real)
@@ -291,19 +291,12 @@ class InterpolationCallback(pl.Callback):
 
         # You also have to implement this function in a later question of the assignemnt.
         # By default it is skipped to allow you to test your other code so far.
-        # print("WARNING: Interpolation function has not been implemented yet.")
-        # print("INTERPOLATE")
-        # print(pl_module.interpolate(self.batch_size, self.interpolation_steps))
         imgs = pl_module.interpolate(self.batch_size, self.interpolation_steps)
-        # print(interpolated_images.shape)
         interpolated_images = imgs.view(imgs.shape[0]*imgs.shape[1], imgs.shape[2], imgs.shape[3], imgs.shape[4])
-        # print(interpolated_images.shape)
-        grid = make_grid(interpolated_images, nrow=self.interpolation_steps+2)
-        # print(interpolated_images.shape)
-        # exit()
-        trainer.logger.experiment.add_image("Interpolated GAN images {}".format(epoch), grid, epoch)
+        img_grid = make_grid(interpolated_images, nrow=self.interpolation_steps+2)
+        trainer.logger.experiment.add_image("Interpolated GAN images {}".format(epoch), img_grid, epoch)
         if self.save_to_disk:
-            save_image(grid, "{}/interpolated_{}.png".format(trainer.logger.log_dir, epoch))
+            save_image(img_grid, "{}/interpolated_{}.png".format(trainer.logger.log_dir, epoch))
 
 
 def train_gan(args):

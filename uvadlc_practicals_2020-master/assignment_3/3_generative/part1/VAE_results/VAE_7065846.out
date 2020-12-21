@@ -1,8 +1,0 @@
-usage: train_pl.py [-h] [--model {MLP,CNN}] [--z_dim Z_DIM]
-                   [--hidden_dims HIDDEN_DIMS [HIDDEN_DIMS ...]]
-                   [--num_filters NUM_FILTERS] [--lr LR]
-                   [--batch_size BATCH_SIZE] [--epochs EPOCHS] [--seed SEED]
-                   [--num_workers NUM_WORKERS] [--log_dir LOG_DIR]
-                   [--progress_bar]
-train_pl.py: error: unrecognized arguments: hidden_dims 1024 512 256
-srun: error: r31n5: task 0: Exited with exit code 2

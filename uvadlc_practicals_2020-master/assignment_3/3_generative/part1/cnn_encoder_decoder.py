@@ -97,7 +97,7 @@ class CNNDecoder(nn.Module):
         # For an intial architecture, you can use the decoder of Tutorial 9.
         # Feel free to experiment with the architecture yourself, but the one specified here is
         # sufficient for the assignment.
-        act_fn = nn.ReLU
+        act_fn = nn.GELU
         self.linear = nn.Sequential(
             nn.Linear(z_dim, 2*16*num_filters),
             act_fn()
@@ -112,7 +112,7 @@ class CNNDecoder(nn.Module):
             nn.Conv2d(num_filters, num_filters, kernel_size=3, padding=1),
             act_fn(),
             nn.ConvTranspose2d(num_filters, num_input_channels, kernel_size=3, output_padding=1, padding=1, stride=2), # 16x16 => 32x32
-            nn.Tanh() # The input images is scaled between -1 and 1, hence the output has to be bounded as well
+            # nn.Tanh() # The input images is scaled between -1 and 1, hence the output has to be bounded as well
         )
 
     def forward(self, z):
