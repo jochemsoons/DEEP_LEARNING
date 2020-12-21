@@ -81,9 +81,21 @@ class GAN(pl.LightningModule):
         Outputs:
             x - Generated images of shape [B,interpolation_steps+2,C,H,W]
         """
-
-        x = None
-        raise NotImplementedError
+        x = torch.empty(batch_size, interpolation_steps + 2, 1, 28, 28)
+        for pair in range(batch_size):
+            pair_z = torch.randn((2, self.hparams.z_dim)).to(self.generator.device)
+            start = pair_z[0]
+            end = pair_z[1]
+            diff = (end - start) / (interpolation_steps + 1)
+            latent_between = torch.empty(2 + interpolation_steps, self.hparams.z_dim)
+            latent_between[0] = start
+            current = start
+            for step in range(1, interpolation_steps+1):
+                latent_between[step] = current + diff
+                current = current + diff
+            latent_between[step+1] = end
+            images = self.generator(latent_between)
+            x[pair] = images
         return x
 
     def configure_optimizers(self):
@@ -279,8 +291,19 @@ class InterpolationCallback(pl.Callback):
 
         # You also have to implement this function in a later question of the assignemnt.
         # By default it is skipped to allow you to test your other code so far.
-        print("WARNING: Interpolation function has not been implemented yet.")
-        pass
+        # print("WARNING: Interpolation function has not been implemented yet.")
+        # print("INTERPOLATE")
+        # print(pl_module.interpolate(self.batch_size, self.interpolation_steps))
+        imgs = pl_module.interpolate(self.batch_size, self.interpolation_steps)
+        # print(interpolated_images.shape)
+        interpolated_images = imgs.view(imgs.shape[0]*imgs.shape[1], imgs.shape[2], imgs.shape[3], imgs.shape[4])
+        # print(interpolated_images.shape)
+        grid = make_grid(interpolated_images, nrow=self.interpolation_steps+2)
+        # print(interpolated_images.shape)
+        # exit()
+        trainer.logger.experiment.add_image("Interpolated GAN images {}".format(epoch), grid, epoch)
+        if self.save_to_disk:
+            save_image(grid, "{}/interpolated_{}.png".format(trainer.logger.log_dir, epoch))
 
 
 def train_gan(args):
@@ -324,6 +347,7 @@ def train_gan(args):
               "want to see the progress bar, use the argparse option \"progress_bar\".\n")
 
     # Training
+    inter_callback.sample_and_save(trainer, model, epoch=0)
     gen_callback.sample_and_save(trainer, model, epoch=0)  # Initial sample
     trainer.fit(model, train_loader)
 
