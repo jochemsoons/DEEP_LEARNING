@@ -94,7 +94,6 @@ class DiscriminatorMLP(nn.Module):
           self.layers.append(nn.LeakyReLU(negative_slope=0.2))
           input_dims = hidden_dim
         self.layers.append(nn.Linear(input_dims, 1))
-        # self.layers.append(nn.Tanh)
 
     def forward(self, x):
         """

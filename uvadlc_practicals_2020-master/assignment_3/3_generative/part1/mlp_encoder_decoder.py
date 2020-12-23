@@ -88,7 +88,6 @@ class MLPDecoder(nn.Module):
           self.layers.append(nn.Linear(input_dim, hidden_dim))
           self.layers.append(nn.ReLU())
           input_dim = hidden_dim
-
         self.layers.append(nn.Linear(input_dim, np.prod(output_shape)))
 
     def forward(self, z):

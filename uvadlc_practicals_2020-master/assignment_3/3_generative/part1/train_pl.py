@@ -64,14 +64,20 @@ class VAE(pl.LightningModule):
             bpd - The average bits per dimension metric of the batch.
                   This is also the loss we train on. Shape: single scalar
         """
+        # Compute encoder output.
         mean, log_std = self.encoder(imgs)
         std = log_std.exp()
-        sample = sample_reparameterize(mean, std)
-        decoded_out = self.decoder(sample)
+        # Sample z using encoder output.
+        z = sample_reparameterize(mean, std)
+        # Decode latent vector z
+        decoded_out = self.decoder(z)
+        # Compute reconstruction and regularization loss.
         L_rec = F.binary_cross_entropy_with_logits(decoded_out, imgs, reduction='none')
         L_rec = torch.sum(L_rec, dim=(1,2,3))
         L_reg = KLD(mean, log_std)
+        # NOTE: this is actually the negative ELBO (loss instead of evidence)
         elbo = L_rec + L_reg
+        # Compute the bpd score.
         bpd = elbo_to_bpd(elbo, imgs.shape)
         return torch.mean(L_rec), torch.mean(L_reg), bpd
 

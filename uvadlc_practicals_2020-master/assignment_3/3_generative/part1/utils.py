@@ -90,8 +90,11 @@ def visualize_manifold(decoder, grid_size=20):
     y_range = torch.linspace(0.5/(grid_size+1), (grid_size+0.5)/(grid_size+1), steps=grid_size)
     z_x = torch.from_numpy(norm.ppf(x_range))
     z_y = torch.from_numpy(norm.ppf(y_range))
+    # Create the grid based on the percentile values.
     grid_x, grid_y = torch.meshgrid(z_x, z_y)
+    # Transform the list in a coordinate pair-wise list.
     z_list = torch.stack([grid_x.reshape(-1), grid_y.reshape(-1)], dim=1).float()
+    # Compute the sampled images and create the manifold grid.
     x_mean = torch.sigmoid(decoder(z_list.to(decoder.device)))
     img_grid = make_grid(x_mean, nrow=grid_size)
     return img_grid

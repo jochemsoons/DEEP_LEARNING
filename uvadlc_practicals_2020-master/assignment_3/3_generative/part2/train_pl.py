@@ -81,19 +81,29 @@ class GAN(pl.LightningModule):
         Outputs:
             x - Generated images of shape [B,interpolation_steps+2,C,H,W]
         """
+        # Create empty placeholder for x.
         x = torch.empty(batch_size, interpolation_steps + 2, 1, 28, 28)
+        # Loop over the batch size of interpolations we need to make.
         for pair in range(batch_size):
+            # Create pair of latent vectors.
             pair_z = torch.randn((2, self.hparams.z_dim)).to(self.generator.device)
             start = pair_z[0]
             end = pair_z[1]
+            # Calculate interpolation step size.
             diff = (end - start) / (interpolation_steps + 1)
+            # Create empty placeholder for the latent vectors at each interpolation step.
             latent_between = torch.empty(2 + interpolation_steps, self.hparams.z_dim)
+            # First tensor is the starting latent vector.
             latent_between[0] = start
             current = start
+            # Loop over the number of steps.
             for step in range(1, interpolation_steps+1):
+                # Create latent vector at each interpolation step.
                 latent_between[step] = current + diff
                 current = current + diff
+            # Final tensor is the ending latent vector.
             latent_between[step+1] = end
+            # Compute the output images based on the latent vectors and assign to x.
             images = self.generator(latent_between.to(self.generator.device))
             x[pair] = images
         return x
@@ -148,11 +158,14 @@ class GAN(pl.LightningModule):
             loss - The loss for the generator to optimize
         """
         batch_size = x_real.shape[0]
+        # Sample but do not use the sample function because it contains no gradients.
         sampled_z = torch.randn((batch_size, self.hparams.z_dim)).to(self.generator.device)
+        # Generate fake images.
         x_fake = self.generator(sampled_z)
+        # Compute discriminator output.
         disc_fake = self.discriminator(x_fake)
+        # Calculate generator loss using the BCE function.
         loss_gen = F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.ones(batch_size).to(self.generator.device))
-        # print(loss_gen)
         self.log("generator/loss", loss_gen)
         return loss_gen
 
@@ -173,14 +186,15 @@ class GAN(pl.LightningModule):
         # Remark: there are more metrics that you can add.
         # For instance, how about the accuracy of the discriminator?
         batch_size = x_real.shape[0]
+        # Generate fake images.
         x_fake = self.sample(batch_size)
+        # Compute discriminator output.
         disc_fake = self.discriminator(x_fake)
         disc_real = self.discriminator(x_real)
+        # Calculate discriminator loss.
         loss_disc = (F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size).to(self.generator.device))
                     + F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size).to(self.generator.device)))
-        # print(F.binary_cross_entropy_with_logits(torch.squeeze(disc_real), torch.ones(batch_size)), F.binary_cross_entropy_with_logits(torch.squeeze(disc_fake), torch.zeros(batch_size)))
-        # print(disc_fake.shape)
-        # print(torch.round(torch.sigmoid(disc_fake)[0]))
+        # Compute softmax predictions and accuracy metric.
         preds_fake = torch.round(torch.sigmoid(disc_fake).squeeze())
         preds_real = torch.round(torch.sigmoid(disc_real).squeeze())
         acc_fake = (preds_fake == torch.zeros(batch_size).to(self.generator.device)).float().mean()
@@ -292,7 +306,9 @@ class InterpolationCallback(pl.Callback):
         # You also have to implement this function in a later question of the assignemnt.
         # By default it is skipped to allow you to test your other code so far.
         imgs = pl_module.interpolate(self.batch_size, self.interpolation_steps)
+        # Reshape the images so we create a grid.
         interpolated_images = imgs.view(imgs.shape[0]*imgs.shape[1], imgs.shape[2], imgs.shape[3], imgs.shape[4])
+        # Create the image grid.
         img_grid = make_grid(interpolated_images, nrow=self.interpolation_steps+2)
         trainer.logger.experiment.add_image("Interpolated GAN images {}".format(epoch), img_grid, epoch)
         if self.save_to_disk:
